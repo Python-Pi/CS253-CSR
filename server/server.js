@@ -14,8 +14,11 @@ const port = 8000;
 const saltRounds = 10;
 env.config();
 
-// Variables
-const addr = 'http://localhost:3000';
+// Variables and functions
+const addr = `http://${process.env.IP}:3000`;
+
+// Enabline trust proxy
+app.enable('trust proxy')
 
 // Initializing express session
 app.use(session({
@@ -32,7 +35,7 @@ app.use(passport.initialize());
 app.use(passport.session())
 app.use(express.json());
 app.use(cors({
-    origin: 'http://localhost:3000', // Replace with the actual origin of your React app
+    origin: ['http://localhost:3000', `http://${process.env.IP}:3000`], 
     credentials: true 
 }));
 
@@ -49,7 +52,7 @@ const db = new pg.Client({
 });
 db.connect();
 
-// GET request for '/' which checks if the user is authenticated and redirect to /chat and /home respectively
+// GET request for '/' which checks if the user is authenticated and redirect to /dashboard and /home respectively
 app.get('/', (req, res)=>{
     res.json({
       status: true,
@@ -110,8 +113,8 @@ app.post("/register", async (req, res) => {
 
 // POST request for checking if the user login status and sending the user to the required webpage
 app.post("/login", passport.authenticate("local", {
-    successRedirect: addr + '/chat',
-    failureRedirect: addr + '/login',
+    successRedirect: `http://${process.env.IP}:3000/dashboard`,
+    failureRedirect: `http://${process.env.IP}:3000/login`,
 }));
 
 // Setting up Passport Js
@@ -155,7 +158,7 @@ passport.serializeUser(function(user, done) {
     done(null, user);
 });
 
-app.listen(port, ()=>{
+app.listen(port , `${process.env.IP}`, ()=>{
     console.log(`Server is succesfully running in port ${port}`);
 })
 
