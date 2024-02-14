@@ -1,4 +1,19 @@
+# Environmental variables
 server/.env
 client/.env
-server/node_modules
+
+# client dependencies
 client/node_modules
+client/.pnp
+client/.pnp.js
+
+# server dependencies
+server/node_modules
+
+# production
+client/build
+server/build
+
+# testing
+client/coverage
+server/coverage
