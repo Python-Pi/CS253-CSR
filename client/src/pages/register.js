@@ -12,7 +12,11 @@ function Register(){
                 <div className = 'form-boot'>
                     <form method="POST" action={addr_register}>
                         <h1 className="h3 mb-3 fw-normal">Register</h1>
-                
+
+                        <div className="form-floating">
+                            <input type="username" className="form-control" id="floatingInput" name="name" placeholder="Username"/>
+                             <label htmlFor="floatingInput">Login Name</label>
+                        </div>
                         <div className="form-floating">
                             <input type="email" className="form-control" id="floatingInput" name="username" placeholder="name@example.com"/>
                              <label htmlFor="floatingInput">Email Address</label>

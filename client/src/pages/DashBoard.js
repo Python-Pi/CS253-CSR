@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import NavBarOn from "../components/NavBarOn";
 
 function DashBoard(){
-    console.log(process.env.REACT_APP_IP);
 
     const navigate = useNavigate();
     const [info, setMessage] = useState("");
@@ -34,10 +33,11 @@ function DashBoard(){
                 </div>
             )
         } else {
+            console.log(info);
             return(
                 <div className="DashBoard-page">
                     <NavBarOn />
-                    <h1>Hi, Dashboard Page</h1>
+                    <h1>Hi {info.name}, Welcome to Dashboard Page</h1>
                     <h2>Logged In</h2>
                 </div>
             )

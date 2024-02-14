@@ -65,6 +65,7 @@ app.get('/api/login', (req, res)=>{
     res.json({
         status: true,
         loggedIn: true,
+        name: req.user.name
     })
 } else {
     res.json({
@@ -80,9 +81,10 @@ app.post("/register", async (req, res) => {
   console.log(req.body);
     const email = req.body.username;
     const password = req.body.password;
+    const name = req.body.name;
   
     try {
-      const checkResult = await db.query('SELECT * FROM users WHERE USERNAME = $1', [
+      const checkResult = await db.query('SELECT * FROM users WHERE email = $1', [
         email,
       ]);
   
@@ -95,8 +97,8 @@ app.post("/register", async (req, res) => {
             res.redirect(addr + '/home');
           } else {
             const result = await db.query(
-              'INSERT INTO users (USERNAME, password) VALUES ($1, $2)',
-              [email, hash]
+              'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)',
+              [name, email, hash]
             );
             const user = result.rows[0];
             req.login(user, (err) => {
@@ -113,15 +115,15 @@ app.post("/register", async (req, res) => {
 
 // POST request for checking if the user login status and sending the user to the required webpage
 app.post("/login", passport.authenticate("local", {
-    successRedirect: `http://${process.env.IP}:3000/dashboard`,
-    failureRedirect: `http://${process.env.IP}:3000/login`,
+    successRedirect: addr + '/dashboard',
+    failureRedirect: addr + '/login',
 }));
 
 // Setting up Passport Js
 passport.use(
     new Strategy(async function verify(username, password, cb) {
       try {
-        const result = await db.query('SELECT * FROM users WHERE USERNAME = $1', [
+        const result = await db.query('SELECT * FROM users WHERE email = $1', [
           username,
         ]);
         if (result.rows.length > 0) {
