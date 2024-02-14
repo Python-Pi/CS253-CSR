@@ -1,0 +1,84 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+ /* Home Page CSS */
+
+ .home-page{
+    padding-top: 5px;
+ }
+
+.home-page > h1{
+    text-align: center;
+}
+
+.home-page > h2{
+    text-align: center;
+    color: red;
+}
+
+
+/* Login Page CSS */
+
+.login-page{
+    padding-top: 5px;
+}
+
+.login-page > h1{
+    text-align: center;
+}
+
+/* Register Page CSS */
+
+.register-page{
+    padding-top: 5px;
+}
+
+.register-page > h1{
+    text-align: center;
+}
+
+/* Chat Page CSS */
+
+.DashBoard-page{
+    padding-top: 5px;
+}
+
+.DashBoard-page > h1 {
+    text-align: center;
+}
+
+.DashBoard-page > h2 {
+    text-align: center;
+}
+
+/* Not found Page */
+
+.not-found{
+    padding-top: 20px;
+}
+
+.not-found > h1 {
+    text-align: center;
+}
+
+                                                /* Components  */
+
+/* Login Form CSS */
+
+.login-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.login-form .form-boot {
+    max-width: 330px; /* Adjust the max-width as needed */
+    width: 100%;
+    padding: 15px;
+    margin: auto;
+    background-color: rgb(240, 237, 236);
+    border-radius: 10px;
+}
