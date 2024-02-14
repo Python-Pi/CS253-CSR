@@ -8,14 +8,18 @@ First, clone the git repository ( Install git if not installed )
 
 ## Running React Front-end server 
 
-> cd /client
-> npm i
-> npm start
+### `cd /client `
+
+### `npm i`
+
+### `npm start`
 
 ## Running Node Back-end server
 
-> cd /server
-> npm i
-> npm start
+### `cd /server `
+
+### `npm i`
+
+### `npm start`
 
 The default command for running Node server is set to 'nodemon server.js' in package.json. If you don't have nodemon installed, change it to 'node server.js'
