@@ -1,7 +1,7 @@
 import NavBarOn from "../components/NavBarOn";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import moment from 'moment';
+import TravelCell from "../components/TravelCell";
 
 
 function Travel(){
@@ -57,27 +57,14 @@ function Travel(){
                     <h1 className="text-center">Hosted Trips</h1>
                     <div className="trip-list hosted-trips">
                        {hostedTrips.map((trip, index) => (
-                            <div key={index} className="trip">
-                                <h2>{trip.trip_name}</h2>
-                                <p>Destination: {trip.destination}</p>
-                                <p>Start Date: {moment(trip.start_date).format('DD-MM-YYYY')}</p>
-                                <p>End Date: {moment(trip.end_date).format('DD-MM-YYYY')}</p>
-                                <p>Amount: {trip.amount}</p>
-                            </div>
+                             <TravelCell index={index} trip_name={trip.trip_name} start_date ={trip.start_data} end_data={trip.end_data} amount={trip.amount} />
                         ))}
                     </div>
 
                     <h1 className="text-center">All trips</h1>
                     <div className="trip-list">
                         {trips.map((trip, index) => (
-                            <div key={index} className="trip">
-                                <h2>{trip.trip_name}</h2>
-                                <p>Destination: {trip.destination}</p>
-                                <p>Start Date: {moment(trip.start_date).format('DD-MM-YYYY')}</p>
-                                <p>End Date: {moment(trip.end_date).format('DD-MM-YYYY')}</p>
-                                <p>Amount: {trip.amount}</p>
-                                <p>Journey Initiator: {trip.user_name}</p>
-                            </div>
+                            <TravelCell index={index} trip_name={trip.trip_name} start_date ={trip.start_data} end_data={trip.end_data} amount={trip.amount} user_name={trip.user_name}  />
                         ))}
                     </div>
                 </div>
