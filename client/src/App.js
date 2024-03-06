@@ -10,6 +10,7 @@ import Login from "./pages/login";
 import Register from "./pages/register";
 import DashBoard from "./pages/DashBoard";
 import NotFound from "./pages/NotFound";
+import Travel from "./pages/Travel";
 
 function App() {
   const location = useLocation();
@@ -19,6 +20,7 @@ function App() {
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
+        <Route exact path="/travel" element={<Travel />} />
         <Route exact path="/dashboard" element={<DashBoard />} />
         <Route path="*" element={<NotFound />} />
     </Routes>
