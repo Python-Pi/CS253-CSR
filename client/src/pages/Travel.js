@@ -27,6 +27,9 @@ function Travel(){
                 <div className="travel-page">
                     <NavBarOn />
                     <h1 className="text-center">Hi, Travel Page</h1>
+                    <div className="d-flex justify-content-center">
+                        <button className="btn btn-primary mt-3" onClick={() => navigate('/addTrip')}>Create a new trip</button>
+                    </div>
                 </div>
             )
         }

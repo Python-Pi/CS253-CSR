@@ -11,6 +11,7 @@ import Register from "./pages/register";
 import DashBoard from "./pages/DashBoard";
 import NotFound from "./pages/NotFound";
 import Travel from "./pages/Travel";
+import AddTrip from "./pages/AddTrip";
 
 function App() {
   const location = useLocation();
@@ -22,6 +23,7 @@ function App() {
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/travel" element={<Travel />} />
         <Route exact path="/dashboard" element={<DashBoard />} />
+        <Route exact path="/addTrip" element={<AddTrip />} />
         <Route path="*" element={<NotFound />} />
     </Routes>
   );

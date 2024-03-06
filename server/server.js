@@ -119,6 +119,13 @@ app.post("/login", passport.authenticate("local", {
     failureRedirect: addr + '/login',
 }));
 
+// POST request for handing adding new trip from the client
+app.use('/api/addTrip', (req, res)=>{
+    conole.log('added');
+    console.log(req.body);
+    res.redirect(addr + '/travel');
+});
+
 // Setting up Passport Js
 passport.use(
     new Strategy(async function verify(username, password, cb) {
