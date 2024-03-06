@@ -120,10 +120,64 @@ app.post("/login", passport.authenticate("local", {
 }));
 
 // POST request for handing adding new trip from the client
-app.use('/api/addTrip', (req, res)=>{
-    conole.log('added');
+app.post('/api/addTrip', async (req, res)=>{
     console.log(req.body);
-    res.redirect(addr + '/travel');
+     // Assuming req.body contains an object with tripName, destination, startDate, and endDate
+     const { tripName, destination, startDate, endDate, amount } = req.body;
+
+     try {
+         // Insert the new trip into the database
+         await db.query('INSERT INTO trips (user_id, user_name, trip_name, destination, start_date, end_date, amount) VALUES ($1, $2, $3, $4, $5, $6, $7)', [req.user.id, req.user.name, tripName, destination, startDate, endDate, amount]);
+ 
+         res.json({
+             status: true,
+             loggedIn: false,
+         });
+     } catch (err) {
+         console.error(err);
+         res.json({
+             status: false,
+             error: 'There was an error while adding the trip to the database',
+         });
+     }
+});
+
+// Adding a new api for accessing all the trips available from the database
+app.get('/api/trips', async (req, res) => {
+  try {
+    const result = await db.query('SELECT * FROM trips');
+    const trips = result.rows;
+    res.json({
+      status: true,
+      loggedIn: true,
+      trips: trips,
+    });
+  } catch (err) {
+    console.error(err);
+    res.json({
+      status: false,
+      error: 'There was an error while retrieving trips from the database',
+    });
+  }
+});
+
+// Adding api to just accessing trips which are hosted by a particular user
+app.get('/api/hostedTrips', async (req, res) => {
+  try {
+    const result = await db.query('SELECT * FROM trips where user_id = $1', [req.user.id]);
+    const trips = result.rows;
+    res.json({
+      status: true,
+      loggedIn: true,
+      trips: trips,
+    });
+  } catch (err) {
+    console.error(err);
+    res.json({
+      status: false,
+      error: 'There was an error while retrieving trips from the database',
+    });
+  }
 });
 
 // Setting up Passport Js

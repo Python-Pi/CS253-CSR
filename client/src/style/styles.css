@@ -56,6 +56,19 @@
 
 /* Travel Page CSS */
 
+.travel-page .trip-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.travel-page .trip {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+}
+
 
 /* Not found Page */
 

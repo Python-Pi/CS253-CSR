@@ -32,6 +32,17 @@ const AddTrip = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!tripName || !destination || !startDate || !endDate || !amount) {
+            // Display an error message or perform any other action
+            alert("Please fill in all the fields");
+            return;
+        }
+
+        if (isNaN(amount)) {
+            alert("Amount must be a number");
+            return;
+        }
+
         const trip = {
             tripName: tripName,
             destination: destination,
@@ -48,9 +59,18 @@ const AddTrip = () => {
             },
             body: JSON.stringify(trip)
         })
-        .then((res) => res.json())
-        .then((data) => {
-
+        .then((res) => {
+            const status = res.status;
+            if(status){
+                alert("Trip added");
+                navigate('/travel');
+            } else {
+                alert("Something went wrong. Try Again!");
+                return;
+            }
+        })
+        .catch((error) => {
+            alert(error.message);
         });
     };
 
@@ -97,7 +117,7 @@ const AddTrip = () => {
                                 <label>Amount</label>
                                 <input type="" className="form-control" value={amount} onChange={handleAmountChange} />
                             </div>
-                            <button className="btn btn-primary mt-3" onClick={() => navigate('/travel')}>Create a new trip</button>
+                            <button className="btn btn-primary mt-3" onClick={handleSubmit} >Create a new trip</button>
                         </form>
                     </div>
                 </div>
