@@ -7,6 +7,7 @@ import passport from "passport";
 import {Strategy} from "passport-local";
 import env from "dotenv";
 import cors from "cors";
+import multer from "multer";
 
 // Basic Initialising for Express app, defining port, setting salt rounds for BCrypt and setting environmental variables
 const app = express();
@@ -41,6 +42,7 @@ app.use(cors({
 
 // Using a middleware
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/uploads', express.static('uploads'));
 
 // Initializing and connecting to postgres database
 const db = new pg.Client({
@@ -51,6 +53,9 @@ const db = new pg.Client({
     port: process.env.PG_PORT,
 });
 db.connect();
+
+// Store upload files to directory upload
+const upload = multer({ dest: 'uploads/' }); 
 
 // GET request for '/' which checks if the user is authenticated and redirect to /dashboard and /home respectively
 app.get('/', (req, res)=>{
@@ -120,14 +125,14 @@ app.post("/login", passport.authenticate("local", {
 }));
 
 // POST request for handing adding new trip from the client
-app.post('/api/addTrip', async (req, res)=>{
+app.post('/api/addTrip', upload.single('image'), async (req, res)=>{
     console.log(req.body);
-     // Assuming req.body contains an object with tripName, destination, startDate, and endDate
-     const { tripName, destination, startDate, endDate, amount } = req.body;
+    console.log(req.file); 
+    const imageUrl = '/uploads/' + req.file.filename;
+    const { tripName, destination, startDate, endDate, amount, details } = req.body;
 
      try {
-         // Insert the new trip into the database
-         await db.query('INSERT INTO trips (user_id, user_name, trip_name, destination, start_date, end_date, amount) VALUES ($1, $2, $3, $4, $5, $6, $7)', [req.user.id, req.user.name, tripName, destination, startDate, endDate, amount]);
+         await db.query('INSERT INTO trips (user_id, user_name, trip_name, destination, start_date, end_date, amount, details, image_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [req.user.id, req.user.name, tripName, destination, startDate, endDate, amount, details, imageUrl]);
  
          res.json({
              status: true,
@@ -145,7 +150,7 @@ app.post('/api/addTrip', async (req, res)=>{
 // Adding a new api for accessing all the trips available from the database
 app.get('/api/trips', async (req, res) => {
   try {
-    const result = await db.query('SELECT * FROM trips');
+    const result = await db.query('SELECT * FROM trips LIMIT 20');
     const trips = result.rows;
     res.json({
       status: true,
@@ -179,6 +184,47 @@ app.get('/api/hostedTrips', async (req, res) => {
     });
   }
 });
+
+// Adding api to just access a specific trip
+app.get('/api/specificTrip', async(req, res)=>{
+  const { trip_name, destination } = req.query; // Accessing paramaters
+  try {
+    const result = await db.query('SELECT * FROM trips where trip_name = $1 AND destination = $2', [trip_name, destination]);
+    const trips = result.rows;
+    res.json({
+      status: true,
+      loggedIn: true,
+      trips: trips,
+    });
+  } catch (err) {
+    console.error(err);
+    res.json({
+      status: false,
+      error: 'There was an error while retrieving trips from the database',
+    });
+  }
+})
+
+// Search for Travel
+app.get('/api/searchTrip', async(req, res)=>{
+  console.log(req.query);
+  const searchTerm = `%${req.query.search}%`;
+  try {
+    const result = await db.query('SELECT * FROM trips WHERE LOWER(trip_name)  like $1 OR LOWER(destination)  like $2', [searchTerm, searchTerm]);
+    const trips = result.rows;
+    res.json({
+      status: true,
+      loggedIn: true,
+      trips: trips,
+    });
+  } catch (err) {
+    console.error(err);
+    res.json({
+      status: false,
+      error: 'There was an error while retrieving trips from the database',
+    });
+  }
+})
 
 // Setting up Passport Js
 passport.use(

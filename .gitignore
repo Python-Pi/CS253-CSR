@@ -2,6 +2,9 @@
 server/.env
 client/.env
 
+#images
+server/uploads
+
 # client dependencies
 client/node_modules
 client/.pnp

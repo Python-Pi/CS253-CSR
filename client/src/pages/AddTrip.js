@@ -10,6 +10,16 @@ const AddTrip = () => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [amount, setAmount] = useState('');
+    const [details, setDetails] = useState('');
+    const [image, setImage] = useState(null);
+
+    const handleDetailsChange = (event) => {
+        setDetails(event.target.value);
+    };
+
+    const handleImageChange = (event) => {
+        setImage(event.target.files[0]);
+    };
 
     const handleTripNameChange = (e) => {
         setTripName(e.target.value);
@@ -43,21 +53,20 @@ const AddTrip = () => {
             return;
         }
 
-        const trip = {
-            tripName: tripName,
-            destination: destination,
-            startDate: startDate,
-            endDate: endDate,
-            amount: amount
-        };
+        const formData = new FormData();
+
+        formData.append('tripName', tripName);
+        formData.append('destination', destination);
+        formData.append('startDate', startDate);
+        formData.append('endDate', endDate);
+        formData.append('amount', amount);
+        formData.append('details', details);
+        formData.append('image', image); 
 
         fetch(`http://${process.env.REACT_APP_IP}:8000/api/addTrip`, {
             credentials: 'include',
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(trip)
+            body: formData
         })
         .then((res) => {
             const status = res.status;
@@ -116,6 +125,14 @@ const AddTrip = () => {
                             <div className="form-group">
                                 <label>Amount</label>
                                 <input type="" className="form-control" value={amount} onChange={handleAmountChange} />
+                            </div>
+                            <div className="form-group">
+                                <label>Details:</label>
+                                <textarea className="form-control" value={details} onChange={handleDetailsChange} />
+                            </div>
+                            <div className="form-group">
+                                <label>Image:</label>
+                                <input type="file" className="form-control" onChange={handleImageChange} />
                             </div>
                             <button className="btn btn-primary mt-3" onClick={handleSubmit} >Create a new trip</button>
                         </form>

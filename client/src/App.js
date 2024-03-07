@@ -12,6 +12,8 @@ import DashBoard from "./pages/DashBoard";
 import NotFound from "./pages/NotFound";
 import Travel from "./pages/Travel";
 import AddTrip from "./pages/AddTrip";
+import TravelInfo from "./pages/TravelInfo";
+import HostedTrips from "./pages/HostedTrips";
 
 function App() {
   const location = useLocation();
@@ -24,6 +26,8 @@ function App() {
         <Route exact path="/travel" element={<Travel />} />
         <Route exact path="/dashboard" element={<DashBoard />} />
         <Route exact path="/addTrip" element={<AddTrip />} />
+        <Route exact path="/travelInfo" element={<TravelInfo />} />
+        <Route exact path="/hostedTrips" element={<HostedTrips />} />
         <Route path="*" element={<NotFound />} />
     </Routes>
   );

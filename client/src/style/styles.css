@@ -69,6 +69,48 @@
     border-radius: 10px;
 }
 
+/* Hosted Trips CSS */
+
+.hosted-trips .trip-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.hosted-trips .trip {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Travel Info Page CSS*/
+
+.travel-info .current-display-image-container {
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+}
+
+.travel-info .current-display-image {
+    width: 100%; 
+    height: 100%;
+    object-fit: cover; 
+    clip-path: inset(10px 20px 30px 40px); 
+}
+
+.travel-info .trip-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.travel-info .trip {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+}
 
 /* Not found Page */
 
