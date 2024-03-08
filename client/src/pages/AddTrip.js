@@ -63,7 +63,7 @@ const AddTrip = () => {
         formData.append('details', details);
         formData.append('image', image); 
 
-        fetch(`http://${process.env.REACT_APP_IP}:8000/api/addTrip`, {
+        fetch(`http://${process.env.REACT_APP_IP}:8000/api/travel/addTrip`, {
             credentials: 'include',
             method: 'POST',
             body: formData

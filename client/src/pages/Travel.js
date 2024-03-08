@@ -13,7 +13,7 @@ function Travel(){
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
         // You can also make a request to your server here if you're implementing search on the server side
-        fetch(`http://${process.env.REACT_APP_IP}:8000/api/searchTrip?search=${search}`, {
+        fetch(`http://${process.env.REACT_APP_IP}:8000/api/travel/searchTrip?search=${search}`, {
             credentials: 'include'
         })
         .then((res) => res.json())
@@ -23,7 +23,7 @@ function Travel(){
     };
 
     const handleSearchClick = () => {
-        fetch(`http://${process.env.REACT_APP_IP}:8000/api/searchTrip?search=${search}`, {
+        fetch(`http://${process.env.REACT_APP_IP}:8000/api/travel/searchTrip?search=${search}`, {
             credentials: 'include'
         })
         .then((res) => res.json())
@@ -41,7 +41,7 @@ function Travel(){
     }, []);  
 
     useEffect(() => {
-        fetch(`http://${process.env.REACT_APP_IP}:8000/api/trips`, {
+        fetch(`http://${process.env.REACT_APP_IP}:8000/api/travel/trips`, {
             credentials: 'include'
         })
         .then((res) => res.json())

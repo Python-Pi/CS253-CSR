@@ -14,6 +14,7 @@ import Travel from "./pages/Travel";
 import AddTrip from "./pages/AddTrip";
 import TravelInfo from "./pages/TravelInfo";
 import HostedTrips from "./pages/HostedTrips";
+import TravelChatRoom from "./pages/TravelChatRoom";
 
 function App() {
   const location = useLocation();
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/addTrip" element={<AddTrip />} />
         <Route exact path="/travelInfo" element={<TravelInfo />} />
         <Route exact path="/hostedTrips" element={<HostedTrips />} />
+        <Route exact path="/travelChatRoom" element={<TravelChatRoom />} />
         <Route path="*" element={<NotFound />} />
     </Routes>
   );

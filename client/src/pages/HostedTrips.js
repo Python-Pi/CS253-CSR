@@ -17,7 +17,7 @@ export default function HostedTrips(){
     }, []);  
 
     useEffect(() => {
-        fetch(`http://${process.env.REACT_APP_IP}:8000/api/hostedTrips`, {
+        fetch(`http://${process.env.REACT_APP_IP}:8000/api/travel/hostedTrips`, {
             credentials: 'include'
         })
         .then((res) => res.json())
