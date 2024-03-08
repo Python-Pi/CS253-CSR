@@ -11,13 +11,8 @@ export default function TravelChatRoom(props) {
     const { trip_name, destination } = location.state;
     const [info, setInfo] = useState({});
     const [message, setMessage] = useState('');
-    const [username, setUsername] = useState(''); // replace with actual username
+    const [username, setUsername] = useState('Ei'); // replace with actual username
     
-    useEffect(() => {
-        setUsername('Ei');
-    }, []); // The empty array means this effect runs once when the component mounts
-
-    setUsername('Ei');
     const [messages, setMessages] = useState([
         { username: 'Admin', message: 'Cross Site Scripting Not Allowed!' },
         { username: 'Admin', message: 'This website has very weak security' },
@@ -40,6 +35,14 @@ export default function TravelChatRoom(props) {
             setMessage('');
         }
     };
+
+    const handleButtonSend = () =>{
+        socket.current.emit('message', {
+            username: username,
+            message: message,
+        });
+        setMessage('');
+    }
 
     const handleBackPage = () => {
         navigate('/travelInfo', {
@@ -68,7 +71,7 @@ export default function TravelChatRoom(props) {
         } else {
             return (
                 <div>
-                    <h1>Hi! {username}, Let's Chat</h1>
+                    <h1 className='text-center'>Hi! {username}, Let's Chat</h1>
                     <ul>
                         {messages.map((message, index) => (
                             <li key={index} className="user-message">
@@ -78,7 +81,11 @@ export default function TravelChatRoom(props) {
                         ))}
                     </ul>
                     <input value={message} onChange={e => setMessage(e.target.value)} onKeyPress={handleKeyPress} placeholder="message" />
-                    <button onClick={handleBackPage}>Go Back</button>
+                    <button className="btn btn-primary mt-3" onClick={handleButtonSend}>Send</button>
+
+                    <div className="d-flex justify-content-center">
+                        <button className="btn btn-primary mt-3" onClick={handleBackPage}>Go Back</button>
+                </div>
                 </div>
             );
         }
