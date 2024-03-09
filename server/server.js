@@ -10,6 +10,7 @@ import cors from "cors";
 import multer from "multer";
 import { createServer } from "http";
 import { Server } from "socket.io";
+import e from "express";
 
 // Setting up a websocket server
 const httpServer = createServer();
@@ -131,6 +132,22 @@ app.post("/login", passport.authenticate("local", {
     successRedirect: addr + '/dashboard',
     failureRedirect: addr + '/login',
 }));
+
+// Getting user name 
+app.get('/api/user/name', (req, res)=>{
+  if(req.isAuthenticated()){
+    res.json({
+        status: true,
+        loggedIn: true,
+        name: req.user.name,
+    })
+  }else{
+    res.json({
+        status: true,
+        loggedIn: false,
+    })
+  }
+});
 
 // POST request for handing adding new trip from the client
 app.post('/api/travel/addTrip', upload.single('image'), async (req, res)=>{
@@ -396,14 +413,18 @@ app.get('/api/travel/declinedUsers', async(req, res)=>{
 
 // Setting up Chat Servers
 io.on('connection', (socket) => {
-  console.log('User Connected');
-
   socket.on('message', (message) =>     {
       console.log(message);
       io.emit('message', message );   
   });
 });
 
+
+// API for logging out user 
+app.get('/api/logout', (req, res)=>{
+  req.logout();
+  res.redirect(addr + '/home');
+});
 
 
 // Setting up Passport Js
