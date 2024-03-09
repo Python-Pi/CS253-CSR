@@ -5,7 +5,7 @@ CREATE TABLE users(
     password VARCHAR(500)
 );
 
-CREATE TABLE chattable(
+CREATE TABLE travelchat(
     id SERIAL PRIMARY KEY,
     username VARCHAR(255),
     message TEXT

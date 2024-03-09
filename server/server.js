@@ -453,7 +453,7 @@ app.post('/api/travel/addChat', async(req, res)=>{
   const { trip_name, destination, message } = req.body;
   const msg_add = trip_name + destination + message;
   try {
-    await db.query('INSERT INTO chattable (username, message) VALUES ($1, $2)', [req.user.name, msg_add]);
+    await db.query('INSERT INTO travelchat (username, message) VALUES ($1, $2)', [req.user.name, msg_add]);
     res.json({
       status: true,
       loggedIn: true,
@@ -472,7 +472,7 @@ app.get('/api/travel/chats', async(req, res)=>{
   const { trip_name, destination } = req.query;
   const msg_start = trip_name + destination + '%';
   try {
-    const result = await db.query('SELECT * FROM chattable WHERE message LIKE $1', [msg_start]);
+    const result = await db.query('SELECT * FROM travelchat WHERE message LIKE $1', [msg_start]);
     const chats = result.rows;
     res.json({
       status: true,
