@@ -50,48 +50,43 @@ function Travel(){
         });
     }, []);
     
-    if(!info.status){
+    if(!info.loggedIn){
         navigate('/home');
         return null;
     } else {
-        if(!info.loggedIn){
-            navigate('/home');
-            return null;
-        } else {
-            return(
-                <div className="travel-page">
-                    <NavBarOn />
-                    <h1 className="text-center">Hi, Travel Page</h1>
-                    <div className="d-flex justify-content-center">
-                        <button className="btn btn-primary mt-3" onClick={() => navigate('/addTrip')}>Create a new trip</button>
-                    </div>
-                    <div className="d-flex justify-content-center">
-                        <button className="btn btn-primary mt-3" onClick={() => navigate('/hostedTrips')}>Hosted Trips</button>
-                    </div>
-
-                    <h1 className="text-center">All trips</h1>
-
-                    <div className="search-bar d-flex justify-content-center">
-                        <input type="text" placeholder="Search trips" onChange={handleSearch}/>
-                        <button className="btn btn-primary" onClick={handleSearchClick}>Search</button>
-                    </div>
-
-                    <div className="trip-list">
-                    {trips.map((trip, index) => (
-                         <TravelCell 
-                            key={index} 
-                            trip_name={trip.trip_name} 
-                            destination={trip.destination} 
-                            start_date={trip.start_date} 
-                            end_date={trip.end_date} 
-                            amount={trip.amount} 
-                            user_name={trip.user_name} 
-                        />
-                    ))}
-                    </div>
+        return(
+            <div className="travel-page">
+                <NavBarOn />
+                <h1 className="text-center">Hi, Travel Page</h1>
+                <div className="d-flex justify-content-center">
+                    <button className="btn btn-primary mt-3" onClick={() => navigate('/addTrip')}>Create a new trip</button>
                 </div>
-            )
-        }
+                <div className="d-flex justify-content-center">
+                    <button className="btn btn-primary mt-3" onClick={() => navigate('/hostedTrips')}>Hosted Trips</button>
+                </div>
+
+                <h1 className="text-center">All trips</h1>
+
+                <div className="search-bar d-flex justify-content-center">
+                    <input type="text" placeholder="Search trips" onChange={handleSearch}/>
+                    <button className="btn btn-primary" onClick={handleSearchClick}>Search</button>
+                </div>
+
+                <div className="trip-list">
+                {trips.map((trip, index) => (
+                        <TravelCell 
+                        key={index} 
+                        trip_name={trip.trip_name} 
+                        destination={trip.destination} 
+                        start_date={trip.start_date} 
+                        end_date={trip.end_date} 
+                        amount={trip.amount} 
+                        user_name={trip.user_name} 
+                    />
+                ))}
+                </div>
+            </div>
+        )
     }
 }
 

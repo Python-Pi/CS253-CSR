@@ -2,13 +2,13 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBarOn from "../components/NavBarOn";
-import HostedTrips from "./HostedTrips";
-import JoinedTrips from "./JoinedTrips";
+import TravelCell from "../components/TravelCell";
 
 function DashBoard(){
-
     const navigate = useNavigate();
     const [info, setMessage] = useState("");
+    const [hostedTrips, setHostedTrips] = useState([]);
+    const [joinedTrips, setJoinedTrips] = useState([]);
 
     const handleTravelClick = () => {
         navigate('/travel');
@@ -25,6 +25,30 @@ function DashBoard(){
         .then((res) => res.json())
         .then((data) => setMessage(data));
     }, []);    
+
+    useEffect(() => {
+        if(!info.loggedIn){
+            fetch(`http://${process.env.REACT_APP_IP}:8000/api/travel/hostedTrips`, {
+                credentials: 'include'
+            })
+            .then((res) => res.json())
+            .then((data)=> {
+                setHostedTrips(data.trips);
+            });
+        }
+    }, [info.loggedIn]);
+
+    useEffect(() => {
+        if(!info.loggedIn){
+            fetch(`http://${process.env.REACT_APP_IP}:8000/api/travel/joinedTrips`, {
+                credentials: 'include'
+            })
+            .then((res) => res.json())
+            .then((data)=> {
+                setJoinedTrips(data.trips);
+            });
+        }
+    }, [info.loggedIn]);
 
     if (info === null) {
         return <div>Loading...</div>;
@@ -43,6 +67,8 @@ function DashBoard(){
                 </div>
             )
         } else {
+
+
             return(
                 <div className="DashBoard-page">
                     <NavBarOn />
@@ -59,8 +85,39 @@ function DashBoard(){
 
                     <h2 className="text-center">Travel Details</h2>
                     
-                    <HostedTrips showButton={true}/>
-                    <JoinedTrips showButton={true}/>
+
+                    <div className="hosted-trips">
+                        <h1 className="text-center">Hosted Trips</h1>
+                        <div className="trip-list hosted-trips">
+                        {hostedTrips.map((trip, index) => (
+                            <TravelCell 
+                                key={index} 
+                                trip_name={trip.trip_name} 
+                                destination={trip.destination} 
+                                start_date={trip.start_date} 
+                                end_date={trip.end_date} 
+                                amount={trip.amount} 
+                            />
+                        ))}
+                        </div>
+                    </div>
+
+                    <div className="hosted-trips">
+                        <h1 className="text-center">Joined Trips</h1>
+                        <div className="trip-list hosted-trips">
+                        {joinedTrips.map((trip, index) => (
+                            <TravelCell 
+                                key={index} 
+                                trip_name={trip.trip_name} 
+                                destination={trip.destination} 
+                                start_date={trip.start_date} 
+                                end_date={trip.end_date} 
+                                amount={trip.amount} 
+                                
+                            />
+                        ))}
+                        </div>
+                    </div>
 
                 </div>
             )
