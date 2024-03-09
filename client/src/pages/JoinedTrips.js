@@ -2,10 +2,9 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import TravelCell from "../components/TravelCell";
 
-
-export default function HostedTrips(props){
+export default function JoinedTrips(props) {
     const [info, setMessage] = useState([]);
-    const [hostedTrips, setHostedTrips] = useState([]);
+    const [joinedTrips, setJoinedTrips] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -17,12 +16,12 @@ export default function HostedTrips(props){
     }, []);  
 
     useEffect(() => {
-        fetch(`http://${process.env.REACT_APP_IP}:8000/api/travel/hostedTrips`, {
+        fetch(`http://${process.env.REACT_APP_IP}:8000/api/travel/joinedTrips`, {
             credentials: 'include'
         })
         .then((res) => res.json())
         .then((data)=> {
-            setHostedTrips(data.trips);
+            setJoinedTrips(data.trips);
         });
     }, []);
 
@@ -36,9 +35,9 @@ export default function HostedTrips(props){
         } else {
             return(
                 <div className="hosted-trips">
-                    <h1 className="text-center">Hosted Trips</h1>
+                    <h1 className="text-center">Joined Trips</h1>
                     <div className="trip-list hosted-trips">
-                    {hostedTrips.map((trip, index) => (
+                    {joinedTrips.map((trip, index) => (
                          <TravelCell 
                             key={index} 
                             trip_name={trip.trip_name} 
@@ -46,10 +45,10 @@ export default function HostedTrips(props){
                             start_date={trip.start_date} 
                             end_date={trip.end_date} 
                             amount={trip.amount} 
+                            
                         />
                     ))}
                     </div>
-
                     {!props.showButton && (
                         <div className="d-flex justify-content-center">
                             <button className="btn btn-primary mt-3" onClick={() => navigate('/travel')}>Go Back</button>

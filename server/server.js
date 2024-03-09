@@ -192,6 +192,41 @@ app.get('/api/travel/trips', async (req, res) => {
   }
 });
 
+// Adding API to just access the trips which are joined by the user (status == 2)
+app.get('/api/travel/joinedTrips', async (req, res) => {
+
+  if(req.isAuthenticated()){
+    try {
+      const result = await db.query(`
+        SELECT trips.* 
+        FROM trips 
+        JOIN user_statuses 
+        ON trips.trip_name = user_statuses.trip_name 
+        AND trips.destination = user_statuses.destination 
+        WHERE user_statuses.status = 2
+        AND user_statuses.user_id = $1
+      `, [req.user.id]);
+      const trips = result.rows;
+      res.json({
+        status: true,
+        loggedIn: true,
+        trips: trips,
+      });
+    } catch (err) {
+      console.error(err);
+      res.json({
+        status: false,
+        error: 'There was an error while retrieving trips from the database',
+      });
+    }
+  } else{
+    res.json({
+      status: true,
+      loggedIn: false,
+    });
+  }
+});
+
 // Adding api to just accessing trips which are hosted by a particular user
 app.get('/api/travel/hostedTrips', async (req, res) => {
   try {
@@ -210,6 +245,7 @@ app.get('/api/travel/hostedTrips', async (req, res) => {
     });
   }
 });
+
 
 // Adding api to just access a specific trip
 app.get('/api/travel/specificTrip', async(req, res)=>{
@@ -407,6 +443,46 @@ app.get('/api/travel/declinedUsers', async(req, res)=>{
     res.json({
       status: false,
       error: 'There was an error while retrieving declined users from the database',
+    });
+  }
+});
+
+// Adding chat to the database
+app.post('/api/travel/addChat', async(req, res)=>{
+  const { trip_name, destination, message } = req.body;
+  const msg_add = trip_name + destination + message;
+  try {
+    await db.query('INSERT INTO chattable (username, message) VALUES ($1, $2)', [req.user.name, msg_add]);
+    res.json({
+      status: true,
+      loggedIn: true,
+    });
+  } catch (err) {
+    console.error(err);
+    res.json({
+      status: false,
+      error: 'There was an error while adding the chat to the database',
+    });
+  }
+});
+
+// API for getting chats for a trip
+app.get('/api/travel/chats', async(req, res)=>{
+  const { trip_name, destination } = req.query;
+  const msg_start = trip_name + destination + '%';
+  try {
+    const result = await db.query('SELECT * FROM chattable WHERE message LIKE $1', [msg_start]);
+    const chats = result.rows;
+    res.json({
+      status: true,
+      loggedIn: true,
+      chats: chats,
+    });
+  } catch (err) {
+    console.error(err);
+    res.json({
+      status: false,
+      error: 'There was an error while retrieving chats from the database',
     });
   }
 });

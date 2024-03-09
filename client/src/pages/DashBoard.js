@@ -2,6 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBarOn from "../components/NavBarOn";
+import HostedTrips from "./HostedTrips";
+import JoinedTrips from "./JoinedTrips";
 
 function DashBoard(){
 
@@ -50,6 +52,16 @@ function DashBoard(){
                         <button type="button" className="btn btn-primary btn-lg mr-2" onClick={handleTravelClick}>Travel</button>
                         <button type="button" className="btn btn-secondary btn-lg" onClick={handleIterClick}>Itinerary</button>
                     </div>
+
+                    <div className="d-flex justify-content-center">
+                        <button type="button" className="btn btn-primary btn-lg">Blog</button>
+                    </div>
+
+                    <h2 className="text-center">Travel Details</h2>
+                    
+                    <HostedTrips showButton={true}/>
+                    <JoinedTrips showButton={true}/>
+
                 </div>
             )
         }
