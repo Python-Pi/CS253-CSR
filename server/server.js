@@ -153,8 +153,6 @@ app.get('/api/user/name', (req, res)=>{
 
 // POST request for handing adding new trip from the client
 app.post('/api/travel/addTrip', upload.single('image'), async (req, res)=>{
-    console.log(req.body);
-    console.log(req.file); 
     const imageUrl = '/uploads/' + req.file.filename;
     const { tripName, destination, startDate, endDate, amount, details } = req.body;
 
