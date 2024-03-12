@@ -76,7 +76,6 @@ app.get('/', (req, res)=>{
 
 // GET API request for to check whether the user is authenticated or not
 app.get('/api/login', (req, res)=>{
-  console.log(req.user);
   if (req.isAuthenticated()) {
     res.json({
         status: true,
@@ -229,21 +228,30 @@ app.get('/api/travel/joinedTrips', async (req, res) => {
 
 // Adding api to just accessing trips which are hosted by a particular user
 app.get('/api/travel/hostedTrips', async (req, res) => {
-  try {
-    const result = await db.query('SELECT * FROM trips where user_id = $1', [req.user.id]);
-    const trips = result.rows;
+
+  if(req.isAuthenticated()){
+    try {
+      const result = await db.query('SELECT * FROM trips where user_id = $1', [req.user.id]);
+      const trips = result.rows;
+      res.json({
+        status: true,
+        loggedIn: true,
+        trips: trips,
+      });
+    } catch (err) {
+      console.error(err);
+      res.json({
+        status: false,
+        error: 'There was an error while retrieving trips from the database',
+      });
+    }
+  } else {
     res.json({
       status: true,
-      loggedIn: true,
-      trips: trips,
-    });
-  } catch (err) {
-    console.error(err);
-    res.json({
-      status: false,
-      error: 'There was an error while retrieving trips from the database',
+      loggedIn: false,
     });
   }
+
 });
 
 
@@ -567,7 +575,6 @@ app.post('/api/getTrainsBetweenStations',async (req,res)=>{
         };
       }
     }))
-    console.log(newData[0]);
     res.json({
       status: true,
       success: true,
@@ -700,10 +707,7 @@ app.post('/addBookedTrainUser',async (req,res)=>{
 // get train by number and date
 app.post('/getTrainByNumberAndDate',async (req,res)=>{
   const {number, date}=req.body;
-  console.log(req.body);
-  // const dateOfTravel= new Date(date);
   const result= await db.query("SELECT * FROM TRAINS WHERE NUMBER=$1 AND DATE=$2",[number, date]);
-  console.log(result.rows[0]);
   if(result.rows.length==0)
   {
     res.json({
@@ -919,7 +923,7 @@ passport.serializeUser(function(user, done) {
     done(null, user);
 });
   
-  passport.deserializeUser(function(user, done) {
+passport.deserializeUser(function(user, done) {
     done(null, user);
 });
 
