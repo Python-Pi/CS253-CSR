@@ -16,6 +16,8 @@ import TravelInfo from "./pages/TravelInfo";
 import HostedTrips from "./pages/HostedTrips";
 import TravelChatRoom from "./pages/TravelChatRoom";
 import JoinedTrips from "./pages/JoinedTrips";
+import TrainSearch from "./pages/searchTrains";
+import ChatRoom from "./pages/ChatRoom";
 
 function App() {
   const location = useLocation();
@@ -32,6 +34,8 @@ function App() {
         <Route exact path="/hostedTrips" element={<HostedTrips />} />
         <Route exact path="/joinedTrips" element={<JoinedTrips />} />
         <Route exact path="/travelChatRoom" element={<TravelChatRoom />} />
+        <Route exact path="/dashboard/itinerary/train" element={<TrainSearch />} />
+        <Route exact path="/dashboard/itinerary/train/chat" element={<ChatRoom />} />
         <Route path="*" element={<NotFound />} />
     </Routes>
   );

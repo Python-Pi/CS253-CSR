@@ -10,7 +10,8 @@ import cors from "cors";
 import multer from "multer";
 import { createServer } from "http";
 import { Server } from "socket.io";
-import e from "express";
+import rail from "indian-rail-api"
+
 
 // Setting up a websocket server
 const httpServer = createServer();
@@ -271,7 +272,8 @@ app.get('/api/travel/specificTrip', async(req, res)=>{
 // API for search for Travel
 app.get('/api/travel/searchTrip', async(req, res)=>{
 
-  const searchTerm = `%${req.query.search}%`;
+  const term = toLowerCase(req.query.search);
+  const searchTerm = `%${term}%`;
   try {
     const result = await db.query('SELECT * FROM trips WHERE LOWER(trip_name)  like $1 OR LOWER(destination)  like $2', [searchTerm, searchTerm]);
     const trips = result.rows;
@@ -488,19 +490,397 @@ app.get('/api/travel/chats', async(req, res)=>{
   }
 });
 
+// API for logging out user 
+app.get('/api/logout', (req, res)=>{
+  req.logout();
+  res.redirect(addr + '/home');
+});
+
+
+// <------------------------- Pawan Code starts here -------------------->
+
+
+// searching for all trains between stations
+app.post('/api/getTrainsBetweenStations',async (req,res)=>{
+  const {origin, destination, dateOfTravel}=req.body;
+  //authentication check
+  if (req.isAuthenticated()) {
+    let json = '';
+    try {
+        json = await new Promise((resolve, reject) => {
+            rail.getTrainBtwStation(origin, destination, (r) => {
+                resolve(JSON.parse(r));
+            });
+        });
+    } catch (error) {
+        console.log("Error while fetching data :");
+        res.json({
+          success: false,
+          status: true
+        })
+    }
+    if(!json.success)
+    {
+      res.json({
+        success: false,
+        status: true,
+        loggedIn: true,
+      })
+      return;
+    }
+    //filtering trains based on dateOfTravel
+    const filteredData = (json.data).filter(train => {
+      const runningDays = train.train_base.running_days; // e.g., "0100000"
+      let dayOfWeek = new Date(dateOfTravel).getDay(); // 0 for Sunday, 1 for Monday, ...
+      dayOfWeek=((dayOfWeek+6)%7); // 0 for monday, 6 for sunday
+      return runningDays.charAt(dayOfWeek) === '1';
+  });
+    // const date=new Date(dateOfTravel);
+    // adding the notBooked, confirmed
+    let newData=await Promise.all((filteredData).map(async (train)=>{
+      try{
+        const result=await db.query("SELECT * FROM TRAINS WHERE NUMBER = $1 AND DATE = $2",[train.train_base.train_no, dateOfTravel]);
+        if(result.rows.length==0)
+        {
+          return {
+            train_base:{
+              ...train.train_base,
+              notBooked : 0,
+              confirmed : 0,
+            }
+          }
+        }
+        else
+        {
+          return {
+            train_base:{
+              ...train.train_base,
+              notBooked: result.rows[0].yet_to_book,
+              confirmed: result.rows[0].booked,
+            }
+          }
+        }
+      }
+      catch(err)
+      {
+        console.error("Error while retriving from database : ", err);  
+        return {
+          error : true,
+        };
+      }
+    }))
+    console.log(newData[0]);
+    res.json({
+      status: true,
+      success: true,
+      loggedIn: true,
+      data: newData,
+    })
+  } else {
+      res.json({
+          status: true,
+          success: false,
+          loggedIn: false,
+      })
+  }
+}
+)
+
+// for adding user into trains under not_booked
+app.post('/addNotBookedTrainUser',async (req,res)=>{
+  if(req.isAuthenticated())
+  {
+    const {train, date, origin, destination}= req.body;
+    // const dateOfTravel=new Date(date)
+    // check if the train is present in database
+    const result= await db.query("SELECT * FROM TRAINS WHERE NUMBER=$1 AND DATE=$2", [train.train_base.train_no, date]);
+    if(result.rows.length==0)
+    {
+      await db.query("INSERT INTO TRAINS VALUES($1, $2, $3, $4)",[train.train_base.train_no, 0, 0, date]);
+    }
+
+    const result1 = await db.query("SELECT * FROM NOT_BOOKED_TRAIN_USERS WHERE TRAIN_NUMBER = $1 AND USER_ID = $2 AND DATE = $3",[train.train_base.train_no, req.user.id, date]);
+    // checking if user is already in the table
+    if(result1.rows.length>0)
+    {
+      res.json({
+        status:true,
+        success:false,
+        loggedIn:true,
+        message:"user is already in this train",
+      })
+    }
+
+    else
+    {
+      const result2 = await db.query("SELECT * FROM BOOKED_TRAIN_USERS WHERE TRAIN_NUMBER = $1 AND USER_ID = $2 AND DATE = $3",[train.train_base.train_no, req.user.id, date]);
+      // checking if the user is already in booked_train_users
+      if(result2.rows.length>0)
+      {
+        await db.query("DELETE FROM BOOKED_TRAIN_USERS WHERE TRAIN_NUMBER= $1 AND USER_ID= $2 AND DATE= $3",[train.train_base.train_no, req.user.id, date]);
+      }
+      await db.query("INSERT INTO NOT_BOOKED_TRAIN_USERS VALUES($1, $2, $3, $4, $5)",[train.train_base.train_no, req.user.id, date, origin, destination]);
+      const notBooked= await db.query("SELECT YET_TO_BOOK FROM TRAINS WHERE NUMBER=$1 AND DATE=$2",[train.train_base.train_no, date]);
+      const confirmed= await db.query("SELECT BOOKED FROM TRAINS WHERE NUMBER=$1 AND DATE=$2",[train.train_base.train_no, date]);
+      res.json({
+        status: true,
+        success: true,
+        loggedIn: true,
+        notBooked: notBooked.rows[0].yet_to_book,
+        confirmed: confirmed.rows[0].booked,
+      })
+    }
+  }
+  else
+  {
+    res.json({
+      status:true,
+      success:false,
+      loggedIn:false,
+      message: "user not logged in",
+    })
+  }
+})
+
+
+// for adding user into trains under booked
+app.post('/addBookedTrainUser',async (req,res)=>{
+  if(req.isAuthenticated())
+  {
+    const {train, date, origin, destination}= req.body;
+    // const dateOfTravel= new Date(date);
+    // check if the train is present in database
+    const result= await db.query("SELECT * FROM TRAINS WHERE NUMBER=$1 AND DATE=$2", [train.train_base.train_no, date]);
+    if(result.rows.length==0)
+    {
+      await db.query("INSERT INTO TRAINS VALUES($1, $2, $3, $4)",[train.train_base.train_no, 0, 0, date]);
+    }
+
+    const result1 = await db.query("SELECT * FROM BOOKED_TRAIN_USERS WHERE TRAIN_NUMBER = $1 AND USER_ID = $2 AND DATE=$3",[train.train_base.train_no, req.user.id, date]);
+    // checking if user is already in the table
+    if(result1.rows.length>0)
+    {
+      res.json({
+        status:true,
+        success:false,
+        loggedIn:true,
+        message:"user is already in this train",
+      })
+    }
+
+    else
+    {
+      const result2 = await db.query("SELECT * FROM NOT_BOOKED_TRAIN_USERS WHERE TRAIN_NUMBER = $1 AND USER_ID = $2 AND DATE=$3",[train.train_base.train_no, req.user.id, date]);
+      // checking if the user is already in not_booked_train_users
+      if(result2.rows.length>0)
+      {
+        await db.query("DELETE FROM NOT_BOOKED_TRAIN_USERS WHERE TRAIN_NUMBER= $1 AND USER_ID= $2 AND DATE=$3",[train.train_base.train_no, req.user.id, date]);
+      }
+      await db.query("INSERT INTO BOOKED_TRAIN_USERS VALUES($1, $2, $3, $4, $5)",[train.train_base.train_no, req.user.id, date, origin, destination]);
+      const notBooked= await db.query("SELECT YET_TO_BOOK FROM TRAINS WHERE NUMBER=$1 AND DATE=$2",[train.train_base.train_no, date]);
+      const confirmed= await db.query("SELECT BOOKED FROM TRAINS WHERE NUMBER=$1 AND DATE=$2",[train.train_base.train_no, date]);
+      res.json({
+        status: true,
+        success: true,
+        loggedIn: true,
+        notBooked: notBooked.rows[0].yet_to_book,
+        confirmed: confirmed.rows[0].booked,
+      })
+    }
+  }
+  else
+  {
+    res.json({
+      status:true,
+      success:false,
+      loggedIn:false,
+      message: "user not logged in",
+    })
+  }
+})
+
+// get train by number and date
+app.post('/getTrainByNumberAndDate',async (req,res)=>{
+  const {number, date}=req.body;
+  console.log(req.body);
+  // const dateOfTravel= new Date(date);
+  const result= await db.query("SELECT * FROM TRAINS WHERE NUMBER=$1 AND DATE=$2",[number, date]);
+  console.log(result.rows[0]);
+  if(result.rows.length==0)
+  {
+    res.json({
+      status:1,
+      success:0,
+      loggedIn:1,
+    })
+  }
+  else
+  {
+    res.json({
+      status:1,
+      success:1,
+      loggedIn:1,
+      data: result.rows[0],
+    })
+  }
+
+})
+
+// for fetching user trains
+app.post('/getUserTrains',async (req,res)=>{
+  if(req.isAuthenticated())
+  {
+    try {
+      const userId=req.user.id;
+      const notBookedTrainsData= await db.query("SELECT * FROM NOT_BOOKED_TRAIN_USERS WHERE USER_ID=$1", [userId]);
+      const bookedTrainsData= await db.query("SELECT * FROM BOOKED_TRAIN_USERS WHERE USER_ID=$1", [userId]);
+      const trainsData = {
+        notBooked : notBookedTrainsData.rows,
+        booked : bookedTrainsData.rows,
+      }
+      res.json({
+        data : trainsData,
+        status:1,
+        success:1,
+        loggedIn:1,
+      });
+    } catch (error) {
+      console.log("Error while fetching user trains data : ");
+      res.json({
+        status:1,
+        success:0,
+        loggedIn:1,
+      })
+    }
+  }
+  else
+  {
+    res.json({
+      status:1,
+      loggedIn:0,
+      success:0,
+    })
+  }
+})
+
+// for removing user from train
+app.post('/removeUserFromTrain', async (req,res)=>{
+  if(req.isAuthenticated)
+  {
+    try {
+      const {train, date} = req.body;
+      const userId= req.user.id;
+      // const dateOfTravel= new Date(date);
+      await db.query("DELETE FROM NOT_BOOKED_TRAIN_USERS WHERE USER_ID=$1 AND TRAIN_NUMBER=$2 AND DATE=$3",[userId, train.train_base.train_no, date]);
+      await db.query("DELETE FROM BOOKED_TRAIN_USERS WHERE USER_ID=$1 AND TRAIN_NUMBER=$2 AND DATE=$3",[userId, train.train_base.train_no, date]);
+      console.log("User "+userId+" removed successfully from "+train.train_base.train_no+" on "+date);
+      const notBooked= await db.query("SELECT YET_TO_BOOK FROM TRAINS WHERE NUMBER=$1 AND DATE=$2",[train.train_base.train_no, date]);
+      const confirmed= await db.query("SELECT BOOKED FROM TRAINS WHERE NUMBER=$1 AND DATE=$2",[train.train_base.train_no, date]);
+      res.json({
+        status: 1,
+        success: 1,
+        loggedIn: 1,
+        notBooked: notBooked.rows[0].yet_to_book,
+        confirmed: confirmed.rows[0].booked,
+      })
+    } catch (error) {
+      console.log("Some error occured while removing user from train "+ error);
+    }
+  }
+  else
+  {
+    res.json({
+      status:1,
+      success: 0,
+      loggedIn: 0,
+    })
+  }
+})
+
+
+// for checking if the user can access the chat room
+app.post('/train_chat', async (req, res) => {
+  if (req.isAuthenticated()) {
+    const { train, date } = req.body;
+    const result1 =await db.query("SELECT * FROM NOT_BOOKED_TRAIN_USERS WHERE USER_ID =$1 AND TRAIN_NUMBER=$2 AND DATE=$3", [req.user.id, train.train_base.train_no, date]);
+    const result2 =await db.query("SELECT * FROM BOOKED_TRAIN_USERS WHERE USER_ID =$1 AND TRAIN_NUMBER=$2 AND DATE=$3", [req.user.id, train.train_base.train_no, date]);
+    if(result1.rows.length>0 || result2.rows.length>0)
+    {
+      res.json({
+        status: true,
+        success: true,
+        loggedIn: true,
+      })
+    }
+    else
+    {
+      res.json({
+        status: true,
+        success: false,
+        loggedIn: true,
+      })
+    }
+  } else {
+    res.json({
+      status: true,
+      success: false,
+      loggedIn: false,
+    })
+  }
+})
+
+
+// setting up chat room
+
+// Adding chat to the database
+app.post('/api/train/addChat', async(req, res)=>{
+  const { train_number, date, message } = req.body;
+  const msg_add = train_number + date + message;
+  try {
+    await db.query('INSERT INTO TRAINCHAT (username, message) VALUES ($1, $2)', [req.user.name, msg_add]);
+    res.json({
+      status: true,
+      loggedIn: true,
+    });
+  } catch (err) {
+    console.error(err);
+    res.json({
+      status: false,
+      error: 'There was an error while adding the chat to the database',
+    });
+  }
+});
+
+// API for getting chats for a trip
+app.get('/api/train/chats', async(req, res)=>{
+  const { train_number, date } = req.query;
+  const msg_start = train_number + date + '%';
+  try {
+    const result = await db.query('SELECT * FROM TRAINCHAT WHERE message LIKE $1', [msg_start]);
+    const chats = result.rows;
+    res.json({
+      status: true,
+      loggedIn: true,
+      chats: chats,
+    });
+  } catch (err) {
+    console.error(err);
+    res.json({
+      status: false,
+      error: 'There was an error while retrieving chats from the database',
+    });
+  }
+});
+
+
+// <------------------------- Pawan Code ends here -------------------->
+
 // Setting up Chat Servers
 io.on('connection', (socket) => {
   socket.on('message', (message) =>     {
       console.log(message);
       io.emit('message', message );   
   });
-});
-
-
-// API for logging out user 
-app.get('/api/logout', (req, res)=>{
-  req.logout();
-  res.redirect(addr + '/home');
 });
 
 
