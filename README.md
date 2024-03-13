@@ -42,12 +42,19 @@ Initiate the server.
 Upon successful installation of all necessary modules, create a `.env` file within the client directory. Add the following lines:
 
 `PG_HOST = 'localhost'`
+
 `PG_USER = '{PostgreSQL Username}'`
+
 `PG_PASSWORD = '{PostgreSQL Password}'`
+
 `PG_PORT = '5432'`
+
 `SESSION_SECRET = '{Any sufficiently random string}'`
+
 `PG_DATABASE = 'cs253'`
+
 `IP = '{YOUR IP ADDRESS}'`
+
 `PORT = '3000'`
 
 ## Note
