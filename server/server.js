@@ -26,7 +26,7 @@ const saltRounds = 10;
 env.config();
 
 // Variables and functions
-const addr = `http://${process.env.IP}:3000`;
+const addr = `http://${process.env.IP}:${process.env.PORT}`;
 
 // Enabline trust proxy
 app.enable('trust proxy')
@@ -46,7 +46,7 @@ app.use(passport.initialize());
 app.use(passport.session())
 app.use(express.json());
 app.use(cors({
-    origin: ['http://localhost:3000', `http://${process.env.IP}:3000`], 
+    origin: [`http://localhost:${process.env.PORT}`, `http://${process.env.IP}:${process.env.PORT}`], 
     credentials: true 
 }));
 

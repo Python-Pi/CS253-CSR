@@ -1,27 +1,55 @@
 # CS253 Project
 
-## Using React Client Side Rendering and API calls from the NodeJs server
+## Utilizing React for Client Side Rendering and Node.js for API Integration
 
-First, clone the git repository ( Install git if not installed )
-#### `git clone https://github.com/Python-Pi/CS253-CSR.git`
+To begin, clone the Git repository. Ensure Git is installed before proceeding.
+ `git clone https://github.com/Python-Pi/CS253-CSR.git`
 
 
-## Running React Front-end server 
+## Setting Up React Front-end server 
 
-#### `cd /client `
+Navigate to the client directory.
+`cd /client `
 
-#### `npm i`
+Install required Node.js modules.
+`npm i`
 
-#### `npm start`
+Initiate the server.
+`npm start`
+
+ Upon successful installation of all necessary modules, create a `.env` file within the client directory. Add the following line:
+ `REACT_APP_IP = '{IP ADDRESS OF YOUR MACHINE}'`.
+
+## Setting Up PostgreSQL Database
+
+Install PostgreSQL and setup username and password
+
+Create a database named `cs253`.
+
+Execute all the query commands in `query.sql` 
 
 ## Running Node Back-end server
 
-#### `cd /server `
+Navigate to the server directory.
+ `cd /server `
 
-#### `npm i`
+Install required Node.js modules.
+ `npm i`
 
-#### `npm start`
+Initiate the server.
+ `npm start`
 
-The default command for running Node server is set to 'nodemon server.js' in package.json. If you don't have nodemon installed, change it to 'node server.js'
+Upon successful installation of all necessary modules, create a `.env` file within the client directory. Add the following lines:
 
-## 
+`PG_HOST = 'localhost'`
+`PG_USER = '{PostgreSQL Username}'`
+`PG_PASSWORD = '{PostgreSQL Password}'`
+`PG_PORT = '5432'`
+`SESSION_SECRET = '{Any sufficiently random string}'`
+`PG_DATABASE = 'cs253'`
+`IP = '{YOUR IP ADDRESS}'`
+`PORT = '3000'`
+
+## Note
+
+- The default command for running Node server is set to `nodemon server.js` in `package.json`. If you don't have nodemon installed, change it to `node server.js`.
