@@ -57,8 +57,6 @@ function DashBoard(){
 
     let trainsData;
     const fetchUserTrains = async () => {
-        // setBookedTrains([]);
-        // setNotBookedTrains([]);
         let temp1=[];
         let temp2=[];
         console.log("fetching user trains");
@@ -153,7 +151,7 @@ function DashBoard(){
     };
     useEffect(() => {
         fetchUserTrains();
-    }, []);
+    });
 
     if (info === null) {
         return <div>Loading...</div>;
@@ -164,13 +162,8 @@ function DashBoard(){
         return null;
     } else {
         if(!info.loggedIn){
-            return(
-                <div className="DashBoard-page">
-                    <NavBarOn />
-                    <h1>Hi, Dashboard Page</h1>
-                    <h2>Not Logged In</h2>
-                </div>
-            )
+            navigate('/home');
+            return null;
         } else {
 
 
