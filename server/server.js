@@ -910,7 +910,11 @@ passport.use(
             }
           });
         } else {
-          return cb("User not found");
+          // res.redirect(addr + '/notfound');
+
+          return cb(null, false);
+
+          // return cb("User not found");
         }
       } catch (err) {
         console.log(err);
