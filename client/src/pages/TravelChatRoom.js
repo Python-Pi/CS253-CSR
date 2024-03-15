@@ -8,7 +8,13 @@ export default function TravelChatRoom() {
     const socket = useRef(null);
     const location = useLocation();
 
-    const { trip_name, destination } = location.state;
+    let trip_name, destination;
+    try{
+         ({ trip_name, destination } = location.state);
+    } catch{
+        navigate('/home');
+    }
+
     const [info, setInfo] = useState({});
     const [message, setMessage] = useState('');
     const [username, setUsername] = useState('Anonymous'); 

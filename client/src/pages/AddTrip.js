@@ -102,39 +102,43 @@ const AddTrip = () => {
             return null;
         } else {
             return(
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                    <div>
-                        <h2>Add Trip</h2>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}} className='py-4'>
+                    <div className='block px-24 bg-[#EEEEEB] shadow-xl shadow-gray-950 pb-10 rounded-[20px] w-[50em] border-2 border-slate-600'>
+                        <h2 className='text-6xl text-center py-10 font-semibold'>Add Trip</h2>
                         <form onSubmit={handleSubmit}>
-                            <div className="form-group">
-                                <label>Trip Name:</label>
-                                <input type="text" className="form-control" value={tripName} onChange={handleTripNameChange} />
+                            <div className='flex flex-row justify-between pb-4'>
+                                <div className="form-group pr-2">
+                                    <label className='text-2xl font-medium'>Trip Name:</label>
+                                    <input type="text" className="form-control" value={tripName} onChange={handleTripNameChange} />
+                                </div>
+                                <div className="form-group pl-2">
+                                    <label className='text-2xl font-medium'>Destination:</label>
+                                    <input type="text" className="form-control" value={destination} onChange={handleDestinationChange} />
+                                </div>
                             </div>
-                            <div className="form-group">
-                                <label>Destination:</label>
-                                <input type="text" className="form-control" value={destination} onChange={handleDestinationChange} />
+                            <div className='flex flex-row justify-between pb-4'>
+                                <div className="form-group">
+                                    <label className='text-2xl font-medium'>Start Date:</label>
+                                    <input type="date" className="form-control min-w-[13.9em]" value={startDate} onChange={handleStartDateChange} />
+                                </div>
+                                <div className="form-group">
+                                    <label className='text-2xl font-medium'>End Date:</label>
+                                    <input type="date" className="form-control min-w-[13.9em]" value={endDate} onChange={handleEndDateChange} />
+                                </div>
                             </div>
-                            <div className="form-group">
-                                <label>Start Date:</label>
-                                <input type="date" className="form-control" value={startDate} onChange={handleStartDateChange} />
+                            <div className="form-group pb-4">
+                                <label className='text-2xl font-medium'>Amount</label>
+                                <input type="" className="form-control max-w-[13.9em]" value={amount} onChange={handleAmountChange} />
                             </div>
-                            <div className="form-group">
-                                <label>End Date:</label>
-                                <input type="date" className="form-control" value={endDate} onChange={handleEndDateChange} />
-                            </div>
-                            <div className="form-group">
-                                <label>Amount</label>
-                                <input type="" className="form-control" value={amount} onChange={handleAmountChange} />
-                            </div>
-                            <div className="form-group">
-                                <label>Details:</label>
+                            <div className="form-group pb-4">
+                                <label className='text-2xl font-medium'>Details:</label>
                                 <textarea className="form-control" value={details} onChange={handleDetailsChange} />
                             </div>
-                            <div className="form-group">
-                                <label>Image:</label>
+                            <div className="form-group pb-4">
+                                <label className='text-2xl font-medium pb-1'>Image:</label>
                                 <input type="file" className="form-control" onChange={handleImageChange} />
                             </div>
-                            <button className="btn btn-primary mt-3" onClick={handleSubmit} >Create a new trip</button>
+                            <button className="HSbtn btn-primary mt-3" onClick={handleSubmit} >Create a new trip</button>
                         </form>
                     </div>
                 </div>

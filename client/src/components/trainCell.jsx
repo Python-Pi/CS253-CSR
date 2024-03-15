@@ -89,6 +89,7 @@ function TrainCell(props) {
       {
         setConfirmed(data.confirmed);
         setNotBooked(data.notBooked);
+        alert("Successfully unenrolled!");
       }
       else
       {
