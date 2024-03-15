@@ -23,7 +23,9 @@ function Home(){
         <div className="home-page">
             <NavBar />
             {windowWidth > 768 ? (
-                <div className="home-large">                    
+                <div className="home-large">
+                    {/* Large Screen Content */}
+                    
                     <div className="home-page">
                         <h1 className='rm text-6xl text-black text-center pt-10 route-mate'>Routemate</h1>
                     </div>
@@ -52,10 +54,13 @@ function Home(){
                     <img src={trvl} className="w-[25em] pr-10 rounded" alt="travel"/>
                     <div className="flex flex-col text-black text-justify text-base">
                             <p className="text-bold text-5xl pb-20 mr-[2em]">About Us</p>
-                            <p className='text-xl mr-[2em]'>Welcome to Route Mate, your trusted travel companion for shared journeys to your home town and beyond. Connect with fellow students from IIT Kanpur and embark on safe, enjoyable trips together. Our platform features a chat function, allowing you to communicate with potential travel companions and plan your trip seamlessly. </p>
+                            <p className='text-xl mr-[2em]'>Welcome to Route Mate, your trusted travel companion for shared journeys to your Homepagetown and beyond. Connect with fellow students from IIT Kanpur and embark on safe, enjoyable trips together. Our platform features a chat function, allowing you to communicate with potential travel companions and plan your trip seamlessly. </p>
                             <p className='pt-4 text-xl mr-[2em]'>Additionally, explore our blog section for travel tips, destination guides, and inspiring stories. Want to share your own experiences? Create your own blogs and inspire others with your adventures. Join our community today and travel with confidence.</p>
                         </div>
                     </div>      
+
+
+
                 </div>
             ) : (
                 <div className="home-small">

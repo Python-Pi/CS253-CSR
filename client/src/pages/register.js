@@ -1,6 +1,7 @@
 import React from "react";
 import NavBarOff from "../components/NavBarOff";
 import Footer from "../components/Footer";
+import "../style/styles.css"
 
 function Register(){
     const addr_register = `http://${process.env.REACT_APP_IP}:8000/register`
@@ -9,7 +10,7 @@ function Register(){
             <NavBarOff />
             <div className="login-form">
                 <div className = 'form-boot'>
-                    <form method="POST" action={addr_register}>
+                    <form method="POST" action={addr_register} className="flex flex-col">
                         <h1 className="h3 mb-3 fw-normal mt-3 text-center">Register</h1>
 
                         <div className="form-floating mb-1">
@@ -24,7 +25,7 @@ function Register(){
                             <input type="password" className="form-control" id="floatingPassword" name="password" placeholder="Password"/>
                             <label htmlFor="floatingPassword">Password</label>
                         </div>
-                        <button className="btn btn-primary w-100 py-2 mb-3" type="submit">Sign up</button>
+                        <button className="HSbtn w-50 self-center py-2 mb-3" type="submit">Sign up</button>
                     </form>
                 </div>
             </div>

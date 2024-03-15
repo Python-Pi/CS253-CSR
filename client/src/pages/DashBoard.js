@@ -173,12 +173,12 @@ function DashBoard(){
                     <h1>Hi {info.name}, Welcome to Dashboard Page</h1>
                     <h2>Logged In</h2>
                     <div className="text-center mt-4">
-                        <button type="button" className="btn btn-primary btn-lg mr-2" onClick={handleTravelClick}>Travel</button>
-                        <button type="button" className="btn btn-secondary btn-lg" onClick={hanldeClick}>Itinerary</button>
+                        <button type="button" className="HSbtn mr-2" onClick={handleTravelClick}>Travel</button>
+                        <button type="button" className="HSbtn" onClick={hanldeClick}>Itinerary</button>
                     </div>
 
                     <div className="d-flex justify-content-center">
-                        <button type="button" className="btn btn-primary btn-lg">Blog</button>
+                        <button type="button" className="HSbtn">Blog</button>
                     </div>
 
                     <h2 className="text-center">Travel Details</h2>
@@ -217,10 +217,16 @@ function DashBoard(){
                         </div>
                     </div>
 
-                    <h2>Upcoming train journeys</h2>
-                    <h4>Booked</h4>
+                    <h2 className="font-semibold text-4xl">Upcoming train journeys</h2>
+                    <h4 className="font-semibold pl-2 pt-20">Booked:</h4>
+                    <div className="flex flex-row justify-center">
+                    <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 w-[90%] self-center" />
+                    </div>
                     {bookedTrains}
-                    <h4>Not Booked</h4>
+                    <h4 className="font-semibold pl-2 pt-20">Not Booked:</h4>
+                    <div className="flex flex-row justify-center">
+                    <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 w-[90%] self-center" />
+                    </div>
                     {notBookedTrains}
 
                 </div>
