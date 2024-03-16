@@ -143,7 +143,7 @@ export default function TravelChatRoom() {
                             const newMessage = message.message.substring((trip_name + destination).length);
                             if(username == message.username) return (<>
                                 <li key={index} className="">
-                                <div className='relative w-full pl-[1000px] ml-1 mt-[5px] mb-[5px]'>
+                                <div className='relative w-full pl-[1050px] ml-1 mt-[5px] mb-[5px]'>
                                 <div className='flex -mb-2'>
                                 <div className='rounded-[50%] w-2 h-2 mt-2 mr-2 bg-[rgb(101,209,119)]'></div>
                                 <p className='mb-[-2px] mr-2'>{message.username}</p>
@@ -155,8 +155,6 @@ export default function TravelChatRoom() {
                                     </div>
                                 </li>
                                </>
-                                    // </div>
-                                    
                             );
                             else return (<>
                                 <li key={index} className="">
@@ -171,9 +169,7 @@ export default function TravelChatRoom() {
                                     <p  className='justify relative right-0 mb-[15px] text-justify max-w-[17em] p-[12px] bg-[#5dbff6] rounded-lg overflow-hidden break-words w-fit h-fit'>{newMessage}</p>
                                     </div>
                                 </li>
-                               </>
-                                    // </div>
-                                    
+                               </>     
                             );
                         } else {
                             return null;
