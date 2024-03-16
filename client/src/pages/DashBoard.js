@@ -56,102 +56,102 @@ function DashBoard(){
 
 
     let trainsData;
-    const fetchUserTrains = async () => {
-        let temp1=[];
-        let temp2=[];
-        console.log("fetching user trains");
-        try {
-            const response = await fetch(`http://${process.env.REACT_APP_IP}:8000/getUserTrains`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                credentials: 'include',
-            });
-
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            trainsData = await response.json();
-            console.log(trainsData);
-            if(trainsData.success){
-                const bookedList= trainsData.data.booked;
-                const notBookedList= trainsData.data.notBooked;
-                for(let i=0; i<bookedList.length; i++){
-                    try {
-                        const result= await fetch(`http://${process.env.REACT_APP_IP}:8000/getTrainByNumberAndDate`, {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            credentials: 'include',
-                            body: JSON.stringify({
-                                number: bookedList[i].train_number,
-                                date: bookedList[i].date,
-                            })
-                        });
-                        const data= await result.json();
-                        console.log(data);
-                        if(data.success){
-                            const train={
-                                train_base:{
-                                    train_no: bookedList[i].train_number,
-                                    source_stn_code: bookedList[i].from_station,
-                                    dstn_stn_code: bookedList[i].to_station,
-                                    notBooked: data.data.yet_to_book,
-                                    confirmed: data.data.booked,
-                                }
-                            }
-                            console.log(train);
-                            temp1.push(<TrainCell key={i} train={train} origin={bookedList[i].from_station} destination={bookedList[i].to_station} date={bookedList[i].date}/>);
-                        }
-                    }
-                    catch (error) {
-                        console.log("error while creating booked train list");   
-                    }
-                }
-                setBookedTrains(temp1);
-                for(let i=0; i<notBookedList.length; i++){
-                    try {
-                        const result= await fetch(`http://${process.env.REACT_APP_IP}:8000/getTrainByNumberAndDate`, {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            credentials: 'include',
-                            body: JSON.stringify({
-                                number: notBookedList[i].train_number,
-                                date: notBookedList[i].date,
-                            })
-                        });
-                        const data= await result.json();
-                        console.log(data);
-                        if(data.success){
-                            const train={
-                                train_base:{
-                                    train_no: notBookedList[i].train_number,
-                                    source_stn_code: notBookedList[i].from_station,
-                                    dstn_stn_code: notBookedList[i].to_station,
-                                    notBooked: data.data.yet_to_book,
-                                    confirmed: data.data.booked,
-                                }
-                            }
-                            temp2.push(<TrainCell key={i+bookedList.length} train={train} origin={notBookedList[i].from_station} destination={notBookedList[i].to_station} date={notBookedList[i].date}/>);
-                        }
-                    }
-                    catch (error) {
-                        console.log("error while creating not booked train list");   
-                    }
-                }
-                setNotBookedTrains(temp2);
-            }
-        } catch (error) {
-            console.log("Error occurred while fetching user trains data", error);
-        }
-    };
     useEffect(() => {
-        fetchUserTrains();
-    });
+        const fetchUserTrains = async () => {
+            let temp1=[];
+            let temp2=[];
+            console.log("fetching user trains");
+            try {
+                const response = await fetch(`http://${process.env.REACT_APP_IP}:8000/getUserTrains`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: 'include',
+                });
+
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                trainsData = await response.json();
+                console.log(trainsData);
+                if(trainsData.success){
+                    const bookedList= trainsData.data.booked;
+                    const notBookedList= trainsData.data.notBooked;
+                    for(let i=0; i<bookedList.length; i++){
+                        try {
+                            const result= await fetch(`http://${process.env.REACT_APP_IP}:8000/getTrainByNumberAndDate`, {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                credentials: 'include',
+                                body: JSON.stringify({
+                                    number: bookedList[i].train_number,
+                                    date: bookedList[i].date,
+                                })
+                            });
+                            const data= await result.json();
+                            console.log(data);
+                            if(data.success){
+                                const train={
+                                    train_base:{
+                                        train_no: bookedList[i].train_number,
+                                        source_stn_code: bookedList[i].from_station,
+                                        dstn_stn_code: bookedList[i].to_station,
+                                        notBooked: data.data.yet_to_book,
+                                        confirmed: data.data.booked,
+                                    }
+                                }
+                                console.log(train);
+                                temp1.push(<TrainCell key={i} train={train} origin={bookedList[i].from_station} destination={bookedList[i].to_station} date={bookedList[i].date}/>);
+                            }
+                        }
+                        catch (error) {
+                            console.log("error while creating booked train list");   
+                        }
+                    }
+                    setBookedTrains(temp1);
+                    for(let i=0; i<notBookedList.length; i++){
+                        try {
+                            const result= await fetch(`http://${process.env.REACT_APP_IP}:8000/getTrainByNumberAndDate`, {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                credentials: 'include',
+                                body: JSON.stringify({
+                                    number: notBookedList[i].train_number,
+                                    date: notBookedList[i].date,
+                                })
+                            });
+                            const data= await result.json();
+                            console.log(data);
+                            if(data.success){
+                                const train={
+                                    train_base:{
+                                        train_no: notBookedList[i].train_number,
+                                        source_stn_code: notBookedList[i].from_station,
+                                        dstn_stn_code: notBookedList[i].to_station,
+                                        notBooked: data.data.yet_to_book,
+                                        confirmed: data.data.booked,
+                                    }
+                                }
+                                temp2.push(<TrainCell key={i+bookedList.length} train={train} origin={notBookedList[i].from_station} destination={notBookedList[i].to_station} date={notBookedList[i].date}/>);
+                            }
+                        }
+                        catch (error) {
+                            console.log("error while creating not booked train list");   
+                        }
+                    }
+                    setNotBookedTrains(temp2);
+                }
+            } catch (error) {
+                console.log("Error occurred while fetching user trains data", error);
+            }
+        };
+         fetchUserTrains();
+    }, []);
 
     if (info === null) {
         return <div>Loading...</div>;
