@@ -40,8 +40,8 @@ function NavBarOff() {
                         <Navbar.Collapse className="justify-content-end">
                             <Nav className="ml-auto">
                                 <ul className={`nav navbar-nav`}>
-                                    <button type="button" className="btn btn-primary btn-lg mr-2" onClick={handleClickLogin}>Login</button>
-                                    <button type="button" className="btn btn-primary btn-lg mr-2" onClick={handleClickRegister}>Register</button>
+                                    <button type="button" className="HSbtn btn-primary btn-lg mr-2" onClick={handleClickLogin}>Login</button>
+                                    <button type="button" className="HSbtn btn-primary btn-lg ml-2" onClick={handleClickRegister}>Register</button>
                                 </ul>
                             </Nav>
                         </Navbar.Collapse>

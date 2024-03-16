@@ -57,19 +57,17 @@ function Travel(){
         return(
             <div className="travel-page">
                 <NavBarOn />
-                <h1 className="text-center">Hi, Travel Page</h1>
-                <div className="d-flex justify-content-center">
-                    <button className="btn btn-primary mt-3" onClick={() => navigate('/addTrip')}>Create a new trip</button>
-                </div>
-                <div className="d-flex justify-content-center">
-                    <button className="btn btn-primary mt-3" onClick={() => navigate('/hostedTrips')}>Hosted Trips</button>
+                <h1 className="text-center font-3xl pb-10">Travel Page</h1>
+                <div className="flex flex-row justify-around px-10">
+                    <button className="HSbtn btn-primary mt-3 max-w-[20em]" onClick={() => navigate('/addTrip')}>Create a new trip</button>
+                    <button className="HSbtn btn-primary mt-3" onClick={() => navigate('/hostedTrips')}>Hosted Trips</button>
                 </div>
 
-                <h1 className="text-center">All trips</h1>
+                <h1 className="text-center font-3xl py-10 pt-32">All trips</h1>
 
                 <div className="search-bar d-flex justify-content-center">
-                    <input type="text" placeholder="Search trips" onChange={handleSearch}/>
-                    <button className="btn btn-primary" onClick={handleSearchClick}>Search</button>
+                    <input type="text" placeholder="Search trips" onChange={handleSearch} className="block border-2 p-2 rounded-lg border-slate-600"/>
+                    <button className="bg-slate-900 hover:bg-black transition ease-in-out hover:duration-300  text-white rounded-md py-2.5 px-4" onClick={handleSearchClick}>Search</button>
                 </div>
 
                 <div className="trip-list">

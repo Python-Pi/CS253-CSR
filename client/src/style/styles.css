@@ -196,4 +196,20 @@
   .text-box button:hover {
     background-color: #0056b3;
   }
+
+  .HSbtn {
+    background-color: blue; 
+    color: white; 
+    padding: 10px 20px;
+    padding-inline: 30px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 300ms ease-out;
+  }
+
+  .HSbtn:hover {
+    background-color: green; 
+    transform:scale(1.1);
+  }
   
