@@ -197,3 +197,47 @@
     background-color: #0056b3;
   }
   
+  .wpbg{
+    background: linear-gradient( #009688 0%,#009688 130px,#d9dbd5 130px,#d9dbd5 100%)
+    }
+    .sshdw{
+      box-shadow: 0 1px 1px 0 rgba(0,0,0,0.06,0 2px 5px 0 rgba(0,0,0,0.06));
+    }
+    .lt1{
+      background: rgb(67,74,94);
+      border-right: solid 1px #000;
+    }
+    .wpbg1{
+      background: #e5ddd5 ;
+    }
+    .ssrch:hover{
+    cursor: pointer;
+    }
+    .top-bot{
+      position:relative;
+      top:-5px;
+      right:-20px;
+      width:0;
+      height:0;
+      border-width:10px;
+      border-style:solid;
+      border-color:transparent transparent rgb(101,209,119) transparent; 
+    }
+    .top-bot-border{
+      top:-18px;
+      border-color:transparent transparent  transparent; 
+    }
+    .top-bot1{
+        position:relative;
+        top:-5px;
+        right:-20px;
+        width:0;
+        height:0;
+        border-width:10px;
+        border-style:solid;
+        border-color:transparent transparent #5dbff6 transparent; 
+      }
+      .top-bot-border{
+        top:-18px;
+        border-color:transparent transparent  transparent; 
+      }
