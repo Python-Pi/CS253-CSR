@@ -220,12 +220,10 @@ function DashBoard(){
                     <h2 className="font-semibold text-4xl">Upcoming train journeys</h2>
                     <h4 className="font-semibold pl-2 pt-20">Booked:</h4>
                     <div className="flex flex-row justify-center">
-                    <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 w-[90%] self-center" />
                     </div>
                     {bookedTrains}
                     <h4 className="font-semibold pl-2 pt-20">Not Booked:</h4>
                     <div className="flex flex-row justify-center">
-                    <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 w-[90%] self-center" />
                     </div>
                     {notBookedTrains}
 

@@ -7,8 +7,26 @@ export default function ChatRoom() {
     const navigate = useNavigate();
     const socket = useRef(null);
     const location = useLocation();
+    // const [train_number, setTrainNumber] = useState(17208);
+    // const [date, setDate] = useState(null);
 
-    const { train_number, date } = location.state;
+    let train_number, date;
+    try{
+         ({ train_number, date } = location.state);
+    } catch{
+        navigate('/home');
+    }
+
+    // useEffect(() => {
+    //     try{
+    //         const { t, d } = location.state;
+    //         setTrainNumber(t);
+    //         setDate(d);
+    //     } catch{
+    //         navigate('/dashboard');
+    //     }
+    // }, []);
+    
     const [info, setInfo] = useState({});
     const [message, setMessage] = useState('');
     const [username, setUsername] = useState('Anonymous'); 
