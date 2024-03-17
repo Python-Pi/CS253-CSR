@@ -56,7 +56,7 @@ export default function NewBlog(props){
     }, [info.loggedIn])
 
     return(
-        <div className="container">
+        <div className="blog-container">
             <div className="header">
                 <h1 className="header-title">New Blog</h1>
                 <button className="btn btn-primary" onClick={()=>navigate('/dashboard')}>DashBoard</button>
