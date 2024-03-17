@@ -85,7 +85,7 @@ export default function ChatRoom() {
     }
 
     const handleBackPage = () => {
-        navigate('/dashboard/itinerary/train');
+        navigate('/dashboard');
     };
 
     useEffect(() => {

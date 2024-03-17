@@ -20,6 +20,7 @@ function Home(){
     }, []);
 
     return (
+        // loading ? <Preloader/>:
         <div className="home-page">
             <NavBar />
             {windowWidth > 768 ? (
