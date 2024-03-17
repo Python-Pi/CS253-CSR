@@ -1,0 +1,26 @@
+/* NewBlog.css */
+
+.container {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header-title {
+    color: #333;
+}
+
+.input-area {
+    margin-bottom: 20px;
+}
+
+.markdown-display {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}

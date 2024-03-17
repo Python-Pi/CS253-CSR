@@ -18,6 +18,8 @@ import TravelChatRoom from "./pages/TravelChatRoom";
 import JoinedTrips from "./pages/JoinedTrips";
 import TrainSearch from "./pages/searchTrains";
 import ChatRoom from "./pages/ChatRoom";
+import AllBlogs from "./pages/AllBlogs";
+import NewBlog from "./pages/NewBlog";
 
 function App() {
   const location = useLocation();
@@ -36,6 +38,8 @@ function App() {
         <Route exact path="/travelChatRoom" element={<TravelChatRoom />} />
         <Route exact path="/dashboard/itinerary/train" element={<TrainSearch />} />
         <Route exact path="/dashboard/itinerary/train/chat" element={<ChatRoom />} />
+        <Route exact path="/blogs" element={<AllBlogs />} />
+        <Route exact path="/blogs/newBlog" element={<NewBlog />} />
         <Route path="*" element={<NotFound />} />
     </Routes>
   );
