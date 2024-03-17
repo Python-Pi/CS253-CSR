@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import NavBarOn from "../components/NavBarOn";
 import TravelCell from "../components/TravelCell";
@@ -55,7 +55,7 @@ function DashBoard(){
     }, [info.loggedIn]);
 
 
-    let trainsData;
+    let trainsData = useRef(null);
     useEffect(() => {
         const fetchUserTrains = async () => {
             let temp1=[];
@@ -153,6 +153,10 @@ function DashBoard(){
          fetchUserTrains();
     }, []);
 
+    const handleBlog = () => {
+        navigate('/blogs');
+    }
+
     if (info === null) {
         return <div>Loading...</div>;
     }
@@ -177,7 +181,7 @@ function DashBoard(){
                     </div>
 
                     <div className="d-flex justify-content-center">
-                        <button type="button" className="HSbtn">Blog</button>
+                        <button type="button" className="HSbtn" onClick={handleBlog}>Blog</button>
                     </div>
                     
                     <div className="hosted-trips mt-10 mb-5 mx-2">
