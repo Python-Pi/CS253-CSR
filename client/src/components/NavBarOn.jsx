@@ -29,7 +29,6 @@ function NavBarOn() {
                 <Navbar.Collapse className="justify-content-end">
                     <Nav className="ml-auto">
                         <ul className={`nav navbar-nav`}>
-                            {/* <li className="nav-item"><a className="nav-link Nav-Name text-white fs-4" href="/home" style={{ paddingTop: "0.1em"}}><button style={{ display: "block", backgroundColor: "rgba(0, 0, 255, 0.8)", paddingInline: "0.7em", paddingTop: "0.1em", paddingBottom: "0.1em", borderRadius: "2em"}}>Logout</button></a></li> */}
                             <button type="button" className="HSbtn" onClick={handleLogout}>Logout</button>
                         </ul>
                     </Nav>
