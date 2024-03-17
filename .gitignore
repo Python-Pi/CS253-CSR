@@ -1,4 +1,4 @@
-# Environmental variables
+git rm -r --cached server/node_modules# Environmental variables
 server/.env
 client/.env
 
