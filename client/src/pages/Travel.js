@@ -63,7 +63,7 @@ function Travel(){
                     <button className="HSbtn btn-primary mt-3" onClick={() => navigate('/hostedTrips')}>Hosted Trips</button>
                 </div>
 
-                <h1 className="text-center font-3xl py-10 pt-32">All trips</h1>
+                <h1 className="text-center font-3xl py-10 pt-24">All trips</h1>
 
                 <div className="search-bar d-flex justify-content-center">
                     <input type="text" placeholder="Search trips" onChange={handleSearch} className="block border-2 p-2 rounded-lg border-slate-600"/>

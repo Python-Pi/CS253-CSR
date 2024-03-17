@@ -56,102 +56,102 @@ function DashBoard(){
 
 
     let trainsData;
-    const fetchUserTrains = async () => {
-        let temp1=[];
-        let temp2=[];
-        console.log("fetching user trains");
-        try {
-            const response = await fetch(`http://${process.env.REACT_APP_IP}:8000/getUserTrains`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                credentials: 'include',
-            });
-
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            trainsData = await response.json();
-            console.log(trainsData);
-            if(trainsData.success){
-                const bookedList= trainsData.data.booked;
-                const notBookedList= trainsData.data.notBooked;
-                for(let i=0; i<bookedList.length; i++){
-                    try {
-                        const result= await fetch(`http://${process.env.REACT_APP_IP}:8000/getTrainByNumberAndDate`, {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            credentials: 'include',
-                            body: JSON.stringify({
-                                number: bookedList[i].train_number,
-                                date: bookedList[i].date,
-                            })
-                        });
-                        const data= await result.json();
-                        console.log(data);
-                        if(data.success){
-                            const train={
-                                train_base:{
-                                    train_no: bookedList[i].train_number,
-                                    source_stn_code: bookedList[i].from_station,
-                                    dstn_stn_code: bookedList[i].to_station,
-                                    notBooked: data.data.yet_to_book,
-                                    confirmed: data.data.booked,
-                                }
-                            }
-                            console.log(train);
-                            temp1.push(<TrainCell key={i} train={train} origin={bookedList[i].from_station} destination={bookedList[i].to_station} date={bookedList[i].date}/>);
-                        }
-                    }
-                    catch (error) {
-                        console.log("error while creating booked train list");   
-                    }
-                }
-                setBookedTrains(temp1);
-                for(let i=0; i<notBookedList.length; i++){
-                    try {
-                        const result= await fetch(`http://${process.env.REACT_APP_IP}:8000/getTrainByNumberAndDate`, {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            credentials: 'include',
-                            body: JSON.stringify({
-                                number: notBookedList[i].train_number,
-                                date: notBookedList[i].date,
-                            })
-                        });
-                        const data= await result.json();
-                        console.log(data);
-                        if(data.success){
-                            const train={
-                                train_base:{
-                                    train_no: notBookedList[i].train_number,
-                                    source_stn_code: notBookedList[i].from_station,
-                                    dstn_stn_code: notBookedList[i].to_station,
-                                    notBooked: data.data.yet_to_book,
-                                    confirmed: data.data.booked,
-                                }
-                            }
-                            temp2.push(<TrainCell key={i+bookedList.length} train={train} origin={notBookedList[i].from_station} destination={notBookedList[i].to_station} date={notBookedList[i].date}/>);
-                        }
-                    }
-                    catch (error) {
-                        console.log("error while creating not booked train list");   
-                    }
-                }
-                setNotBookedTrains(temp2);
-            }
-        } catch (error) {
-            console.log("Error occurred while fetching user trains data", error);
-        }
-    };
     useEffect(() => {
-        fetchUserTrains();
-    });
+        const fetchUserTrains = async () => {
+            let temp1=[];
+            let temp2=[];
+            console.log("fetching user trains");
+            try {
+                const response = await fetch(`http://${process.env.REACT_APP_IP}:8000/getUserTrains`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: 'include',
+                });
+
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                trainsData = await response.json();
+                console.log(trainsData);
+                if(trainsData.success){
+                    const bookedList= trainsData.data.booked;
+                    const notBookedList= trainsData.data.notBooked;
+                    for(let i=0; i<bookedList.length; i++){
+                        try {
+                            const result= await fetch(`http://${process.env.REACT_APP_IP}:8000/getTrainByNumberAndDate`, {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                credentials: 'include',
+                                body: JSON.stringify({
+                                    number: bookedList[i].train_number,
+                                    date: bookedList[i].date,
+                                })
+                            });
+                            const data= await result.json();
+                            console.log(data);
+                            if(data.success){
+                                const train={
+                                    train_base:{
+                                        train_no: bookedList[i].train_number,
+                                        source_stn_code: bookedList[i].from_station,
+                                        dstn_stn_code: bookedList[i].to_station,
+                                        notBooked: data.data.yet_to_book,
+                                        confirmed: data.data.booked,
+                                    }
+                                }
+                                console.log(train);
+                                temp1.push(<TrainCell key={i} train={train} origin={bookedList[i].from_station} destination={bookedList[i].to_station} date={bookedList[i].date}/>);
+                            }
+                        }
+                        catch (error) {
+                            console.log("error while creating booked train list");   
+                        }
+                    }
+                    setBookedTrains(temp1);
+                    for(let i=0; i<notBookedList.length; i++){
+                        try {
+                            const result= await fetch(`http://${process.env.REACT_APP_IP}:8000/getTrainByNumberAndDate`, {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                credentials: 'include',
+                                body: JSON.stringify({
+                                    number: notBookedList[i].train_number,
+                                    date: notBookedList[i].date,
+                                })
+                            });
+                            const data= await result.json();
+                            console.log(data);
+                            if(data.success){
+                                const train={
+                                    train_base:{
+                                        train_no: notBookedList[i].train_number,
+                                        source_stn_code: notBookedList[i].from_station,
+                                        dstn_stn_code: notBookedList[i].to_station,
+                                        notBooked: data.data.yet_to_book,
+                                        confirmed: data.data.booked,
+                                    }
+                                }
+                                temp2.push(<TrainCell key={i+bookedList.length} train={train} origin={notBookedList[i].from_station} destination={notBookedList[i].to_station} date={notBookedList[i].date}/>);
+                            }
+                        }
+                        catch (error) {
+                            console.log("error while creating not booked train list");   
+                        }
+                    }
+                    setNotBookedTrains(temp2);
+                }
+            } catch (error) {
+                console.log("Error occurred while fetching user trains data", error);
+            }
+        };
+         fetchUserTrains();
+    }, []);
 
     if (info === null) {
         return <div>Loading...</div>;
@@ -171,7 +171,6 @@ function DashBoard(){
                 <div className="DashBoard-page">
                     <NavBarOn />
                     <h1 className="pt-32">Hi {info.name}, Welcome to Dashboard Page</h1>
-                    <h2>Logged In</h2>
                     <div className="text-center mt-4">
                         <button type="button" className="HSbtn mr-2" onClick={handleTravelClick}>Travel</button>
                         <button type="button" className="HSbtn" onClick={hanldeClick}>Itinerary</button>
@@ -180,13 +179,10 @@ function DashBoard(){
                     <div className="d-flex justify-content-center">
                         <button type="button" className="HSbtn">Blog</button>
                     </div>
-
-                    <h2 className="text-center">Travel Details</h2>
                     
-
-                    <div className="hosted-trips">
-                        <h1 className="text-center">Hosted Trips</h1>
-                        <div className="trip-list hosted-trips">
+                    <div className="hosted-trips mt-10 mb-5 mx-2">
+                        <h1 className="text-center font-semibold">Hosted Trips</h1>
+                        <div className="trip-list">
                         {hostedTrips.map((trip, index) => (
                             <TravelCell 
                                 key={index} 
@@ -200,9 +196,9 @@ function DashBoard(){
                         </div>
                     </div>
 
-                    <div className="hosted-trips">
-                        <h1 className="text-center">Joined Trips</h1>
-                        <div className="trip-list hosted-trips">
+                    <div className="hosted-trips mx-2">
+                        <h1 className="text-center font-semibold">Joined Trips</h1>
+                        <div className="trip-list">
                         {joinedTrips.map((trip, index) => (
                             <TravelCell 
                                 key={index} 
@@ -217,15 +213,13 @@ function DashBoard(){
                         </div>
                     </div>
 
-                    <h2 className="font-semibold text-4xl">Upcoming train journeys</h2>
+                    <h2 className="font-semibold text-4xl pt-10">Upcoming train journeys</h2>
                     <h4 className="font-semibold pl-2 pt-20">Booked:</h4>
                     <div className="flex flex-row justify-center">
-                    <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 w-[90%] self-center" />
                     </div>
                     {bookedTrains}
                     <h4 className="font-semibold pl-2 pt-20">Not Booked:</h4>
                     <div className="flex flex-row justify-center">
-                    <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 w-[90%] self-center" />
                     </div>
                     {notBookedTrains}
 

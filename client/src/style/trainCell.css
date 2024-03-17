@@ -1,0 +1,193 @@
+
+.train {
+    border-radius: 15px;
+    /* box-shadow: 1px 1px 2px 8px rgb(195, 189, 189); */
+    margin: 20px auto;
+    padding: 15px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    max-width: 90vw;
+    
+}
+.train-text{
+    display: flex;
+    flex-direction: row;
+}
+.name {
+    margin-bottom: 10px;
+}
+
+.details {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.departure,
+.journey,
+.arrival {
+    flex: 1;
+    margin: 0 2px;
+}
+.journey{
+    margin-left: 80px;
+    
+}
+.arrival{
+    margin-left: 80px;
+}
+
+.departure h4,
+.arrival h4 {
+    font-size: medium;
+    margin-bottom: 5px;
+}
+
+.departure h5,
+.arrival h5 {
+    font-size: small;
+    font-weight: 400;
+}
+
+.journey {
+    margin-right: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    padding: 0px;
+}
+
+.icons-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+      /* Align icons and button vertically */
+}
+
+.count {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#cnum{
+    background-color: rgb(26, 255, 0);
+    height: 30px;
+    border-radius: 5px;
+    padding-top: 0px;
+    width: 50px;
+    margin-right: 10px;
+}
+#wnum{
+    background-color: #FFC702;
+    height: 30px;
+    border-radius: 5px;
+    width: 50px;
+    margin-right: 10px;
+    /* margin-right: 20px; */
+}
+#nonum{ 
+    width: 193px;
+    justify-content: center;
+    align-items: center;
+    color:white;
+}
+
+.number {
+    margin-bottom: 0.5px;
+}
+
+.icon1 {
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+}
+
+.confirm,
+.wait {
+    margin-top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.additional-details {
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.Add-me{
+    background-color: #0000ff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    height: 50px;
+    margin-left: 10px;
+    width: 110px;
+    max-width: 110px;
+    transition-duration: 0.4s;
+}
+.chat-button:hover {
+    background-color: #2ee734;
+    transform: scale(1.1);
+}
+.Add-me:hover{
+    background-color: #4343f8;
+    transform: scale(1.1);
+}
+
+@media only screen and (max-width: 768px) {
+    .details {
+        flex-direction: column;
+    }
+
+    .departure,
+    .journey,
+    .arrival {
+        flex: 1 1 100%;
+        margin: 5px 0;
+    }
+}
+
+.circle-icon-green{
+    background-color: #2ee734;
+    border-radius: 50%; /* This makes the div circular */
+    width: 50px; /* Adjust as needed */
+    height: 50px; /* Adjust as needed */
+    display: flex;
+    justify-content: center; /* Centers the icon horizontally */
+    align-items: center; /* Centers the icon vertically */
+}
+
+.circle-icon-yellow{
+    background-color: #FFC702;
+    border-radius: 50%; /* This makes the div circular */
+    width: 50px; /* Adjust as needed */
+    height: 50px; /* Adjust as needed */
+    display: flex;
+    justify-content: center; /* Centers the icon horizontally */
+    align-items: center; /* Centers the icon vertically */
+}
+
+.icons-button .number {
+    margin-top: 5px;
+}
+
+.chat-button{
+    margin-left: 10px;
+}

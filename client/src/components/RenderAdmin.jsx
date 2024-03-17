@@ -89,40 +89,53 @@ export default function RenderAdmin(props) {
     };
     return (
         <div className="container">
-            <h1 className="text-center my-4">Admin</h1>
-            <div className="d-flex justify-content-center">
-                <button className="btn btn-primary mt-3" onClick={handleChatServer}>
+            <div className="flex absolute top-0 right-0 pr-10 pt-[0.38em]">
+                <button className="HSbtn mt-3" onClick={handleChatServer}>
                     Join Chat Server
                 </button>           
             </div>
-            <h2 className="text-center my-4">Applied Users</h2>
-            <ul className="list-group">
+            <h2 className="text-center my-4 text-4xl font-semibold">Applied Users</h2>
+            <ul className="list-group flex flex-col">
                 {appliedUsers.map((user, index) => (
-                    <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
-                        {user.user_name}
-                        <button className="btn btn-primary" onClick={() => addUserToTrip(user)} >Accept</button> 
-                        <button className="btn btn-primary" onClick={() => declineUserToTrip(user)} >Decline</button>                        
+                    <li key={index} className="block border-1 p-2 px-4 rounded-md border-slate-600 py-2 flex flex-row justify-between my-2">
+                        <div className='text-2xl'>
+                            {user.user_name}
+                        </div>
+                        <div>
+                            <button className="HSbtn" onClick={() => addUserToTrip(user)} >Accept</button> 
+                        </div>
+                        <div>
+                            <button className="HSbtn" onClick={() => declineUserToTrip(user)} >Decline</button>
+                        </div>                      
                     </li>
                 ))}
             </ul>
 
-            <h2 className="text-center my-4">Joined Users</h2>
-            <ul className="list-group">
+            <h2 className="text-center my-4 text-4xl font-semibold pt-10">Joined Users</h2>
+            <ul className="list-group flex flex-col">
                 {joinedUsers.map((user, index) => (
-                    <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
-                        {user.user_name}
-                        <button className="btn btn-primary" onClick={() => declineUserToTrip(user)} >Decline</button>
+                    <li key={index} className="block border-1 p-2 px-4 rounded-md border-slate-600 py-2 flex flex-row justify-between my-2">
+                        <div className='text-2xl pt-1'>
+                            {user.user_name}
+                        </div>
+                        <div>
+                            <button className="HSbtn" onClick={() => declineUserToTrip(user)} >Decline</button>
+                        </div>
                     </li>
                     
                 ))}
             </ul>
 
-            <h2 className="text-center my-4">Declined Users</h2>
-            <ul className="list-group">
+            <h2 className="text-center my-4 text-4xl font-semibold pt-10">Declined Users</h2>
+            <ul className="list-group flex flex-col pb-10">
                 {declinedUsers.map((user, index) => (
-                    <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
-                        {user.user_name}
-                        <button className="btn btn-primary" onClick={() => addUserToTrip(user)} >Accept</button> 
+                    <li key={index} className="block border-1 p-2 px-4 rounded-md border-slate-600 py-2 flex flex-row justify-between my-2">
+                        <div className='text-2xl pt-1'>
+                            {user.user_name}
+                        </div>
+                        <div>
+                            <button className="HSbtn" onClick={() => addUserToTrip(user)} >Accept</button> 
+                        </div>
                     </li>
                 ))}
             </ul>
