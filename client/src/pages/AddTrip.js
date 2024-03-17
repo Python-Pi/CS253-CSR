@@ -103,6 +103,7 @@ const AddTrip = () => {
         } else {
             return(
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}} className='py-4'>
+                    <button className='HSbtn absolute top-0 left-0 mt-4 ml-10' onClick={() => navigate('/travel')}>Go back</button>
                     <div className='block px-24 bg-[#EEEEEB] shadow-xl shadow-gray-950 pb-10 rounded-[20px] w-[50em] border-2 border-slate-600'>
                         <h2 className='text-6xl text-center py-10 font-semibold'>Add Trip</h2>
                         <form onSubmit={handleSubmit}>

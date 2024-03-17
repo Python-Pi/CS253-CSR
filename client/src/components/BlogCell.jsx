@@ -7,7 +7,7 @@ export default function BlogCell(props){
 
     return (
         <>
-            <div className="bg-gray-200 p-4 rounded-lg" style={{ width: "60vw" }}>
+            <div className="bg-gray-200 p-4 rounded-lg" style={{ width: "80vw" }}>
                 <h2>{title}</h2>
                 <div
                     className="content"

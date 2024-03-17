@@ -2,218 +2,271 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-    margin: 0;
-    padding: 0;
-    font-family: "Poppins", sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
 }
 
 /* Navbar CSS */
 
-.Nav-img{
-    width: 75px;
-    height: 75px;
+.Nav-img {
+  width: 75px;
+  height: 75px;
 }
-
 
 /* Login Page CSS */
 
-.login-page{
-    padding-top: 5px;
+.login-page {
+  padding-top: 5px;
 }
 
-.login-page > h1{
-    text-align: center;
+.login-page > h1 {
+  text-align: center;
 }
 
 /* Register Page CSS */
 
-.register-page{
-    padding-top: 5px;
+.register-page {
+  padding-top: 5px;
 }
 
-.register-page > h1{
-    text-align: center;
+.register-page > h1 {
+  text-align: center;
 }
 
 /* Chat Page CSS */
 
-.DashBoard-page{
-    padding-top: 5px;
+.DashBoard-page {
+  padding-top: 5px;
 }
 
 .DashBoard-page > h1 {
-    text-align: center;
+  text-align: center;
 }
 
 .DashBoard-page > h2 {
-    text-align: center;
+  text-align: center;
 }
 
 /* Travel Page CSS */
 
-.travel-page, .trip-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
+.travel-page,
+.trip-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
 }
 
 .travel-page {
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 10px;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 /* Hosted Trips CSS */
 
-.hosted-trips, .trip-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
+.hosted-trips,
+.trip-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
 }
 
-.hosted-trips, .trip {
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 10px;
+.hosted-trips,
+.trip {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 /* Travel Info Page CSS*/
 
 .travel-info .current-display-image-container {
-    width: 300px;
-    height: 300px;
-    overflow: hidden;
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
 }
 
-.travel-info, .current-display-image {
-    width: 100%; 
-    height: 100%;
-    object-fit: cover; 
-    clip-path: inset(10px 20px 30px 40px); 
+.travel-info,
+.current-display-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  clip-path: inset(10px 20px 30px 40px);
 }
 
-.travel-info, .trip-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
+.travel-info,
+.trip-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
 }
 
 .travel-info {
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 10px;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 /* Not found Page */
 
-.not-found{
-    padding-top: 20px;
+.not-found {
+  padding-top: 20px;
 }
 
 .not-found > h1 {
-    text-align: center;
+  text-align: center;
 }
 
-                                                /* Components  */
+/* Components  */
 
 /* Login Form CSS */
 
 .login-form {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
 }
 .login-form .form-boot {
-    max-width: 330px; /* Adjust the max-width as needed */
-    width: 100%;
-    padding: 15px;
-    margin: auto;
-    background-color: rgb(245, 242, 241);
-    border-radius: 10px;
+  max-width: 330px; /* Adjust the max-width as needed */
+  width: 100%;
+  padding: 15px;
+  margin: auto;
+  background-color: rgb(245, 242, 241);
+  border-radius: 10px;
 }
 
-.login-register{
-    margin-top: 16px;
-    font-size: 16px;
-    text-align: center;
+.login-register {
+  margin-top: 16px;
+  font-size: 16px;
+  text-align: center;
 }
 
-.login-register a{
-    color: #007bff;
-    text-decoration: none;
+.login-register a {
+  color: #007bff;
+  text-decoration: none;
 }
 
-.login-register a:hover{
-    color: #0056b3;
+.login-register a:hover {
+  color: #0056b3;
 }
 
 /* Chat Block CSS */
 
-
 .user-message {
-    background-color: #e9e9e9;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 5px 0;
-  }
-  
-  .user {
-    font-weight: bold;
-    color: #007bff; 
-  }
-  
-  .message {
-    margin-left: 10px;
-  }
-  
-  .text-box {
-    display: flex;
-    margin-top: 20px;
-  }
-  
-  .text-box input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px 0 0 5px;
-    outline: none;
-  }
-  
-  .text-box button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-  }
-  
-  .text-box button:hover {
-    background-color: #0056b3;
-  }
+  background-color: #e9e9e9;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px 0;
+}
 
-  .HSbtn {
-    background-color: rgba(0, 0, 255, 0.8); 
-    color: white; 
-    padding: 10px 20px;
-    padding-inline: 30px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 300ms ease-out;
-  }
+.user {
+  font-weight: bold;
+  color: #007bff;
+}
 
-  .HSbtn:hover {
-    background-color: blue; 
-    transform:scale(1.1);
+.message {
+  margin-left: 10px;
+}
+
+.text-box {
+  display: flex;
+  margin-top: 20px;
+}
+
+.text-box input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+
+.text-box button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+
+.text-box button:hover {
+  background-color: #0056b3;
+}
+
+.HSbtn {
+  background-color: rgba(0, 0, 255, 0.8);
+  color: white;
+  padding: 10px 20px;
+  padding-inline: 30px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 300ms ease-out;
+}
+
+.HSbtn:hover {
+  background-color: blue;
+  transform: scale(1.1);
+}
+
+#HSNav {
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(15px);
+}
+
+#HSwel {
+  /* background-image: radial-gradient(
+    circle 976px at 51.2% 51%,
+    rgba(11, 27, 103, 1) 0%,
+    rgba(16, 66, 157, 1) 0%,
+    rgba(11, 27, 103, 1) 17.3%,
+    rgba(11, 27, 103, 1) 58.8%,
+    rgba(11, 27, 103, 1) 71.4%,
+    rgba(16, 66, 157, 1) 100.2%,
+    rgba(187, 187, 187, 1) 100.2%
+  ); */
+}
+
+#HSlogo {
+  animation-name: spin;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  pointer-events: none;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
   }
-  
-  #HSNav {
-    background-color: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(15px);
+  to {
+    transform: rotate(360deg);
   }
+}
+
+#HStext {
+    font-family: monospace;
+    white-space: nowrap;
+    border-right: .01em solid;
+    width: 100%;
+    overflow: hidden;
+    animation: 
+        typing 3.5s infinite,
+        blink-caret .7s step-end infinite;
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: black; }
+}
+
+@keyframes typing {
+    from { width: 0; }
+}

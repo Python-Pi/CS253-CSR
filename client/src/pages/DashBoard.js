@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import NavBarOn from "../components/NavBarOn";
 import TravelCell from "../components/TravelCell";
 import TrainCell from "../components/trainCell";
-
+import logo from "../Assets/logo.png";
+import bg from "../Assets/HSbg.jpeg";
+import "../style/styles.css"
 
 function DashBoard(){
     const navigate = useNavigate();
@@ -174,14 +176,30 @@ function DashBoard(){
             return(
                 <div className="DashBoard-page">
                     <NavBarOn />
-                    <h1 className="pt-32">Hi {info.name}, Welcome to Dashboard Page!</h1>
-                    <div className="text-center mt-4">
-                        <button type="button" className="HSbtn mr-2" onClick={handleTravelClick}>Travel</button>
-                        <button type="button" className="HSbtn" onClick={hanldeClick}>Itinerary</button>
-                    </div>
-
-                    <div className="d-flex justify-content-center">
-                        <button type="button" className="HSbtn" onClick={handleBlog}>Blog</button>
+                    <div className="grid grid-cols-3 pt-52 bg-slate-400 pb-56 bg-fixed bg-no-repeat bg-cover" style={{ backgroundImage: `url(${bg})`}}>
+                        <div className="block text-center py-6 ml-2 flex flex-row justify-center items-center" id="HSwel">
+                            <h1 className="text-black" id="HStext">Welcome {info.name}!</h1>
+                        </div>
+                        <div className="flex flex-row justify-center">
+                            <img src={logo} alt="Himanshu" id="HSlogo"/>
+                        </div>
+                        <div className="text-center mr-2">
+                            <p className="text-3xl font-semibold">What would you like to do?</p>
+                            <div className="flex flex-col items-center">
+                                <div className="flex flex-row justify-between items-center mb-1">
+                                    <p className="text-xl font-semibold pr-6 pt-3">Join/Create Trips:</p>
+                                    <button type="button" className="HSbtn ml-1 min-w-[7.5em]" onClick={handleTravelClick}>Travel</button>
+                                </div>
+                                <div className="flex flex-row justify-between items-center mb-1">
+                                    <p className="text-xl font-semibold pr-3 pt-3">Search for itinerary:</p>
+                                    <button type="button" className="HSbtn min-w-[7.5em] mb-1" onClick={hanldeClick}>Itinerary</button>
+                                </div>
+                                <div className="flex flex-row justify-between items-center mb-1">
+                                    <p className="text-xl font-semibold pr-4 pt-3">View/Create Blogs:</p>
+                                    <button type="button" className="HSbtn min-w-[7.5em]" onClick={handleBlog}>Blog</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
                     <div className="hosted-trips mt-10 mb-5 mx-2">
