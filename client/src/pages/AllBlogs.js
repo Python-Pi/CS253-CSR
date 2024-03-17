@@ -41,14 +41,11 @@ export default function AllBlogs() {
 
         
     useEffect(() => {
-        console.log("Fetching all blogs");
-        console.log(info);
         if(info.loggedIn){
             fetchAllBlogs();
         }
         else
         {
-            console.log("Not logged in");
             if(info.loggedIn === false){
                 navigate('/dashboard');
             }

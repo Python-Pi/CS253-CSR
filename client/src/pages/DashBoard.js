@@ -177,8 +177,6 @@ function DashBoard(){
             navigate('/home');
             return null;
         } else {
-
-
             return(
                 <div className="DashBoard-page">
                     <NavBarOn />
@@ -198,7 +196,7 @@ function DashBoard(){
                                 </div>
                                 <div className="flex flex-row justify-between items-center mb-1">
                                     <p className="text-xl font-semibold pr-3 pt-3">Search for itinerary:</p>
-                                    <button type="button" className="HSbtn min-w-[7.5em] mb-1" onClick={hanldeClick}>Itinerary</button>
+                                    <button type="button" className="HSbtn min-w-[7.5em] mb-1" onClick={handleclick}>Itinerary</button>
                                 </div>
                                 <div className="flex flex-row justify-between items-center mb-1">
                                     <p className="text-xl font-semibold pr-4 pt-3">View/Create Blogs:</p>
@@ -251,21 +249,9 @@ function DashBoard(){
                     </div>
                     {notBookedTrains}
                 </div>
-                }
-            </div>
-
-            <h2 className="font-semibold text-4xl pt-10">Upcoming train journeys</h2>
-            <h4 className="font-semibold pl-2 pt-20">Booked:</h4>
-            <div className="flex flex-row justify-center">
-            </div>
-            {bookedTrains}
-            <h4 className="font-semibold pl-2 pt-20">Not Booked:</h4>
-            <div className="flex flex-row justify-center">
-            </div>
-            {notBookedTrains}
-
-        </div>
-    )
+            );
+        }
+    }
 }
 
 export default DashBoard;
