@@ -1,17 +1,28 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../components/NavBarOff";
 import "../style/home.css";
-
 import rt1 from '../Assets/rt1.png'
 import lt1 from '../Assets/lt1.png'
 import girl from '../Assets/girl.png'
 import boy from '../Assets/boy.png'
 import trvl from '../Assets/trvl.jpg'
-import Footer from "../components/Footer";
-
+import Footer from "../components/Footer"
+import Preloader from "./preloader";
+var flgcnt = 0;
 function Home(){    
+    const [loading,setloading] = useState(true);
+    useEffect(()=>{
+      if(flgcnt != 0) setloading(false);
+    },[])
+    useEffect(()=>{
+      setTimeout(() => {
+      if(flgcnt == 0)
+      setloading(false);
+      flgcnt = flgcnt + 1;
+      },5000)
+    },[])
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
+    
     useEffect(() => {
         const handleResize = () => setWindowWidth(window.innerWidth);
         window.addEventListener('resize', handleResize);
@@ -20,6 +31,8 @@ function Home(){
     }, []);
 
     return (
+        loading ? <Preloader/>:
+        <>
         <div className="home-page">
             <NavBar />
             {windowWidth > 768 ? (
@@ -65,6 +78,7 @@ function Home(){
 
             <Footer />
         </div>
+        </>
     );
 }
 
