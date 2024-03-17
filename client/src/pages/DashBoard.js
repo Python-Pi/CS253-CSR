@@ -170,7 +170,7 @@ function DashBoard(){
             return(
                 <div className="DashBoard-page">
                     <NavBarOn />
-                    <h1 className="pt-32">Hi {info.name}, Welcome to Dashboard Page</h1>
+                    <h1 className="pt-32">Hi {info.name}, Welcome to Dashboard Page!</h1>
                     <div className="text-center mt-4">
                         <button type="button" className="HSbtn mr-2" onClick={handleTravelClick}>Travel</button>
                         <button type="button" className="HSbtn" onClick={hanldeClick}>Itinerary</button>

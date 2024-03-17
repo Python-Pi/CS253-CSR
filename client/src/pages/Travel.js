@@ -57,7 +57,7 @@ function Travel(){
         return(
             <div className="travel-page">
                 <NavBarOn />
-                <h1 className="text-center font-3xl pb-10">Travel Page</h1>
+                <h1 className="text-center font-3xl pb-10 pt-20">Travel Page</h1>
                 <div className="flex flex-row justify-around px-10">
                     <button className="HSbtn btn-primary mt-3 max-w-[20em]" onClick={() => navigate('/addTrip')}>Create a new trip</button>
                     <button className="HSbtn btn-primary mt-3" onClick={() => navigate('/hostedTrips')}>Hosted Trips</button>

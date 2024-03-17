@@ -94,7 +94,7 @@ export default function TrainSearch() {
                     </div>
                 </form>
             </div>
-            <div className="HSTCbody flex flex-col pt-10">
+            <div className="HSTCbody flex flex-col pt-10 ">
                 {!foundTrains && <div>No trains found</div>}
                 {trainList}
             </div>
