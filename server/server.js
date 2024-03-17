@@ -278,7 +278,7 @@ app.get('/api/travel/specificTrip', async(req, res)=>{
 // API for search for Travel
 app.get('/api/travel/searchTrip', async(req, res)=>{
 
-  const term = toLowerCase(req.query.search);
+  const term = req.query.search.toLowerCase();
   const searchTerm = `%${term}%`;
   try {
     const result = await db.query('SELECT * FROM trips WHERE LOWER(trip_name)  like $1 OR LOWER(destination)  like $2', [searchTerm, searchTerm]);
@@ -874,6 +874,74 @@ app.get('/api/train/chats', async(req, res)=>{
   }
 });
 
+app.get('/getAllBlogs', async (req, res) => {
+  console.log("Fetching all blogs");
+  if(req.isAuthenticated)
+  {
+    console.log("Authenticated");
+    try {
+      const result = await db.query('SELECT * FROM blogs');
+      const blogs = result.rows;
+      console.log(blogs);
+      res.json({
+        status: true,
+        success: true,
+        loggedIn: true,
+        blogs: blogs,
+      });
+    } catch (err) {
+      console.error("Error while fetching blogs from database : ",err);
+      res.json({
+        status: true,
+        success: false,
+        loggedIn: true,
+        error: 'There was an error while retrieving blogs from the database',
+      });
+    }
+  }
+  else
+  {
+    res.json({
+      status: true,
+      success: false,
+      loggedIn: false,
+      error: 'User not logged in',
+    });
+  }
+});
+
+app.post('/postBlog', async (req,res)=>{
+  if(req.isAuthenticated)
+  {
+    console.log("Authorised to post blog");
+    try {
+      const { content, title}=req.body;
+      await db.query('INSERT INTO blogs (title, content, user_name) VALUES ($1, $2, $3)', [title, content, req.user.name]);
+      res.json({
+        status: true,
+        success: true,
+        loggedIn: true,
+      });
+    } catch (error) {
+      console.log("Error while posting blog : ", error);
+      res.json({
+        status: true,
+        success: false,
+        loggedIn: true,
+        error: 'There was an error while posting the blog',
+      });
+    }
+  }
+  else
+  {
+    res.json({
+      status: true,
+      success: false,
+      loggedIn: false,
+      error: 'User not logged in',
+    });
+  }
+})
 
 // <------------------------- Pawan Code ends here -------------------->
 

@@ -153,6 +153,10 @@ function DashBoard(){
          fetchUserTrains();
     }, []);
 
+    const handleBlog = () => {
+        navigate('/blogs');
+    }
+
     if (info === null) {
         return <div>Loading...</div>;
     }
@@ -178,7 +182,7 @@ function DashBoard(){
                     </div>
 
                     <div className="d-flex justify-content-center">
-                        <button type="button" className="HSbtn">Blog</button>
+                        <button type="button" className="HSbtn" onClick={handleBlog}>Blog</button>
                     </div>
 
                     <h2 className="text-center">Travel Details</h2>
