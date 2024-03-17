@@ -22,6 +22,22 @@ export default function ChatRoom() {
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
+        fetch(`http://${process.env.REACT_APP_IP}:8000/api/login`, {
+            credentials: 'include'
+        })
+        .then((res) => res.json())
+        .then((data) => setInfo(data));
+    }, []);  
+
+
+    useEffect(()=>{
+        if(info.loggedIn === false){
+            navigate('/dashboard');
+        }
+    }, [info.loggedIn])
+
+
+    useEffect(() => {
         socket.current = io(`ws://${process.env.REACT_APP_IP}:8080`); 
         socket.current.on('message', (message) => {
             console.log(message);
@@ -89,14 +105,6 @@ export default function ChatRoom() {
     };
 
     useEffect(() => {
-        fetch(`http://${process.env.REACT_APP_IP}:8000/api/login`, {
-            credentials: 'include'
-        })
-        .then((res) => res.json())
-        .then((data) => setInfo(data));
-    }, []);  
-
-    useEffect(() => {
         fetch(`http://${process.env.REACT_APP_IP}:8000/api/user/name`, {
             credentials: 'include'
         })
@@ -116,37 +124,32 @@ export default function ChatRoom() {
         });
     }, [train_number, date]);
 
-    if(!info.loggedIn){
-        navigate('/dashboard');
-        return null;
-    } else {
-        return (
-            <div>
-                <h1 className='text-center'>Hi! {username}, Let's Chat</h1>
-                <h2 className='text-center'>Train Number : {train_number}</h2>
-                <h2 className='text-center'>Date of departure : {date}</h2>
-                <ul>
-                    {messages.map((message, index) => {
-                        if (message.message.startsWith(train_number + date)) {
-                            const newMessage = message.message.substring((train_number + date).length);
-                            return (
-                                <li key={index} className="user-message">
-                                    <span className="user">{message.username}:</span>
-                                    <span className="message">{newMessage}</span>
-                                </li>
-                            );
-                        } else {
-                            return null;
-                        }
-                    })}
-                </ul>
-                <input value={message} onChange={e => setMessage(e.target.value)} onKeyDown={handleKeyPress} placeholder="message" />
-                <button className="btn btn-primary mt-3" onClick={handleButtonSend}>Send</button>
+    return (
+        <div>
+            <h1 className='text-center'>Hi! {username}, Let's Chat</h1>
+            <h2 className='text-center'>Train Number : {train_number}</h2>
+            <h2 className='text-center'>Date of departure : {date}</h2>
+            <ul>
+                {messages.map((message, index) => {
+                    if (message.message.startsWith(train_number + date)) {
+                        const newMessage = message.message.substring((train_number + date).length);
+                        return (
+                            <li key={index} className="user-message">
+                                <span className="user">{message.username}:</span>
+                                <span className="message">{newMessage}</span>
+                            </li>
+                        );
+                    } else {
+                        return null;
+                    }
+                })}
+            </ul>
+            <input value={message} onChange={e => setMessage(e.target.value)} onKeyDown={handleKeyPress} placeholder="message" />
+            <button className="btn btn-primary mt-3" onClick={handleButtonSend}>Send</button>
 
-                <div className="d-flex justify-content-center">
-                    <button className="btn btn-primary mt-3" onClick={handleBackPage}>Go Back</button>
-                </div>
+            <div className="d-flex justify-content-center">
+                <button className="btn btn-primary mt-3" onClick={handleBackPage}>Go Back</button>
             </div>
-        );
-    }
+        </div>
+    );
 }
