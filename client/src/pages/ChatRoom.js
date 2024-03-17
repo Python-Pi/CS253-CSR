@@ -7,8 +7,6 @@ export default function ChatRoom() {
     const navigate = useNavigate();
     const socket = useRef(null);
     const location = useLocation();
-    // const [train_number, setTrainNumber] = useState(17208);
-    // const [date, setDate] = useState(null);
 
     let train_number, date;
     try{
@@ -16,16 +14,6 @@ export default function ChatRoom() {
     } catch{
         navigate('/home');
     }
-
-    // useEffect(() => {
-    //     try{
-    //         const { t, d } = location.state;
-    //         setTrainNumber(t);
-    //         setDate(d);
-    //     } catch{
-    //         navigate('/dashboard');
-    //     }
-    // }, []);
     
     const [info, setInfo] = useState({});
     const [message, setMessage] = useState('');

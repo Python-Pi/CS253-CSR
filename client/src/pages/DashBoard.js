@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import NavBarOn from "../components/NavBarOn";
 import TravelCell from "../components/TravelCell";
@@ -55,7 +55,7 @@ function DashBoard(){
     }, [info.loggedIn]);
 
 
-    let trainsData;
+    let trainsData = useRef(null);
     useEffect(() => {
         const fetchUserTrains = async () => {
             let temp1=[];
