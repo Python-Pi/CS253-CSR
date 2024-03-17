@@ -57,33 +57,37 @@ export default function NewBlog(props){
 
     return(
         <div className="blog-container">
-            <div className="header">
+            <div className="header grid grid-cols-3 pt-4 mx-6">
+                <button className="HSbtn max-w-[9em]" onClick={()=>navigate('/blogs')}>DashBoard</button>
                 <h1 className="header-title">New Blog</h1>
-                <button className="btn btn-primary" onClick={()=>navigate('/dashboard')}>DashBoard</button>
+                <div></div>
             </div>
-            <div>
+            <div className="flex flex-row justify-center">
                 <input 
                     type="text" 
-                    className="form-control" 
+                    className="form-control mx-4 mb-4" 
                     placeholder="Enter title here" 
                     onChange={(e)=>setTitle(e.target.value)} 
                     value={title}
                 />
             </div>
-            <div className="content">
-                <div className="input-area">
+            <div className="content flex flex-col">
+                <div className="input-area flex flex-row justify-center">
                     <textarea 
-                    className="form-control"
+                    className="form-control mx-4"
                     placeholder="Enter markdown here"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     ></textarea>
                 </div>
-                <div className="markdown-display">
+                <div className="text-center text-3xl font-medium mt-10">Preview</div>
+                <div className="markdown-display flex flex-row justify-center mx-4">
                     <ReactMarkdown>{content}</ReactMarkdown>
                 </div>
             </div>
-            <button className="btn btn-primary" onClick={handlePost}>Post</button>
+            <div className="flex flex-row justify-center mt-6">
+                <button className="HSbtn" onClick={handlePost}>Post</button>
+            </div>
         </div>
     )
 }

@@ -89,10 +89,12 @@ export default function AllBlogs() {
     // }
     return (
         <div>
-            <button className="btn btn-primary" onClick={() => navigate('/dashboard')}>
-                DashBoard
-            </button>
-            <button className="btn btn-primary" onClick={()=>navigate('/blogs/newBlog')}>New Blog</button>
+            <div className="flex flex-row justify-between pt-4 px-10 pb-10">
+                <button className="HSbtn" onClick={() => navigate('/dashboard')}>
+                    DashBoard
+                </button>
+                <button className="HSbtn" onClick={()=>navigate('/blogs/newBlog')}>New Blog</button>
+            </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
             <input
                 type="text"
@@ -103,9 +105,11 @@ export default function AllBlogs() {
                 onChange={(e) => setSearch(e.target.value)}
             />
             </div>
-            {filteredBlogs.map((blog, index) => (
-                <BlogCell key={index} user_name={blog.user_name} content={blog.content} title={blog.title} date={blog.created_at}/>
-            ))}
+            <div className="grid pt-6 justify-items-center">
+                {filteredBlogs.map((blog, index) => (
+                    <BlogCell key={index} user_name={blog.user_name} content={blog.content} title={blog.title} date={blog.created_at}/>
+                ))}
+            </div>
         </div>
     );  
 }
