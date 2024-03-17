@@ -278,7 +278,7 @@ app.get('/api/travel/specificTrip', async(req, res)=>{
 // API for search for Travel
 app.get('/api/travel/searchTrip', async(req, res)=>{
 
-  const term = toLowerCase(req.query.search);
+  const term = req.query.search.toLowerCase();
   const searchTerm = `%${term}%`;
   try {
     const result = await db.query('SELECT * FROM trips WHERE LOWER(trip_name)  like $1 OR LOWER(destination)  like $2', [searchTerm, searchTerm]);

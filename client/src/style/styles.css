@@ -198,7 +198,7 @@
   }
 
   .HSbtn {
-    background-color: blue; 
+    background-color: rgba(0, 0, 255, 0.8); 
     color: white; 
     padding: 10px 20px;
     padding-inline: 30px;
@@ -209,7 +209,7 @@
   }
 
   .HSbtn:hover {
-    background-color: green; 
+    background-color: blue; 
     transform:scale(1.1);
   }
   
