@@ -115,58 +115,58 @@ export default function ChatRoom() {
         return null;
     } else {
         return (
-            <div>
+                 <div>
                 <div className='bg-white h-[50em] box-border font-serif'>
                     <div className='flex justify-center items-center wpbg min-h-[100%]'>
-                        <div className='relative w-[1396px] max-w-[100%] h-[calc(100vh-40px)] bg-white sshdw overflow-x-hidden'>
-                <div className='relative flex w-full h-[60px]
-      bg-[#ededed] '>
-        <div className='w-[80px]'>
-         <img src={dp4} className='ssrch h-[50px] w-[60px] pl-[15px] pt-[8px]'/>
+                        <div className='relative w-[87.25em] max-w-[100%] h-[calc(100vh-2.53em)] bg-white sshdw overflow-x-auto'>
+                <div className='relative flex w-full h-[3.75em]
+      bg-[#ededed]'>
+        <div className='w-[5em]'>
+         <img src={dp4} className='ssrch h-[3.2em] w-[3.8em] pl-[0.93em] pt-[0.5em]'/>
         </div>
-        <div className='w-[290px] font-sans'>
-        <div className='h-40px text-xl'>Train Number {train_number}</div>
-        <div className='h-20px text-sm'>10 members, {date}</div>
+        <div className='w-[18em] font-sans'>
+        <div className='h-[1.5em] pt-1 text-xl'>Train number {train_number}</div>
+        <div className='h-[1.25em] pt-[0.04em] text-sm'>10 members, {date}</div>
         </div>
       </div>
-      <div className='relative w-full h-[calc(100%-120px)] pt-[20px] overflow-y-auto overflow-x-hidden'>
+      <div className='relative w-full h-[calc(100%-7.5em)] pt-[1.25em] overflow-x-hidden overflow-y-auto'>
                 <ul>
+                
                     {messages.map((message, index) => {
                         if (message.message.startsWith(train_number + date)) {
                             const newMessage = message.message.substring((train_number + date).length);
                             if(username == message.username) return (<>
-                                <li key={index} className="">
-                                <div className='relative w-full pl-[1050px] ml-1 mt-[5px] mb-[5px]'>
+                               <li key={index} className="">
+                                <div className='relative w-full pl-[66.5em] ml-1 mt-[0.3em] mb-[0.3em]'>
                                 <div className='flex -mb-2'>
                                 <div className='rounded-[50%] w-2 h-2 mt-2 mr-2 bg-[rgb(101,209,119)]'></div>
-                                <p className='mb-[-2px] mr-2'>{message.username}</p>
-                                <p className='mb-[-15px] text-gray-500'>12:15</p>
+                                <p className='mb-[-0.13em] mr-2'>{message.username}</p>
+                                <p className='mb-[-0.93em] text-gray-500'>12:15</p>
                                 </div>
                                     <span class="top-bot"></span>
                                     <span class="top-bot top-bot-border"></span>
-                                    <p  className='flex justify relative right-0 mb-[15px] text-justify max-w-[17em] p-[12px] bg-[rgb(101,209,119)] rounded-lg break-words'>{newMessage}</p>
-                                    </div> 
+                                    <p  className='justify relative right-0 mb-[0.93em] text-justify w-[17em] p-[0.75em] bg-[rgb(101,209,119)] rounded-lg overflow-hidden break-words h-fit'>{newMessage}</p>
+                                    </div>
                                 </li>
                                </>
                                     // </div>
                                     
                             );
                             else return (<>
-                                <li key={index} className="">
-                                <div className='relative w-full pl-[10px] ml-1 mt-[5px] mb-[5px]'>
+                                 <li key={index} className="">
+                                 <div className='relative w-full mt-[0.3em] -ml-3 mb-[0.3em]'>
                                 <div className='flex -mb-2'>
                                 <div className='rounded-[50%] w-2 h-2 mt-2 mr-2 bg-[#5dbff6]'></div>
-                                <p className='mb-[-2px] mr-2'>{message.username}</p>
-                                <p className='mb-[-15px] text-gray-500'>12:15</p>
+                                <p className='mb-[-0.13em] mr-2'>{message.username}</p>
+                                <p className='mb-[-0.93em] text-gray-500'>12:15</p>
                                 </div>
                                     <span class="top-bot1"></span>
                                     <span class="top-bot1 top-bot-border"></span>
-                                    <p  className='flex justify relative right-0 mb-[15px] text-justify max-w-[17em] p-[12px] bg-[#5dbff6] rounded-lg break-words'>{newMessage}</p>
+                                    <p  className='flex justify relative right-0 mb-[0.93em] text-justify w-[17em] p-[0.75em] bg-[#5dbff6] rounded-lg break-words'>{newMessage}</p>
                                     </div> 
                                 </li>
                                </>
                                     // </div>
-                                    
                             );
                         } else {
                             return null;
@@ -174,8 +174,8 @@ export default function ChatRoom() {
                     })}
                 </ul>
       </div>
-             <div className='relative w-full h-[60px] sinp justify-between flex p-[5px] bg-[#f0f0f0] items-center'>
-            <input value={message} onChange={e => setMessage(e.target.value)} onKeyDown={handleKeyPress} className='relative w-[90%]  rounded-[30px] text-[1em] pl-4 h-[45px]' placeholder='Type your message'/>
+             <div className='relative w-full h-[3.75em] sinp justify-between flex p-[0.3em] bg-[#f0f0f0] items-center'>
+            <input value={message} onChange={e => setMessage(e.target.value)} onKeyDown={handleKeyPress} className='relative w-[90%]  rounded-[1.8em] text-[1em] pl-4 h-[2.8em]' placeholder='Type your message'/>
              </div> 
                 </div>
                 </div>

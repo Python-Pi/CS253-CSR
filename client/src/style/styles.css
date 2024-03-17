@@ -198,14 +198,14 @@
   }
   
   .wpbg{
-    background: linear-gradient( #009688 0%,#009688 130px,#d9dbd5 130px,#d9dbd5 100%)
+    background: linear-gradient( #009688 0%,#009688 8em,#d9dbd5 8em,#d9dbd5 100%)
     }
     .sshdw{
-      box-shadow: 0 1px 1px 0 rgba(0,0,0,0.06,0 2px 5px 0 rgba(0,0,0,0.06));
+      box-shadow: 0 0.625em 0.625em 0 rgba(0,0,0,0.06,0 1.3em 3.1em 0 rgba(0,0,0,0.06));
     }
     .lt1{
       background: rgb(67,74,94);
-      border-right: solid 1px #000;
+      border-right: solid 0.6em #000;
     }
     .wpbg1{
       background: #e5ddd5 ;
@@ -215,29 +215,29 @@
     }
     .top-bot{
       position:relative;
-      top:-5px;
-      right:-20px;
+      top:-0.4em;
+      right:-1.25em;
       width:0;
       height:0;
-      border-width:10px;
+      border-width:0.6em;
       border-style:solid;
       border-color:transparent transparent rgb(101,209,119) transparent; 
     }
     .top-bot-border{
-      top:-18px;
+      top:-1.13em;
       border-color:transparent transparent  transparent; 
     }
     .top-bot1{
         position:relative;
-        top:-5px;
-        right:-20px;
+        top:-0.4em;
+        right:-1.25em;
         width:0;
         height:0;
-        border-width:10px;
+        border-width:0.63em;
         border-style:solid;
         border-color:transparent transparent #5dbff6 transparent; 
       }
       .top-bot-border{
-        top:-18px;
+        top:-1.1em;
         border-color:transparent transparent  transparent; 
       }
