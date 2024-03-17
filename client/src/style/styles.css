@@ -52,14 +52,14 @@
 
 /* Travel Page CSS */
 
-.travel-page .trip-list {
+.travel-page, .trip-list {
     display: flex;
     flex-direction: column;
     gap: 20px;
     padding: 20px;
 }
 
-.travel-page .trip {
+.travel-page {
     border: 1px solid #ddd;
     padding: 20px;
     border-radius: 10px;
@@ -67,14 +67,14 @@
 
 /* Hosted Trips CSS */
 
-.hosted-trips .trip-list {
+.hosted-trips, .trip-list {
     display: flex;
     flex-direction: column;
     gap: 20px;
     padding: 20px;
 }
 
-.hosted-trips .trip {
+.hosted-trips, .trip {
     border: 1px solid #ddd;
     padding: 20px;
     border-radius: 10px;
@@ -88,21 +88,21 @@
     overflow: hidden;
 }
 
-.travel-info .current-display-image {
+.travel-info, .current-display-image {
     width: 100%; 
     height: 100%;
     object-fit: cover; 
     clip-path: inset(10px 20px 30px 40px); 
 }
 
-.travel-info .trip-list {
+.travel-info, .trip-list {
     display: flex;
     flex-direction: column;
     gap: 20px;
     padding: 20px;
 }
 
-.travel-info .trip {
+.travel-info {
     border: 1px solid #ddd;
     padding: 20px;
     border-radius: 10px;
@@ -198,7 +198,7 @@
   }
 
   .HSbtn {
-    background-color: blue; 
+    background-color: rgba(0, 0, 255, 0.8); 
     color: white; 
     padding: 10px 20px;
     padding-inline: 30px;
@@ -209,7 +209,11 @@
   }
 
   .HSbtn:hover {
-    background-color: green; 
+    background-color: blue; 
     transform:scale(1.1);
   }
   
+  #HSNav {
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(20px);
+  }

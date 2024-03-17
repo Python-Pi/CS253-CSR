@@ -170,8 +170,7 @@ function DashBoard(){
             return(
                 <div className="DashBoard-page">
                     <NavBarOn />
-                    <h1>Hi {info.name}, Welcome to Dashboard Page</h1>
-                    <h2>Logged In</h2>
+                    <h1 className="pt-32">Hi {info.name}, Welcome to Dashboard Page</h1>
                     <div className="text-center mt-4">
                         <button type="button" className="HSbtn mr-2" onClick={handleTravelClick}>Travel</button>
                         <button type="button" className="HSbtn" onClick={hanldeClick}>Itinerary</button>
@@ -180,13 +179,10 @@ function DashBoard(){
                     <div className="d-flex justify-content-center">
                         <button type="button" className="HSbtn">Blog</button>
                     </div>
-
-                    <h2 className="text-center">Travel Details</h2>
                     
-
-                    <div className="hosted-trips">
-                        <h1 className="text-center">Hosted Trips</h1>
-                        <div className="trip-list hosted-trips">
+                    <div className="hosted-trips mt-10 mb-5 mx-2">
+                        <h1 className="text-center font-semibold">Hosted Trips</h1>
+                        <div className="trip-list">
                         {hostedTrips.map((trip, index) => (
                             <TravelCell 
                                 key={index} 
@@ -200,9 +196,9 @@ function DashBoard(){
                         </div>
                     </div>
 
-                    <div className="hosted-trips">
-                        <h1 className="text-center">Joined Trips</h1>
-                        <div className="trip-list hosted-trips">
+                    <div className="hosted-trips mx-2">
+                        <h1 className="text-center font-semibold">Joined Trips</h1>
+                        <div className="trip-list">
                         {joinedTrips.map((trip, index) => (
                             <TravelCell 
                                 key={index} 
@@ -217,7 +213,7 @@ function DashBoard(){
                         </div>
                     </div>
 
-                    <h2 className="font-semibold text-4xl">Upcoming train journeys</h2>
+                    <h2 className="font-semibold text-4xl pt-10">Upcoming train journeys</h2>
                     <h4 className="font-semibold pl-2 pt-20">Booked:</h4>
                     <div className="flex flex-row justify-center">
                     </div>

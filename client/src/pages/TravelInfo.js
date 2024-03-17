@@ -46,30 +46,26 @@ export default function TravelInfo() {
         const imgUrl = `http://${process.env.REACT_APP_IP}:8000${selectTrip.image_url}`;
         return (
             <div className="travel-info">
-                <h1 className='text-center'>{trip_name}</h1>
-                <h2 className='text-center'>Destination : {destination}</h2>
-    
-                <div className="d-flex justify-content-center current-display-image-container ">
-                    <img className='current-display-image' src={imgUrl} alt='current-display'></img>
+                <div className="flex justify-start pl-8 sticky">
+                    <button className="HSbtn" onClick={() => navigate('/travel')}>Go Back</button>
                 </div>
+                <h1 className='text-center text-5xl font-semibold'>{trip_name}</h1>
+                <h2 className='text-center text-4xl font-semibold'>Destination : {destination}</h2>
 
-                <div className="trip-list">
-                    <div  className="trip">
-                        <h2>{selectTrip.trip_name}</h2>
-                        <p>Destination: {selectTrip.destination}</p>
-                        <p>Start Date: {moment(selectTrip.start_date).format('DD-MM-YYYY')}</p>
-                        <p>End Date: {moment(selectTrip.end_date).format('DD-MM-YYYY')}</p>
-                        <p>Amount: {selectTrip.amount}</p>
-                        <p>Details: {selectTrip.details}</p>
-                        <p>Created By: {selectTrip.user_name}</p>
+                <div className="HStrip-list flex flex-row justify-between block border-2 border-slate-600 shadow-md shadow-slate-600 rounded-xl ml-6 p-4">
+                    <div className="HStrip pl-6">
+                        <h2 className='text-4xl font-semibold pb-4'>{selectTrip.trip_name}</h2>
+                        <p className='text-xl font-medium'>Destination: {selectTrip.destination}</p>
+                        <p className='text-xl font-medium'>Start Date: {moment(selectTrip.start_date).format('DD-MM-YYYY')}</p>
+                        <p className='text-xl font-medium'>End Date: {moment(selectTrip.end_date).format('DD-MM-YYYY')}</p>
+                        <p className='text-xl font-medium'>Amount: {selectTrip.amount}</p>
+                        <p className='text-xl font-medium'>Details: {selectTrip.details}</p>
+                        <p className='text-xl font-medium'>Created By: {selectTrip.user_name}</p>
                     </div>
+                    <img className='current-display-image max-w-[20em] max-h-[22em] pr-6' src={imgUrl} alt='current-display'></img>
                 </div>
 
                 <RenderStatus userStatus={userStatus} trip_name={trip_name} destination={destination}/>
-
-                <div className="d-flex justify-content-center">
-                    <button className="btn btn-primary mt-3" onClick={() => navigate('/travel')}>Go Back</button>
-                </div>
             </div>
         );
     }

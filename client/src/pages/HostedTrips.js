@@ -36,7 +36,7 @@ export default function HostedTrips(props){
         } else {
             return(
                 <div className="hosted-trips">
-                    <h1 className="text-center">Hosted Trips</h1>
+                    <h1 className="text-center text-5xl font-semibold">Hosted Trips</h1>
                     <div className="trip-list hosted-trips">
                     {hostedTrips.map((trip, index) => (
                          <TravelCell 
@@ -52,7 +52,7 @@ export default function HostedTrips(props){
 
                     {!props.showButton && (
                         <div className="d-flex justify-content-center">
-                            <button className="btn btn-primary mt-3" onClick={() => navigate('/travel')}>Go Back</button>
+                            <button className="HSbtn mt-3" onClick={() => navigate('/travel')}>Go Back</button>
                         </div>
                     )}
                 </div>

@@ -29,17 +29,18 @@ export default function RenderStatus(info) {
         };
         return (
             <div>
-                <h1 className="text-center">Joined</h1>
-                <div className="d-flex justify-content-center">
-                    <button className="btn btn-primary mt-3" onClick={handleChatServer}>
+                <div className="absolute top-0 right-0 pt-[0.3em] pr-10">
+                    <button className="HSbtn mt-3" onClick={handleChatServer}>
                         Join Chat Server
                     </button>      
                 </div>
-                <h2 className="text-center my-4">Joined Users</h2>
-                <ul className="list-group">
+                <h2 className="text-center my-4 text-4xl font-semibold pt-10">Joined Users</h2>
+                <ul className="list-group flex flex-col pb-10">
                     {otherUsers.map((user, index) => (
-                        <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
-                            {user.user_name}
+                        <li key={index} className="block border-1 p-2 px-4 rounded-md border-slate-600 py-2 flex flex-row justify-between my-2 mx-5">
+                            <div className='text-2xl'>
+                                {user.user_name}
+                            </div>
                         </li>
                     ))}
                 </ul>
@@ -49,9 +50,9 @@ export default function RenderStatus(info) {
     } else if (info.userStatus === "applied"){
         return (
             <div>
-                <h1 className="text-center">Applied</h1>
-                <h3 className="text-center"> Application Pending</h3>
-                <p className="text-center"> Please contact the Journey Initiator if it's taking too long.</p>
+                <h1 className="text-center pb-1">Applied</h1>
+                <h3 className="text-center py-1"> Application Pending...</h3>
+                <p className="text-center py-1"> Please contact the Journey Initiator if it's taking too long!</p>
             </div>
         )
 
@@ -76,9 +77,8 @@ export default function RenderStatus(info) {
         }
         return (
             <div>
-                <h1 className="text-center">New</h1>
-                <div className="d-flex justify-content-center">
-                        <button className="btn btn-primary mt-3" onClick={applyToJoin}>Apply to Join</button>
+                <div className="flex absolute top-0 right-0 pt-[1.3em] pr-10">
+                        <button className="HSbtn" onClick={applyToJoin}>Apply to Join</button>
                 </div>
             </div>
         )
