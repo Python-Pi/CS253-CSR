@@ -16,7 +16,7 @@ function DashBoard(){
 
     const [bookedTrains, setBookedTrains] = useState([]);
     const [notBookedTrains, setNotBookedTrains] = useState([]);
-    const hanldeClick = () => {
+    const handleclick = () => {
         navigate('/dashboard/itinerary/train');
     }
 
@@ -31,6 +31,12 @@ function DashBoard(){
         .then((res) => res.json())
         .then((data) => setMessage(data));
     }, []);    
+
+    useEffect(()=>{
+        if(info.loggedIn === false){
+            navigate('/home');
+        }
+    }, [info.loggedIn])
 
     useEffect(() => {
         if(!info.loggedIn){
@@ -244,11 +250,22 @@ function DashBoard(){
                     <div className="flex flex-row justify-center">
                     </div>
                     {notBookedTrains}
-
                 </div>
-            )
-        }
-    }
+                }
+            </div>
+
+            <h2 className="font-semibold text-4xl pt-10">Upcoming train journeys</h2>
+            <h4 className="font-semibold pl-2 pt-20">Booked:</h4>
+            <div className="flex flex-row justify-center">
+            </div>
+            {bookedTrains}
+            <h4 className="font-semibold pl-2 pt-20">Not Booked:</h4>
+            <div className="flex flex-row justify-center">
+            </div>
+            {notBookedTrains}
+
+        </div>
+    )
 }
 
 export default DashBoard;
