@@ -34,7 +34,7 @@ export default function ChatRoom() {
         if(info.loggedIn === false){
             navigate('/dashboard');
         }
-    }, [info.loggedIn])
+    }, [info.loggedIn, navigate])
 
 
     useEffect(() => {

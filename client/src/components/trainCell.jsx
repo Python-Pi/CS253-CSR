@@ -41,7 +41,6 @@ function TrainCell(props) {
     } catch (error) {
         console.error("Error while sending request to /addNotBookedUser: ", error);
     }
-    window.location.reload();
   }
 
   const handleBooked= async ()=>{
@@ -71,7 +70,6 @@ function TrainCell(props) {
     } catch (error) {
         console.error("Error while sending request to /addBookedUser: ", error);
     }
-    window.location.reload();
   }
 
   const handleUnEnroll= async ()=>{
@@ -102,7 +100,6 @@ function TrainCell(props) {
     } catch (error) {
       console.log("Some error occured while removing user from train " , error)
     }
-    window.location.reload();
   }
 
   const handleChatButton= async ()=>{

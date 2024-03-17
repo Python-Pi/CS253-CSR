@@ -53,7 +53,7 @@ export default function NewBlog(props){
         if(info.loggedIn === false){
             navigate('/dashboard');
         }
-    }, [info.loggedIn])
+    }, [info.loggedIn, navigate])
 
     return(
         <div className="blog-container">

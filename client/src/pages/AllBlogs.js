@@ -50,7 +50,7 @@ export default function AllBlogs() {
                 navigate('/dashboard');
             }
         }
-    },[info.loggedIn]);
+    },[info.loggedIn, navigate]);
 
     useEffect(() => {
         const results = blogs.filter(blog =>

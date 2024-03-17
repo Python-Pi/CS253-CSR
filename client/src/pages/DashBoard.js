@@ -16,6 +16,7 @@ function DashBoard(){
 
     const [bookedTrains, setBookedTrains] = useState([]);
     const [notBookedTrains, setNotBookedTrains] = useState([]);
+
     const handleclick = () => {
         navigate('/dashboard/itinerary/train');
     }
@@ -36,7 +37,7 @@ function DashBoard(){
         if(info.loggedIn === false){
             navigate('/home');
         }
-    }, [info.loggedIn])
+    }, [info.loggedIn, navigate])
 
     useEffect(() => {
         if(!info.loggedIn){
@@ -63,12 +64,11 @@ function DashBoard(){
     }, [info.loggedIn]);
 
 
-    let trainsData = useRef(null);
     useEffect(() => {
         const fetchUserTrains = async () => {
             let temp1=[];
             let temp2=[];
-            console.log("fetching user trains");
+            let trainsData = null;
             try {
                 const response = await fetch(`http://${process.env.REACT_APP_IP}:8000/getUserTrains`, {
                     method: "POST",
@@ -76,13 +76,11 @@ function DashBoard(){
                         "Content-Type": "application/json"
                     },
                     credentials: 'include',
-                });
-
+                })
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
                 trainsData = await response.json();
-                console.log(trainsData);
                 if(trainsData.success){
                     const bookedList= trainsData.data.booked;
                     const notBookedList= trainsData.data.notBooked;
