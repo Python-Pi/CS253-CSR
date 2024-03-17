@@ -497,8 +497,8 @@ app.get('/api/travel/chats', async(req, res)=>{
 });
 
 // API for logging out user 
-app.get('/api/logout', (req, res)=>{
-  req.logout();
+app.get('/api/logout', (req, res) => {
+  req.logOut();
   res.redirect(addr + '/home');
 });
 
@@ -875,10 +875,8 @@ app.get('/api/train/chats', async(req, res)=>{
 });
 
 app.get('/getAllBlogs', async (req, res) => {
-  console.log("Fetching all blogs");
   if(req.isAuthenticated)
   {
-    console.log("Authenticated");
     try {
       const result = await db.query('SELECT * FROM blogs');
       const blogs = result.rows;

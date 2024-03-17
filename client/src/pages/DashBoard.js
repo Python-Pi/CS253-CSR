@@ -14,7 +14,7 @@ function DashBoard(){
 
     const [bookedTrains, setBookedTrains] = useState([]);
     const [notBookedTrains, setNotBookedTrains] = useState([]);
-    const hanldeClick = () => {
+    const handleclick = () => {
         navigate('/dashboard/itinerary/train');
     }
 
@@ -29,6 +29,12 @@ function DashBoard(){
         .then((res) => res.json())
         .then((data) => setMessage(data));
     }, []);    
+
+    useEffect(()=>{
+        if(info.loggedIn === false){
+            navigate('/home');
+        }
+    }, [info.loggedIn])
 
     useEffect(() => {
         if(!info.loggedIn){
@@ -157,80 +163,69 @@ function DashBoard(){
         navigate('/blogs');
     }
 
-    if (info === null) {
-        return <div>Loading...</div>;
-    }
+    return(
+        <div className="DashBoard-page">
+            <NavBarOn />
+            <h1 className="pt-32">Hi {info.name}, Welcome to Dashboard Page</h1>
+            <div className="text-center mt-4">
+                <button type="button" className="HSbtn mr-2" onClick={handleTravelClick}>Travel</button>
+                <button type="button" className="HSbtn" onClick={handleclick}>Itinerary</button>
+            </div>
 
-    if(!info.status){
-        navigate('/home');
-        return null;
-    } else {
-        if(!info.loggedIn){
-            navigate('/home');
-            return null;
-        } else {
+            <div className="d-flex justify-content-center">
+                <button type="button" className="HSbtn" onClick={handleBlog}>Blog</button>
+            </div>
+            
+            <div className="hosted-trips mt-10 mb-5 mx-2">
+                <h1 className="text-center font-semibold">Hosted Trips</h1>
 
+                {info.loggedIn && 
+                <div className="trip-list">
+                    {hostedTrips.map((trip, index) => (
+                        <TravelCell 
+                            key={index} 
+                            trip_name={trip.trip_name} 
+                            destination={trip.destination} 
+                            start_date={trip.start_date} 
+                            end_date={trip.end_date} 
+                            amount={trip.amount} 
+                        />
+                    ))}
+                </div>}
+            </div>
 
-            return(
-                <div className="DashBoard-page">
-                    <NavBarOn />
-                    <h1 className="pt-32">Hi {info.name}, Welcome to Dashboard Page</h1>
-                    <div className="text-center mt-4">
-                        <button type="button" className="HSbtn mr-2" onClick={handleTravelClick}>Travel</button>
-                        <button type="button" className="HSbtn" onClick={hanldeClick}>Itinerary</button>
-                    </div>
+            <div className="hosted-trips mx-2">
+                <h1 className="text-center font-semibold">Joined Trips</h1>
 
-                    <div className="d-flex justify-content-center">
-                        <button type="button" className="HSbtn" onClick={handleBlog}>Blog</button>
-                    </div>
-                    
-                    <div className="hosted-trips mt-10 mb-5 mx-2">
-                        <h1 className="text-center font-semibold">Hosted Trips</h1>
-                        <div className="trip-list">
-                        {hostedTrips.map((trip, index) => (
-                            <TravelCell 
-                                key={index} 
-                                trip_name={trip.trip_name} 
-                                destination={trip.destination} 
-                                start_date={trip.start_date} 
-                                end_date={trip.end_date} 
-                                amount={trip.amount} 
-                            />
-                        ))}
-                        </div>
-                    </div>
-
-                    <div className="hosted-trips mx-2">
-                        <h1 className="text-center font-semibold">Joined Trips</h1>
-                        <div className="trip-list">
-                        {joinedTrips.map((trip, index) => (
-                            <TravelCell 
-                                key={index} 
-                                trip_name={trip.trip_name} 
-                                destination={trip.destination} 
-                                start_date={trip.start_date} 
-                                end_date={trip.end_date} 
-                                amount={trip.amount} 
-                                
-                            />
-                        ))}
-                        </div>
-                    </div>
-
-                    <h2 className="font-semibold text-4xl pt-10">Upcoming train journeys</h2>
-                    <h4 className="font-semibold pl-2 pt-20">Booked:</h4>
-                    <div className="flex flex-row justify-center">
-                    </div>
-                    {bookedTrains}
-                    <h4 className="font-semibold pl-2 pt-20">Not Booked:</h4>
-                    <div className="flex flex-row justify-center">
-                    </div>
-                    {notBookedTrains}
-
+                {info.loggedIn &&
+                <div className="trip-list">
+                {joinedTrips.map((trip, index) => (
+                    <TravelCell 
+                        key={index} 
+                        trip_name={trip.trip_name} 
+                        destination={trip.destination} 
+                        start_date={trip.start_date} 
+                        end_date={trip.end_date} 
+                        amount={trip.amount} 
+                        
+                    />
+                ))}
                 </div>
-            )
-        }
-    }
+                }
+            </div>
+
+            <h2 className="font-semibold text-4xl pt-10">Upcoming train journeys</h2>
+            <h4 className="font-semibold pl-2 pt-20">Booked:</h4>
+            <div className="flex flex-row justify-center">
+            </div>
+            {bookedTrains}
+            <h4 className="font-semibold pl-2 pt-20">Not Booked:</h4>
+            <div className="flex flex-row justify-center">
+            </div>
+            {notBookedTrains}
+
+        </div>
+    )
 }
 
 export default DashBoard;
