@@ -124,6 +124,7 @@ function TrainCell(props) {
       else
       {
         console.log("Cannot go to chat room : ",data);
+        alert("Enroll in the train to chat!");
       }
     } catch (error) {
       console.log("Some error occured while validating request " , error)

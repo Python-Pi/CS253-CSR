@@ -135,7 +135,7 @@ export default function ChatRoom() {
                     {messages.map((message, index) => {
                         if (message.message.startsWith(train_number + date)) {
                             const newMessage = message.message.substring((train_number + date).length);
-                            if(username == message.username) return (<>
+                            if(username === message.username) return (<>
                                <li key={index} className="">
                                 <div className='relative w-full pl-[66.5em] ml-1 mt-[0.3em] mb-[0.3em]'>
                                 <div className='flex -mb-2'>
@@ -148,9 +148,7 @@ export default function ChatRoom() {
                                     <p  className='justify relative right-0 mb-[0.93em] text-justify w-[17em] p-[0.75em] bg-[rgb(101,209,119)] rounded-lg overflow-hidden break-words h-fit'>{newMessage}</p>
                                     </div>
                                 </li>
-                               </>
-                                    // </div>
-                                    
+                               </>                                    
                             );
                             else return (<>
                                  <li key={index} className="">
@@ -166,7 +164,6 @@ export default function ChatRoom() {
                                     </div> 
                                 </li>
                                </>
-                                    // </div>
                             );
                         } else {
                             return null;

@@ -15,7 +15,6 @@ import "../style/TrainSearch.css";
 export default function TrainSearch() {
     const navigate = useNavigate();
     const [origin, setOrigin] = useState("");
-    const [originCode, setOriginCode] = useState(""); 
     const [destination, setDestination] = useState("");
     const [dateOfTravel, setDateOfTravel] = useState("");
     const [trainList, setTrainList] = useState([]);
@@ -43,10 +42,14 @@ export default function TrainSearch() {
         }))
         );
     }, []);
+
+    const handleButtonPress = () => {
+        console.log(origin);
+        console.log(destination);
+        console.log(dateOfTravel);
+        console.log(1234);
+    };
     
-    const handleClick = () => {
-        navigate('/dashboard');
-    }
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = {
@@ -77,7 +80,7 @@ export default function TrainSearch() {
                 alert("We are facing issues at the server. Please try again later.");
                 navigate('/dashboard');
             }
-            if(!data.success || origin == null || destination == null || dateOfTravel == null){
+            if(!data.success || origin === null || destination === null || dateOfTravel === null){
                 setFoundTrains(false);
                 setTrainList([]);
             }
@@ -87,6 +90,7 @@ export default function TrainSearch() {
                 setTrainList(data.data.map((train, index) => <TrainCell key={index} train={train} date={dateOfTravel} origin={origin} destination={destination} />
                 ));
             }
+            window.scrollTo(0, 300);
         } catch (error) {
             console.log("Error while fetching data from api/getTrainsBetweenStations");
         }
@@ -133,6 +137,7 @@ export default function TrainSearch() {
                         <label htmlFor="from">From</label>
                         <Select
                             options={train_options}
+                            onChange={(e) => setOrigin(e.value)}
                             styles={{
                             control: (baseStyles, state) => ({
                                 ...baseStyles,
@@ -151,6 +156,7 @@ export default function TrainSearch() {
                         <label htmlFor="to">To</label>
                         <Select
                             options={train_options}
+                            onChange={(e) => setDestination(e.value)}
                             styles={{
                             control: (baseStyles, state) => ({
                                 ...baseStyles,
@@ -167,7 +173,11 @@ export default function TrainSearch() {
                         </div>
                         <div className=" box date-box">
                         <label htmlFor="date">Departure</label>
-                        <input className="pankaj-input" type="date" name="date" />
+                        <input 
+                            onChange={(e) => setDateOfTravel(e.target.value)}
+                            className="pankaj-input" 
+                            type="date" 
+                            name="date" />
                         </div>
                     </div>
 
@@ -175,11 +185,16 @@ export default function TrainSearch() {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         className="submit-button"
+                        onClick={handleSubmit}
                     >
                         search
                     </motion.button>
                     </div>
                 </div>
+                <div className="HSTCbody flex flex-col pt-10 ">
+                    {!foundTrains && <div>No trains found</div>}
+                    {trainList}
+                </div> 
         </div>
     );
 }

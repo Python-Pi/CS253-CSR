@@ -1,6 +1,5 @@
 import React from 'react'
 import "../style/preloader.css"
-import { Link } from 'react-router-dom'
 
 function Preloader() {
   return (

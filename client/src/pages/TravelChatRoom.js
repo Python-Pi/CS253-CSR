@@ -141,7 +141,7 @@ export default function TravelChatRoom() {
                     {messages.map((message, index) => {
                         if (message.message.startsWith(trip_name + destination)) {
                             const newMessage = message.message.substring((trip_name + destination).length);
-                            if(username == message.username) return (<>
+                            if(username === message.username) return (<>
                                 <li key={index} className="">
                                 <div className='relative w-full pl-[66.5em] ml-1 mt-[0.3em] mb-[0.3em]'>
                                 <div className='flex -mb-2'>

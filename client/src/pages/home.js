@@ -12,11 +12,11 @@ var flgcnt = 0;
 function Home(){    
     const [loading,setloading] = useState(true);
     useEffect(()=>{
-      if(flgcnt != 0) setloading(false);
+      if(flgcnt !== 0) setloading(false);
     },[])
     useEffect(()=>{
       setTimeout(() => {
-      if(flgcnt == 0)
+      if(flgcnt === 0)
       setloading(false);
       flgcnt = flgcnt + 1;
       },5000)
@@ -72,7 +72,7 @@ function Home(){
                 </div>
             ) : (
                 <div className="home-small">
-                    <h1>Small Screen Content</h1>
+                    <h1>Login to access the website</h1>
                 </div>
             )}
 
