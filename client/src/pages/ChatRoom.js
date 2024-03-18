@@ -187,7 +187,7 @@ export default function ChatRoom() {
                 <div className="w-[10%] pl-[1em] ">
                   <IoSend
                     className="size-[20%] hover:cursor-pointer hover:scale-[1.1]"
-                    onClick={handleKeyPress}
+                    onClick = {handleKeyPress}
                   />
                 </div>
               </div>
