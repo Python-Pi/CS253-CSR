@@ -243,7 +243,8 @@ export default function TrainSearch() {
             </div>
               {
                 loading ?
-                <div className="sploader ml-[47.5em]">
+                <div className="sploader ml-[4em]">
+                
                 </div>
                  : 
                  <div className="HSTCbody flex flex-col pt-10"> 
