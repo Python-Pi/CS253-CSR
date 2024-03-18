@@ -133,7 +133,8 @@ function TrainCell(props) {
 
   return (
     <div className="train border-2 border-slate-600 shadow-md shadow-slate-600">
-            <h3 className="name">Train Number: ({train.train_base.train_no})</h3>
+            <h3 className="name">{train.train_base.train_name} : ({train.train_base.train_no})</h3>
+            <h4 className="name">Date : {date}</h4>
             <div className="details">
                 <div className="train-text">
                 <div className="departure pt-3">

@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import NavBarOn from "../components/NavBarOn";
 import TravelCell from "../components/TravelCell";
 import TrainCell from "../components/trainCell";
-import logo from "../Assets/logo.png";
-import bg from "../Assets/HSbg.jpeg";
+import logo from "../Assets/logo-no-background copy.png";
+import bg from "../Assets/dashboard_bg.jpeg"
 import "../style/styles.css"
 
 function DashBoard(){
@@ -107,6 +107,7 @@ function DashBoard(){
                                         dstn_stn_code: bookedList[i].to_station,
                                         notBooked: data.data.yet_to_book,
                                         confirmed: data.data.booked,
+                                        train_name: data.data.train_name,
                                     }
                                 }
                                 console.log(train);
@@ -141,6 +142,7 @@ function DashBoard(){
                                         dstn_stn_code: notBookedList[i].to_station,
                                         notBooked: data.data.yet_to_book,
                                         confirmed: data.data.booked,
+                                        train_name: data.data.train_name,
                                     }
                                 }
                                 temp2.push(<TrainCell key={i+bookedList.length} train={train} origin={notBookedList[i].from_station} destination={notBookedList[i].to_station} date={notBookedList[i].date}/>);
@@ -179,13 +181,17 @@ function DashBoard(){
                 <div className="DashBoard-page">
                     <NavBarOn />
                     <div className="grid grid-cols-3 pt-52 bg-slate-400 pb-56 bg-fixed bg-no-repeat bg-cover" style={{ backgroundImage: `url(${bg})`}}>
-                        <div className="block text-center py-6 ml-2 flex flex-row justify-center items-center" id="HSwel">
-                            <h1 className="text-black" id="HStext">Welcome {info.name}!</h1>
+                        <div className="">
+                            <div className="block text-center py-6 ml-2 flex flex-row justify-center items-center" id="HSwel">
+                                <h1 className="text-white" id="HStext">Welcome {info.name}!</h1>
+                            </div>
+                            {/* <div className="img-logo-div">
+                                <img src={logo} alt="Himanshu" id="HSlogo"/>
+                            </div> */}
                         </div>
-                        <div className="flex flex-row justify-center">
-                            <img src={logo} alt="Himanshu" id="HSlogo"/>
-                        </div>
-                        <div className="text-center mr-2">
+                    </div>
+
+                    <div className="text-center mr-2">
                             <p className="text-3xl font-semibold">What would you like to do?</p>
                             <div className="flex flex-col items-center">
                                 <div className="flex flex-row justify-between items-center mb-1">
@@ -202,7 +208,7 @@ function DashBoard(){
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    
                     
                     <div className="hosted-trips mt-10 mb-5 mx-2">
                         <h1 className="text-center font-semibold">Hosted Trips</h1>

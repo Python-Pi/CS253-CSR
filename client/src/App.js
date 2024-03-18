@@ -20,6 +20,7 @@ import TrainSearch from "./pages/searchTrains";
 import ChatRoom from "./pages/ChatRoom";
 import AllBlogs from "./pages/AllBlogs";
 import NewBlog from "./pages/NewBlog";
+import Otp from "./pages/otp";
 
 function App() {
   const location = useLocation();
@@ -40,6 +41,7 @@ function App() {
         <Route exact path="/dashboard/itinerary/train/chat" element={<ChatRoom />} />
         <Route exact path="/blogs" element={<AllBlogs />} />
         <Route exact path="/blogs/newBlog" element={<NewBlog />} />
+        <Route exact path="/otp" element={<Otp />} />
         <Route path="*" element={<NotFound />} />
     </Routes>
   );

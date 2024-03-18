@@ -11,6 +11,8 @@ import multer from "multer";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import rail from "indian-rail-api"
+import nodemailer from "nodemailer";
+import otpGenerator from "otp-generator";
 
 
 // Setting up a websocket server
@@ -94,7 +96,7 @@ app.get('/api/login', (req, res)=>{
 // Unauthorized users are sent back to /home page
 app.post("/register", async (req, res) => {
   console.log(req.body);
-    const email = req.body.username;
+    const email = req.body.email;
     const password = req.body.password;
     const name = req.body.name;
   
@@ -505,6 +507,85 @@ app.get('/api/logout', (req, res) => {
 
 // <------------------------- Pawan Code starts here -------------------->
 
+const generateOTP=()=>{
+  return otpGenerator.generate(6,{digits:true, upperCaseAlphabets: false, lowerCaseAlphabets: false, specialChars: false})
+}
+
+const sendEmailOTP= async (email,OTP)=>{
+  try{
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true, // Use SSL
+      auth: {
+        user: `${process.env.EMAIL_ID}`,
+        pass: `${process.env.EMAIL_PASSWORD}`, // Use the app-specific password generated in your Gmail account settings
+      },
+    });
+
+    const mailOptions={
+      from:'siriussnape880@gmail.com',
+      to:email,
+      subject:'OTP for signing up',
+      text:`Your OTP for registering to RouteMate is ${OTP}`
+    }
+
+    const result=await transporter.sendMail(mailOptions)
+    const query= await db.query(
+      'INSERT INTO OTP (EMAIL, OTP) VALUES($1,$2) RETURNING ID',[email,OTP]
+    )
+    return {
+      id:query.rows[0].id,
+      sentOTP:true
+    }
+  }catch(error)
+  {
+    console.error('Error while sending OTP ', error)
+    return {
+      sentOTP:false
+    }
+  }
+}
+
+
+app.post('/sendOTP', async (req, res) => {
+  const { email } = req.body;
+  const OTP = generateOTP();
+  const result = await sendEmailOTP(email, OTP);
+  if (result.sentOTP) {
+    res.json({
+      status: true,
+      success: true,
+      message: 'OTP sent successfully',
+    });
+  } else {
+    res.json({
+      status: true,
+      success: false,
+      message: 'Error while sending OTP',
+    });
+  }
+})
+
+app.post('/verifyOTP', async (req, res) => {
+  const { email, OTP } = req.body;
+  const result = await db.query('SELECT * FROM OTP WHERE EMAIL = $1 AND OTP = $2', [email, OTP]);
+  if (result.rows.length > 0) {
+    res.json({
+      status: true,
+      success: true,
+      message: 'OTP verified successfully',
+    });
+  } else {
+    res.json({
+      status: true,
+      success: false,
+      message: 'OTP verification failed',
+    });
+  }
+  await db.query('DELETE FROM OTP WHERE EMAIL = $1', [email]);
+})
+
 
 // searching for all trains between stations
 app.post('/api/getTrainsBetweenStations',async (req,res)=>{
@@ -601,7 +682,7 @@ app.post('/addNotBookedTrainUser',async (req,res)=>{
     const result= await db.query("SELECT * FROM TRAINS WHERE NUMBER=$1 AND DATE=$2", [train.train_base.train_no, date]);
     if(result.rows.length==0)
     {
-      await db.query("INSERT INTO TRAINS VALUES($1, $2, $3, $4)",[train.train_base.train_no, 0, 0, date]);
+      await db.query("INSERT INTO TRAINS VALUES($1, $2, $3, $4, $5)",[train.train_base.train_no, 0, 0, date, train.train_base.train_name]);
     }
 
     const result1 = await db.query("SELECT * FROM NOT_BOOKED_TRAIN_USERS WHERE TRAIN_NUMBER = $1 AND USER_ID = $2 AND DATE = $3",[train.train_base.train_no, req.user.id, date]);
@@ -658,7 +739,7 @@ app.post('/addBookedTrainUser',async (req,res)=>{
     const result= await db.query("SELECT * FROM TRAINS WHERE NUMBER=$1 AND DATE=$2", [train.train_base.train_no, date]);
     if(result.rows.length==0)
     {
-      await db.query("INSERT INTO TRAINS VALUES($1, $2, $3, $4)",[train.train_base.train_no, 0, 0, date]);
+      await db.query("INSERT INTO TRAINS VALUES($1, $2, $3, $4, $5)",[train.train_base.train_no, 0, 0, date, train.train_base.train_name]);
     }
 
     const result1 = await db.query("SELECT * FROM BOOKED_TRAIN_USERS WHERE TRAIN_NUMBER = $1 AND USER_ID = $2 AND DATE=$3",[train.train_base.train_no, req.user.id, date]);
