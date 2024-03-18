@@ -147,7 +147,6 @@ export default function TravelChatRoom() {
                                 <div className='flex -mb-2'>
                                 <div className='rounded-[50%] w-2 h-2 mt-2 mr-2 bg-[rgb(101,209,119)]'></div>
                                 <p className='mb-[-.13em] mr-2'>{message.username}</p>
-                                <p className='mb-[-0.9em] text-gray-500'>12:15</p>
                                 </div>
                                     <span class="top-bot"></span>
                                     <span class="top-bot top-bot-border"></span>
@@ -162,7 +161,6 @@ export default function TravelChatRoom() {
                                 <div className='flex -mb-2'>
                                 <div className='rounded-[50%] w-2 h-2 mt-2 mr-2 bg-[#5dbff6]'></div>
                                 <p className='mb-[-.13em] mr-2'>{message.username}</p>
-                                <p className='mb-[-0.9em] text-gray-500'>12:15</p>
                                 </div>
                                     <span class="top-bot1"></span>
                                     <span class="top-bot1 top-bot-border"></span>

@@ -22,7 +22,7 @@ export default function TrainSearch() {
     const [foundTrains, setFoundTrains] = useState(true);
     const [type, setType] = React.useState(1);
     const [train_options, setTrainOptions] = React.useState([]);
-
+    const [loading,setloading] = useState(false);
 
     useEffect(() => {
         if (type === 1) {
@@ -51,6 +51,10 @@ export default function TrainSearch() {
     };
     
     const handleSubmit = async (e) => {
+        setloading(true);
+        setTimeout(()=>{
+            setloading(false);
+        },3000);
         e.preventDefault();
         const formData = {
             origin,
@@ -191,10 +195,17 @@ export default function TrainSearch() {
                     </motion.button>
                     </div>
                 </div>
-                <div className="HSTCbody flex flex-col pt-10 ">
-                    {!foundTrains && <div>No trains found</div>}
-                    {trainList}
-                </div> 
+                
+                {
+                loading  ? 
+                <div className="pl-[50em] pt-[-20em]">
+                <div class="sploader"></div>
+                </div> : 
+                 <div className="HSTCbody flex flex-col pt-10"> 
+                {!foundTrains && <div>No trains found</div>}
+                {trainList}
+                </div>
+               } 
         </div>
     );
 }
