@@ -103,10 +103,16 @@ export default function TrainSearch() {
         .then((data) => setMessage(data));
     }, []);    
 
+    const handleAirplane = () => {
+        setType(1);
+    };
+
     return (
         <div className="flex flex-col">
             <NavBarOn />
             <div className="app-container mt-20">
+
+                {type == 1 ? (
                 <div className="query-box">
                     <div className="transport-type">
                         <motion.div
@@ -189,8 +195,50 @@ export default function TrainSearch() {
                     >
                         search
                     </motion.button>
+                </div>
+                ):
+                <div className="query-box">
+                    <div className="transport-type">
+                        <motion.div
+                            className="transport-background"
+                            id="train"
+                            whileHover={{ scale: 1.1 }}
+                            onClick={() => {
+                                setType(1);
+                            }}
+                            >
+                            <FaTrainSubway className="icons" name="train" />
+                        </motion.div>
+
+                        <motion.div
+                            className="transport-background"
+                            id="plane"
+                            whileHover={{ scale: 1.1 }}
+                            onClick={() => {
+                                setType(2);
+                            }}
+                            >
+                            <ImAirplane className="icons" name="plane" />
+                        </motion.div>
+                    </div>
+
+                    <div className="details">
+                       <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="submit-button-airplane"
+                        onClick={handleAirplane}
+                    >
+                        Still Under Development
+                    </motion.button>
                     </div>
                 </div>
+                }
+
+
+            </div>
+
+                
                 <div className="HSTCbody flex flex-col pt-10 ">
                     {!foundTrains && <div>No trains found</div>}
                     {trainList}
