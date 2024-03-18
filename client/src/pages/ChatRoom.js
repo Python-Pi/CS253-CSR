@@ -9,7 +9,7 @@ export default function ChatRoom() {
     const socket = useRef(null);
     const location = useLocation();
 
-    const { train_number, date } = location.state;
+    const { train_number, date , userCount, train_name} = location.state;
     const [info, setInfo] = useState({});
     const [message, setMessage] = useState('');
     const [username, setUsername] = useState('Anonymous'); 
@@ -101,8 +101,8 @@ export default function ChatRoom() {
          <img src={dp4} className='ssrch h-[3.2em] w-[3.8em] pl-[0.93em] pt-[0.5em]' alt='profile pic'/>
         </div>
         <div className='w-[18em] font-sans'>
-        <div className='h-[1.5em] pt-1 text-xl'>Train number {train_number}</div>
-        <div className='h-[1.25em] pt-[0.04em] text-sm'>10 members, {date}</div>
+        <div className='h-[1.5em] pt-1 text-xl'>{train_name} : {train_number}</div>
+        <div className='h-[1.25em] pt-[0.04em] text-sm'>Users : {userCount}, {date}</div>
         </div>
       </div>
       <div className='relative w-full h-[calc(100%-7.5em)] pt-[1.25em] overflow-x-hidden overflow-y-auto'>
