@@ -58,7 +58,7 @@ export default function NewBlog(props){
     return(
         <div className="blog-container">
             <div className="header grid grid-cols-3 pt-4 mx-6">
-                <button className="HSbtn max-w-[9em]" onClick={()=>navigate('/blogs')}>DashBoard</button>
+                <button className="btn btn-dark max-w-[9em]" onClick={()=>navigate('/blogs')}>DashBoard</button>
                 <h1 className="header-title">New Blog</h1>
                 <div></div>
             </div>
@@ -86,7 +86,7 @@ export default function NewBlog(props){
                 </div>
             </div>
             <div className="flex flex-row justify-center mt-6">
-                <button className="HSbtn" onClick={handlePost}>Post</button>
+                <button className="btn btn-dark" onClick={handlePost}>Post</button>
             </div>
         </div>
     )
