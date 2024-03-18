@@ -57,6 +57,10 @@ Upon successful installation of all necessary modules, create a `.env` file with
 
 `PORT = '3000'`
 
+`EMAIL_ID = 'siriussnape880@gmail.com'`
+
+`EMAIL_PASSWORD = 'snij qpys ijhw boeo'`
+
 ## Note
 
 - The default command for running Node server is set to `nodemon server.js` in `package.json`. If you don't have nodemon installed, change it to `node server.js`.
