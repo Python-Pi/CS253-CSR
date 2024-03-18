@@ -41,7 +41,7 @@ function Register(){
     }
     
     return(
-        <div className="register-page">
+        <div className="register-page mt-20">
             <NavBarOff />
             <div className="login-form">
                 <div className = 'form-boot'>

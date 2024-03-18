@@ -7,7 +7,7 @@ function Login(){
     const addr_login = `http://${process.env.REACT_APP_IP}:8000/login`
 
     return(
-        <div className="login-page">
+        <div className="login-page mt-20">
             <NavBarOff />
             <div className="login-form">
                 <div className = 'form-boot'>

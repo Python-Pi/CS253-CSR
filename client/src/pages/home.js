@@ -35,8 +35,9 @@ function Home(){
         <>
         <div className="home-page">
             <NavBar />
+
             {windowWidth > 768 ? (
-                <div className="home-large">                    
+                <div className="home-large mt-20">                    
                     <div className="home-page">
                         <h1 className='rm text-6xl text-black text-center pt-10 route-mate'>Routemate</h1>
                     </div>
