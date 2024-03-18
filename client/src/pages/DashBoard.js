@@ -235,7 +235,7 @@ function DashBoard(){
                                 <TrackVisibility>
                                     {({ isVisible }) =>
                                     <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
-                                    <h1>{`Hi!, RouteMate welcomes you to `} {text}</h1>
+                                    <h1>{`Hi ${info.name}!, RouteMate welcomes you to `} {text}</h1>
                                     <p>
                                         Welcome to Route Mate, your ultimate travel companion! Whether you're embarking on a solo adventure or seeking company for your journey, Route Mate connects you with like-minded travelers every step of the way. With our innovative platform, you can discover fellow explorers heading to the same destinations, engage in lively chat rooms to exchange tips and stories, explore insightful travel blogs, and create unforgettable memories together. Say goodbye to solo travel blues and hello to new friendships and exciting adventures. Join Route Mate today and let the journey begin!
                                     </p>

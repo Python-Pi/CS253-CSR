@@ -64,28 +64,6 @@ export default function AllBlogs() {
         setFilteredBlogs(results);
     }, [search, blogs]);
 
-    // if(!info.loggedIn){
-    //     navigate('/dashboard');
-    //     return;
-    // }
-    // else
-    // {
-    //     return(
-    //         <div>
-    //             <button onClick={()=>navigate('/dashboard')}>DashBoard</button>
-    //             <input 
-    //             type="text" 
-    //             placeholder="Search" 
-    //             value={search}
-    //             onChange={(e) => setSearch(e.target.value)}
-    //             />
-    //             {/* {filteredBlogs} */}
-    //             {filteredBlogs.map((blog, index) => (
-    //                 <BlogCell key={index} user_name={blog.user_name} content={blog.content} />
-    //             ))}
-    //         </div>
-    //     )   
-    // }
     return (
         <div>
             <NavBarOn/>
