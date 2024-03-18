@@ -48,7 +48,7 @@ app.use(passport.initialize());
 app.use(passport.session())
 app.use(express.json());
 app.use(cors({
-    origin: [`http://localhost:${process.env.PORT}`, `http://${process.env.IP}:${process.env.PORT}`], 
+    origin: [`http://localhost:${process.env.PORT}`, `http://${process.env.IP}:${process.env.PORT}`, `https://d69c-14-139-38-199.ngrok-free.app`], 
     credentials: true 
 }));
 

@@ -29,7 +29,7 @@ function NavBarOn() {
                 <div className="nav-google">
                 <img src={logo} alt="Logo" className="Logo" />
                 <Col>
-                <h2 className="nav-google-name web">Routemate</h2>
+                <h2 className="nav-google-name web">RouteMate</h2>
                 </Col>
               </div>
               </Navbar.Brand>

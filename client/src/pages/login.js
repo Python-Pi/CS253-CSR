@@ -22,7 +22,7 @@ function Login(){
                             <input type="password" className="form-control" id="floatingPassword" name="password" placeholder="Password"/>
                             <label htmlFor="floatingPassword">Password</label>
                         </div>
-                        <button className="HSbtn w-50 self-center py-2" type="submit">Sign in</button>
+                        <button className="btn btn-dark w-50 self-center py-2" type="submit">Sign in</button>
                     </form>
                     <div className="login-register">
                         <p className="mt-3">New to Routemate? <a href="/register">Register here</a>.</p>
