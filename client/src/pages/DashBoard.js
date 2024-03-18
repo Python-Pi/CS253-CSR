@@ -1,12 +1,18 @@
 import React from "react";
 import { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
+import { Container, Row, Col } from "react-bootstrap";
+import TrackVisibility from 'react-on-screen';
+import { HashLink } from "react-router-hash-link";
+
 import NavBarOn from "../components/NavBarOn";
 import TravelCell from "../components/TravelCell";
 import TrainCell from "../components/trainCell";
+import Footer from "../components/Footer";
 import logo from "../Assets/logo-no-background copy.png";
-import bg from "../Assets/dashboard_bg.jpeg"
-import "../style/styles.css"
+import "../style/styles.css";
+import "../style/Dashboard.css";
+import "../style/NavBar.css";
 
 function DashBoard(){
     const navigate = useNavigate();
@@ -165,6 +171,47 @@ function DashBoard(){
         navigate('/blogs');
     }
 
+    const [loopNum, setLoopNum] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [text, setText] = useState('');
+  const [delta, setDelta] = useState(300 - Math.random() * 100);
+  const [index, setIndex] = useState(1);
+  const toRotate = [ "Adventure", "Explore", "Discover", ];
+  const period = 2000;
+
+  useEffect(() => {
+    let ticker = setInterval(() => {
+      tick();
+    }, delta);
+
+    return () => { clearInterval(ticker) };
+  }, [text])
+
+  const tick = () => {
+    let i = loopNum % toRotate.length;
+    let fullText = toRotate[i];
+    let updatedText = isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1);
+
+    setText(updatedText);
+
+    if (isDeleting) {
+      setDelta(prevDelta => prevDelta / 2);
+    }
+
+    if (!isDeleting && updatedText === fullText) {
+      setIsDeleting(true);
+      setIndex(prevIndex => prevIndex - 1);
+      setDelta(period);
+    } else if (isDeleting && updatedText === '') {
+      setIsDeleting(false);
+      setLoopNum(loopNum + 1);
+      setIndex(1);
+      setDelta(500);
+    } else {
+      setIndex(prevIndex => prevIndex + 1);
+    }
+  }
+
     if (info === null) {
         return <div>Loading...</div>;
     }
@@ -178,38 +225,70 @@ function DashBoard(){
             return null;
         } else {
             return(
-                <div className="DashBoard-page">
+                 <div className="DashBoard-page">
                     <NavBarOn />
-                    <div className="grid grid-cols-3 pt-52 bg-slate-400 pb-56 bg-fixed bg-no-repeat bg-cover" style={{ backgroundImage: `url(${bg})`}}>
-                        <div className="">
-                            <div className="block text-center py-6 ml-2 flex flex-row justify-center items-center" id="HSwel">
-                                <h1 className="text-white" id="HStext">Welcome {info.name}!</h1>
-                            </div>
-                            {/* <div className="img-logo-div">
-                                <img src={logo} alt="Himanshu" id="HSlogo"/>
-                            </div> */}
-                        </div>
+                    <div className="routemate-intro">
+                        <section className="banner" id="home">
+                            <Container>
+                            <Row className="aligh-items-center">
+                                <Col xs={12} md={6} xl={7}>
+                                <TrackVisibility>
+                                    {({ isVisible }) =>
+                                    <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
+                                    <h1>{`Hi!, RouteMate welcomes you to `} {text}</h1>
+                                    <p>
+                                        Welcome to Route Mate, your ultimate travel companion! Whether you're embarking on a solo adventure or seeking company for your journey, Route Mate connects you with like-minded travelers every step of the way. With our innovative platform, you can discover fellow explorers heading to the same destinations, engage in lively chat rooms to exchange tips and stories, explore insightful travel blogs, and create unforgettable memories together. Say goodbye to solo travel blues and hello to new friendships and exciting adventures. Join Route Mate today and let the journey begin!
+                                    </p>
+                                    </div>}
+                                </TrackVisibility>
+                                </Col>
+                                <Col xs={12} md={6} xl={5}>
+                                    <img src={logo} id ='HSlogo' alt="logo image"></img>
+                                </Col>
+                            </Row>
+                            </Container>
+                        </section>
                     </div>
 
-                    <div className="text-center mr-2">
-                            <p className="text-3xl font-semibold">What would you like to do?</p>
-                            <div className="flex flex-col items-center">
-                                <div className="flex flex-row justify-between items-center mb-1">
-                                    <p className="text-xl font-semibold pr-6 pt-3">Join/Create Trips:</p>
-                                    <button type="button" className="HSbtn ml-1 min-w-[7.5em]" onClick={handleTravelClick}>Travel</button>
-                                </div>
-                                <div className="flex flex-row justify-between items-center mb-1">
-                                    <p className="text-xl font-semibold pr-3 pt-3">Search for itinerary:</p>
-                                    <button type="button" className="HSbtn min-w-[7.5em] mb-1" onClick={handleclick}>Itinerary</button>
-                                </div>
-                                <div className="flex flex-row justify-between items-center mb-1">
-                                    <p className="text-xl font-semibold pr-4 pt-3">View/Create Blogs:</p>
-                                    <button type="button" className="HSbtn min-w-[7.5em]" onClick={handleBlog}>Blog</button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                    
+
+                    <div className="travel-intro">
+                        <section className="project" id="projects">
+                            <Container>
+                                <Row>
+                                    <Col size={12}>
+                                        <TrackVisibility>
+                                                <div >
+                                                    <h2>Travel</h2>
+                                                    <p>
+                                                        Welcome to our Trips! Explore a world of possibilities and embark on unforgettable journeys with Route Mate. Whether you're planning a weekend getaway, a cross-country road trip, or a backpacking adventure through exotic landscapes, we've got you covered. Discover curated trip itineraries, insider tips from fellow travelers, and hidden gems off the beaten path. From bustling cities to serene natural wonders, let Route Mate inspire your next adventure and make every trip an unforgettable experience.
+                                                    </p>
+                                                </div>
+                                                <div className="d-flex justify-content-center">
+                                                    <button className="btn btn-light btn-lg" onClick={handleTravelClick}>Travel</button>
+                                                </div>
+
+                                        </TrackVisibility>
+                                    </Col>
+
+                                    <Col size={12}>
+                                        <TrackVisibility>
+                                                <div >
+                                                    <h2>Itinerary</h2>
+                                                    <p>
+                                                        Ever wondered how many fellow travelers are sharing the same train journey as you? With Route Mate's train booking connections, you're not just booking a seat; you're joining a community of adventurers. Our platform allows you to see how many people are traveling on a particular train, giving you the opportunity to connect with like-minded explorers, share experiences, and make new friends along the way. Whether you're embarking on a solo adventure or seeking company for your journey, Route Mate keeps you connected every step of the way. Discover the camaraderie of train travel like never before. Book your train journey with Route Mate today!
+                                                    </p>
+                                                </div>
+                                                <div className="d-flex justify-content-center">
+                                                    <button className="btn btn-light btn-lg" onClick={handleclick}>Itinerary</button>
+                                                </div>
+
+                                        </TrackVisibility>
+                                    </Col>
+                                </Row>
+                            </Container>
+                        </section>
+                    </div>
+
                     <div className="hosted-trips mt-10 mb-5 mx-2">
                         <h1 className="text-center font-semibold">Hosted Trips</h1>
                         <div className="trip-list">
@@ -252,6 +331,8 @@ function DashBoard(){
                     <div className="flex flex-row justify-center">
                     </div>
                     {notBookedTrains}
+
+                    <Footer />
                 </div>
             );
         }

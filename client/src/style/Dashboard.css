@@ -1,0 +1,128 @@
+
+.routemate-intro .banner {
+  margin-top: 0;
+  padding: 200px 0 150px 0;
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.routemate-intro .banner h1 {
+  font-size: 35px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  line-height: 1;
+  margin-bottom: 20px;
+  display: block;
+}
+.routemate-intro .banner p {
+  color: #696868;
+  font-size: 18px;
+  letter-spacing: 0.8px;
+  line-height: 1.5em;
+  width: 96%;
+}
+.routemate-intro .banner button {
+  color: #000000;
+  font-weight: 700;
+  font-size: 20px;
+  margin-top: 60px;
+  letter-spacing: 0.8px;
+  display: flex;
+  align-items: center;
+}
+.routemate-intro .banner button svg {
+  font-size: 25px;
+  margin-left: 10px;
+  transition: 0.3s ease-in-out;
+  line-height: 1;
+}
+.routemate-intro .banner button:hover svg {
+  margin-left: 25px;
+}
+.routemate-intro .banner img {
+  animation: updown 3s linear infinite;
+}
+
+.routemate-intro .txt-rotate > .wrap {
+  border-right: 0.08em solid #666;
+}
+
+.routemate-intro .loader{
+  margin-top: 100px;
+  margin-left: 150px;
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .routemate-intro .banner {
+    margin-top: 0;
+    padding: 100px 0 50px 0;
+    background-position: top center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .routemate-intro .loader{
+    margin-left: 80px;
+  }
+}
+
+
+/************ Travel/Iter Intro Css ************/
+.travel-intro .project {
+    padding: 80px 0;
+    position: relative;
+    background-color: black;
+  }
+  .travel-intro .project h2 {
+      font-size: 45px;
+      font-weight: 700;
+    text-align: center;
+    color: #ffffff;
+  }
+  .travel-intro .project p {
+    color: #B8B8B8;
+    font-size: 18px;
+    letter-spacing: 0.8px;
+    line-height: 1.5em;
+    margin: 14px auto 30px auto;
+    text-align: center;
+    width: 70%;
+  }
+  
+ 
+  .travel-intro .proj-txtx {
+    position: absolute;
+    text-align: center;
+    top: 85%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    transition: 0.5s ease-in-out;
+    opacity: 0;
+    width: 100%;
+  }
+
+  .travel-intro .proj-txtx h4 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    line-height: 1.1em;
+  }
+
+
+  @media screen and (max-width: 768px) {
+  
+    .travel-intro .project p {
+      color: #B8B8B8;
+      font-size: 18px;
+      letter-spacing: 0.8px;
+      line-height: 1.5em;
+      margin: 14px auto 30px auto;
+      text-align: center;
+      width: 96%;
+    }
+  
+  }
+  
+  

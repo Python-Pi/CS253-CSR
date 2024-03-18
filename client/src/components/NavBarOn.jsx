@@ -1,16 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import { HashLink } from 'react-router-hash-link';
+import { Navbar, Nav, Container } from "react-bootstrap";
+import {Col } from "react-bootstrap";
+import logo from "../Assets/logo.png";
 import "../style/styles.css";
 
 function NavBarOn() {
     const navigate = useNavigate();
-    const handleClick = () => {
-        navigate('/');
-    };
-
     const handleLogout = () => {
         fetch(`http://${process.env.REACT_APP_IP}:8000/api/logout`, {
             method: 'POST',
@@ -21,20 +18,40 @@ function NavBarOn() {
         });
     };
 
+    const [activeLink, setActiveLink] = useState('home');
+    const [scrolled, setScrolled] = useState(true);
+
     return (
-        <Navbar expand="lg" className="fixed-top text-white" style={{ paddingTop: "1em"}} id="HSNav">
-            <Container>
-                <h2 className={`Nav-Head`} onClick={handleClick}>RouteMate</h2>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse className="justify-content-end">
-                    <Nav className="ml-auto">
-                        <ul className={`nav navbar-nav`}>
-                            <button type="button" className="HSbtn" onClick={handleLogout}>Logout</button>
-                        </ul>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
+       <div className="routemate-nav-bar">
+      <Navbar expand="md" className={scrolled ? "scrolled" : ""}>
+        <Container>
+          <Navbar.Brand href="/home">
+            <div className="nav-google">
+            <img src={logo} alt="Logo" className="Logo" />
+            <Col>
+            <h2 className="nav-google-name web">Routemate</h2>
+            </Col>
+          </div>
+          </Navbar.Brand>
+  
+          <Navbar.Toggle aria-controls="basic-navbar-nav">
+            <span className="navbar-toggler-icon"></span>
+          </Navbar.Toggle>
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ms-auto">
+              <Nav.Link href="/travel" className={activeLink === 'home' ? 'active navbar-link' : 'navbar-link'}>Travel</Nav.Link>
+              <Nav.Link href="/dashboard/itinerary/train" className={activeLink === 'projects' ? 'active navbar-link' : 'navbar-link'}>Itinerary</Nav.Link>
+              <Nav.Link href="/blogs" className={activeLink === 'projects' ? 'active navbar-link' : 'navbar-link'}>Blogs</Nav.Link>
+            </Nav>
+            <span className="navbar-text">
+              <HashLink>
+                <button className="vvd" onClick={handleLogout}><span>Logout</span></button>
+              </HashLink>
+            </span>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </div>
     );
 };
 

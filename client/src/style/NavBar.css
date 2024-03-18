@@ -1,6 +1,107 @@
 
-
-.Nav-img{
-    width: 75px;
-    height: 75px;
-}
+.routemate-nav-bar .Logo{
+    width: 50px;
+    height: 50px;
+  }
+  
+  
+  .routemate-nav-bar .nav-google{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .routemate-nav-bar .nav-google-name.web{
+    margin-top: 10px;
+    margin-left: 15px;
+    font-size: 20px;
+  }
+  
+  
+  /* Media query for screens with a maximum width of 768px (typical for mobile devices) */
+  @media screen and (max-width: 768px) {
+    .routemate-nav-bar .nav-google-name.web{
+      display: none;
+      margin-top: 10px;
+      margin-left: 15px;
+      font-size: 20px;
+    }
+    
+  }
+  
+  
+  
+  .routemate-nav-bar nav.navbar {
+    padding: 18px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 9999;
+    transition:  0.32s ease-in-out;
+  }
+  .routemate-nav-bar nav.navbar.scrolled {
+    padding: 0px 0;
+    background-color: #ffffff;
+  }
+  .routemate-nav-bar nav.navbar a.navbar-brand {
+      width: 9%;
+  }
+  .routemate-nav-bar nav.navbar .navbar-nav .nav-link.navbar-link {
+    font-weight: 400;
+    color: #000000 !important;
+    letter-spacing: 0.8px;
+    padding: 0 25px;
+    font-size: 18px;
+    opacity: 0.75;
+  }
+  .routemate-nav-bar nav.navbar .navbar-nav a.nav-link.navbar-link:hover,
+  .routemate-nav-bar nav.navbar .navbar-nav a.nav-link.navbar-link.active {
+      opacity: 1;
+  }
+  .routemate-nav-bar span.navbar-text {
+      display: flex;
+      align-items: center;
+  }
+  
+  .routemate-nav-bar .navbar-text button {
+    font-weight: 700;
+    color: #000000;
+    border: 1px solid #000000;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    padding-left: 34px;
+    padding-right: 34px;
+    font-size: 18px;
+    margin-left: 18px;
+      position: relative;
+      background-color: transparent;
+      transition: 0.3s ease-in-out;
+  }
+  .routemate-nav-bar .navbar-text button span {
+    z-index: 1;
+  }
+  .routemate-nav-bar .navbar-text button::before {
+    content: "";
+    width: 0%;
+    height: 100%;
+    position: absolute;
+    background-color: #000000;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    transition: 0.3s ease-in-out;
+  }
+  .routemate-nav-bar .navbar-text button:hover {
+    color: #ffffff;
+  }
+  .routemate-nav-bar .navbar-text button:hover::before {
+      content: "";
+      width: 100%;
+      height: 100%;
+      position: absolute;
+  }
+  .routemate-nav-bar nav.navbar .navbar-toggler:active,
+  .routemate-nav-bar nav.navbar .navbar-toggler:focus {
+      outline: none;
+      box-shadow: none;
+  }

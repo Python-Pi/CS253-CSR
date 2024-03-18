@@ -222,6 +222,9 @@
 }
 
 #HSlogo {
+  margin-left: 150px;
+  width: 350px ;
+  height: 393px;
   animation-name: spin;
   animation-duration: 5s;
   animation-iteration-count: infinite;

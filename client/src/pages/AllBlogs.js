@@ -1,6 +1,8 @@
 import React,{useState, useEffect} from "react";
 import BlogCell from "../components/BlogCell";
 import { useNavigate } from "react-router-dom";
+import { Nav, Navbar } from "react-bootstrap";
+import NavBarOn from "../components/NavBarOn";
 
 
 export default function AllBlogs() {
@@ -86,6 +88,7 @@ export default function AllBlogs() {
     // }
     return (
         <div>
+            <NavBarOn/>
             <div className="flex flex-row justify-between pt-4 px-10 pb-10">
                 <button className="HSbtn" onClick={() => navigate('/dashboard')}>
                     DashBoard
