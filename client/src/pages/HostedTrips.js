@@ -52,7 +52,7 @@ export default function HostedTrips(props){
 
                     {!props.showButton && (
                         <div className="d-flex justify-content-center">
-                            <button className="HSbtn mt-3" onClick={() => navigate('/travel')}>Go Back</button>
+                            <button className="btn btn-dark btn-lg mt-3" onClick={() => navigate('/travel')}>Go Back</button>
                         </div>
                     )}
                 </div>

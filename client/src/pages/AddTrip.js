@@ -139,7 +139,7 @@ const AddTrip = () => {
                                 <label className='text-2xl font-medium pb-1'>Image:</label>
                                 <input type="file" className="form-control" onChange={handleImageChange} />
                             </div>
-                            <button className="HSbtn btn-primary mt-3" onClick={handleSubmit} >Create a new trip</button>
+                            <button className="btn btn-dark btn-lg btn-primary mt-3" onClick={handleSubmit} >Create a new trip</button>
                         </form>
                     </div>
                 </div>
