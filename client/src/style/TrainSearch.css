@@ -137,3 +137,14 @@
   min-height: 30px;
   min-width: 120px;
 }
+
+.progress-bar {
+  position: fixed;
+  z-index: 1000;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: #385de1;
+  transform-origin: 0%;
+}
