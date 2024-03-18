@@ -25,7 +25,7 @@ function NavBarOn() {
        <div className="routemate-nav-bar">
           <Navbar expand="md" className={scrolled ? "scrolled" : ""}>
             <Container>
-              <Navbar.Brand href="/home">
+              <Navbar.Brand href="/dashboard">
                 <div className="nav-google">
                 <img src={logo} alt="Logo" className="Logo" />
                 <Col>

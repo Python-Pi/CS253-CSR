@@ -30,9 +30,6 @@ env.config();
 // Variables and functions
 const addr = `http://${process.env.IP}:${process.env.PORT}`;
 
-// Enabline trust proxy
-app.enable('trust proxy')
-
 // Initializing express session
 app.use(session({
     secret: process.env.SESSION_SECRET,
