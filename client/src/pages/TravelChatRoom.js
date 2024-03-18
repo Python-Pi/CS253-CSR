@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client';
+import '../style/styles.css'
+import { IoSend } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import dp4 from '../Assets/dp4.png'
@@ -140,7 +142,6 @@ export default function TravelChatRoom() {
                                 <div className='flex -mb-2'>
                                 <div className='rounded-[50%] w-2 h-2 mt-2 mr-2 bg-[rgb(101,209,119)]'></div>
                                 <p className='mb-[-.13em] mr-2'>{message.username}</p>
-                                <p className='mb-[-0.9em] text-gray-500'>12:15</p>
                                 </div>
                                     <span class="top-bot"></span>
                                     <span class="top-bot top-bot-border"></span>
@@ -155,7 +156,6 @@ export default function TravelChatRoom() {
                                 <div className='flex -mb-2'>
                                 <div className='rounded-[50%] w-2 h-2 mt-2 mr-2 bg-[#5dbff6]'></div>
                                 <p className='mb-[-.13em] mr-2'>{message.username}</p>
-                                <p className='mb-[-0.9em] text-gray-500'>12:15</p>
                                 </div>
                                     <span class="top-bot1"></span>
                                     <span class="top-bot1 top-bot-border"></span>
@@ -170,15 +170,19 @@ export default function TravelChatRoom() {
                     })}
                 </ul>
       </div>
-             <div className='relative w-full h-[3.75em] sinp justify-between flex p-[0.31em] bg-[#f0f0f0] items-center'>
-            <input value={message} onChange={e => setMessage(e.target.value)} onKeyDown={handleKeyPress} className='relative w-[90%]  rounded-[1.8em] text-[1em] pl-4 h-[2.56em]' placeholder='Type your message'/>
+      <div className='relative flex w-full h-[3.75em] sinp justify-between flex p-[0.3em] bg-[#f0f0f0] items-center'>
+            <input value={message} onChange={e => setMessage(e.target.value)} onKeyDown={handleKeyPress} className='relative w-[90%]  rounded-[1.8em] text-[1em] pl-4 h-[2.8em]' placeholder='Type your message'/>
+            <div className='w-[10%] pl-[1em] '>
+            <IoSend className='size-[20%] hover:cursor-pointer hover:scale-[1.1]' onClick={handleButtonSend} />
+            </div>
              </div> 
                 </div>
                 </div>
+                
+                <div className="d-flex bg-[#d9dbd5] mt-[-44px] justify-content-center">
+                    <button className="btn btn-primary" onClick={handleBackPage}>Go Back</button>
                 </div>
-                <div className="d-flex justify-content-center">
-                    <button className="btn btn-primary mt-3" onClick={handleBackPage}>Go Back</button>
-                </div>
+            </div>
             </div>
             </div>
         );
