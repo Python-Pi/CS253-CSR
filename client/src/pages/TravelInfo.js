@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation} from 'react-router-dom';
 import RenderStatus from '../components/RenderStatus';
-import NavBarOn from '../components/NavBarOn';
 
 export default function TravelInfo() {
     const location = useLocation();
