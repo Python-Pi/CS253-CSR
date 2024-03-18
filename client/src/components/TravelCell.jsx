@@ -20,8 +20,9 @@ return (
             <p className='text-xl'>End Date: {moment(info.end_date).format('DD-MM-YYYY')}</p>
             <p className='text-xl'>Amount: {info.amount}</p>
             {info.user_name && <p className='text-xl'>Journey Initiator: {info.user_name}</p>}
-            {info.user_name && <button className="HSbtn btn-primary mt-3" onClick={handleJoinTrip}>Join Trip</button>}
-            {!info.user_name && <button className="HSbtn btn-primary mt-3" onClick={handleJoinTrip}>Trip Details</button>}
+            {info.user_name && <button className="btn btn-dark btn-lg" onClick={handleJoinTrip}>Join Trip</button>}
+            {!info.user_name && <button className="btn btn-dark btn-lg" onClick={handleJoinTrip}>Trip Details</button>}
          </div>
     );
 }
+

@@ -30,7 +30,7 @@ export default function RenderStatus(info) {
         return (
             <div>
                 <div className="absolute top-0 right-0 pt-[0.3em] pr-10">
-                    <button className="HSbtn mt-3" onClick={handleChatServer}>
+                    <button className="btn btn-dark btn-lg mt-3" onClick={handleChatServer}>
                         Join Chat Server
                     </button>      
                 </div>
@@ -78,7 +78,7 @@ export default function RenderStatus(info) {
         return (
             <div>
                 <div className="flex absolute top-0 right-0 pt-[1.3em] pr-10">
-                        <button className="HSbtn" onClick={applyToJoin}>Apply to Join</button>
+                        <button className="btn btn-dark btn-lg" onClick={applyToJoin}>Apply to Join</button>
                 </div>
             </div>
         )

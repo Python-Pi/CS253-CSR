@@ -90,7 +90,7 @@ export default function RenderAdmin(props) {
     return (
         <div className="container">
             <div className="flex absolute top-0 right-0 pr-10 pt-[0.38em]">
-                <button className="HSbtn mt-3" onClick={handleChatServer}>
+                <button className="btn btn-dark btn-lg mt-3" onClick={handleChatServer}>
                     Join Chat Server
                 </button>           
             </div>
@@ -102,10 +102,10 @@ export default function RenderAdmin(props) {
                             {user.user_name}
                         </div>
                         <div>
-                            <button className="HSbtn" onClick={() => addUserToTrip(user)} >Accept</button> 
+                            <button className="btn btn-dark btn-lg" onClick={() => addUserToTrip(user)} >Accept</button> 
                         </div>
                         <div>
-                            <button className="HSbtn" onClick={() => declineUserToTrip(user)} >Decline</button>
+                            <button className="btn btn-dark btn-lg" onClick={() => declineUserToTrip(user)} >Decline</button>
                         </div>                      
                     </li>
                 ))}
@@ -119,7 +119,7 @@ export default function RenderAdmin(props) {
                             {user.user_name}
                         </div>
                         <div>
-                            <button className="HSbtn" onClick={() => declineUserToTrip(user)} >Decline</button>
+                            <button className="btn btn-dark btn-lg" onClick={() => declineUserToTrip(user)} >Decline</button>
                         </div>
                     </li>
                     
@@ -134,7 +134,7 @@ export default function RenderAdmin(props) {
                             {user.user_name}
                         </div>
                         <div>
-                            <button className="HSbtn" onClick={() => addUserToTrip(user)} >Accept</button> 
+                            <button className="btn btn-dark btn-lg" onClick={() => addUserToTrip(user)} >Accept</button> 
                         </div>
                     </li>
                 ))}
