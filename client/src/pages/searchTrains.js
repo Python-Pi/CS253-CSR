@@ -106,7 +106,7 @@ export default function TrainSearch() {
     return (
         <div className="flex flex-col">
             <NavBarOn />
-            <div className="app-container">
+            <div className="app-container mt-20">
                 <div className="query-box">
                     <div className="transport-type">
                         <motion.div
@@ -198,26 +198,3 @@ export default function TrainSearch() {
         </div>
     );
 }
-
-
- {/* <div className="HSTCnav flex flex-row justify-between pt-4 px-4">
-                    <button onClick={handleClick} className="HSbtn">DashBoard</button>
-                    <form onSubmit={handleSubmit} className="flex flex-row">
-                        <div className="px-2">
-                            <input type="text" value={origin} onChange={(e) => setOrigin(e.target.value) }placeholder="Origin" className="block border-2 p-2 rounded-lg border-[#0000ff]"/>
-                        </div>
-                        <div className="px-2">
-                            <input type="text" value={destination} onChange={(e) => setDestination(e.target.value)} placeholder="Destination" className="block border-2 p-2 rounded-lg border-[#0000ff]"/>
-                        </div>
-                        <div className="px-2">
-                            <input type="date" value={dateOfTravel} onChange={(e) => setDateOfTravel(e.target.value)} placeholder="Date" className="pr-2 mr-2 block border-2 p-2 rounded-lg border-[#0000ff]"/>
-                        </div>
-                        <div className="px-2">
-                            <button type="submit" className="HSbtn pl-4">Search</button>
-                        </div>
-                    </form>
-                </div>
-                <div className="HSTCbody flex flex-col pt-10 ">
-                    {!foundTrains && <div>No trains found</div>}
-                    {trainList}
-                </div> */}

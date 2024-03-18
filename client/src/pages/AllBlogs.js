@@ -67,11 +67,11 @@ export default function AllBlogs() {
     return (
         <div>
             <NavBarOn/>
-            <div className="flex flex-row justify-between pt-4 px-10 pb-10">
-                <button className="HSbtn" onClick={() => navigate('/dashboard')}>
+            <div className="flex flex-row justify-between pt-4 px-10 pb-10 mt-20">
+                <button className="btn btn-dark" onClick={() => navigate('/dashboard')}>
                     DashBoard
                 </button>
-                <button className="HSbtn" onClick={()=>navigate('/blogs/newBlog')}>New Blog</button>
+                <button className="btn btn-dark" onClick={()=>navigate('/blogs/newBlog')}>New Blog</button>
             </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
             <input

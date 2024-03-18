@@ -39,6 +39,7 @@ function NavBarOn() {
               </Navbar.Toggle>
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ms-auto">
+                 <Nav.Link href="/dashboard" className={activeLink === 'home' ? 'active navbar-link' : 'navbar-link'}>Dashboard</Nav.Link>
                   <Nav.Link href="/travel" className={activeLink === 'home' ? 'active navbar-link' : 'navbar-link'}>Travel</Nav.Link>
                   <Nav.Link href="/dashboard/itinerary/train" className={activeLink === 'projects' ? 'active navbar-link' : 'navbar-link'}>Itinerary</Nav.Link>
                   <Nav.Link href="/blogs" className={activeLink === 'projects' ? 'active navbar-link' : 'navbar-link'}>Blogs</Nav.Link>

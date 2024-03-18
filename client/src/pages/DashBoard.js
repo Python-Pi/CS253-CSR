@@ -281,7 +281,6 @@ function DashBoard(){
                                                 <div className="d-flex justify-content-center">
                                                     <button className="btn btn-light btn-lg" onClick={handleclick}>Itinerary</button>
                                                 </div>
-
                                         </TrackVisibility>
                                     </Col>
                                 </Row>
