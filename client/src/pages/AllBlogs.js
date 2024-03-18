@@ -1,7 +1,6 @@
 import React,{useState, useEffect} from "react";
 import BlogCell from "../components/BlogCell";
 import { useNavigate } from "react-router-dom";
-import { Nav, Navbar } from "react-bootstrap";
 import NavBarOn from "../components/NavBarOn";
 
 

@@ -12,7 +12,6 @@ export default function TravelChatRoom() {
     const [info, setInfo] = useState({});
     const [message, setMessage] = useState('');
     const [username, setUsername] = useState('Anonymous'); 
-    
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
@@ -115,11 +114,6 @@ export default function TravelChatRoom() {
             }
         });
     }, [trip_name, destination]);
-
-    if(!info.loggedIn){
-        navigate('/home');
-        return null;
-    } else {
         return (
             <div>
                  <div>
@@ -133,7 +127,6 @@ export default function TravelChatRoom() {
         </div>
         <div className='w-[18em] font-sans'>
         <div className='h-[1.5em] pt-1 text-xl'> {trip_name}</div>
-        <div className='h-[1.25em] pt-[0.04em] text-sm'>20 members</div>
         </div>
       </div>
       <div className='relative w-full h-[calc(100%-7.5em)] pt-[1.25em] overflow-x-hidden overflow-y-auto'>
@@ -190,4 +183,3 @@ export default function TravelChatRoom() {
             </div>
         );
     }
-}

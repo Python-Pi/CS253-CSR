@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import dp4 from '../Assets/dp4.png'
+
 export default function ChatRoom() {
     const navigate = useNavigate();
     const socket = useRef(null);
@@ -52,31 +53,6 @@ export default function ChatRoom() {
         }
     };
 
-    const handleButtonSend = () =>{
-        if(message !== ''){
-            fetch(`http://${process.env.REACT_APP_IP}:8000/api/train/addChat`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include',
-                body: JSON.stringify({
-                    train_number: train_number,
-                    date: date,
-                    message: message
-                })
-            })
-            .then((res) => res.json())
-            .then((data) => {
-                // Handle the response here
-            });
-            socket.current.emit('message', {
-                username: username,
-                message: train_number + date +message,
-            });
-            setMessage('');
-        }
-    }
 
     const handleBackPage = () => {
         navigate('/dashboard/itinerary/train');
@@ -122,7 +98,7 @@ export default function ChatRoom() {
                 <div className='relative flex w-full h-[3.75em]
       bg-[#ededed]'>
         <div className='w-[5em]'>
-         <img src={dp4} className='ssrch h-[3.2em] w-[3.8em] pl-[0.93em] pt-[0.5em]'/>
+         <img src={dp4} className='ssrch h-[3.2em] w-[3.8em] pl-[0.93em] pt-[0.5em]' alt='profile pic'/>
         </div>
         <div className='w-[18em] font-sans'>
         <div className='h-[1.5em] pt-1 text-xl'>Train number {train_number}</div>

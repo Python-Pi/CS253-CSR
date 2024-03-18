@@ -18,8 +18,8 @@ function NavBarOn() {
         });
     };
 
-    const [activeLink, setActiveLink] = useState('home');
-    const [scrolled, setScrolled] = useState(true);
+    const [activeLink, ] = useState('home');
+    const [scrolled, ] = useState(true);
 
     return (
        <div className="routemate-nav-bar">

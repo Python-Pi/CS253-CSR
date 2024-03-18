@@ -3,7 +3,6 @@ import { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from 'react-on-screen';
-import { HashLink } from "react-router-hash-link";
 
 import NavBarOn from "../components/NavBarOn";
 import TravelCell from "../components/TravelCell";
@@ -167,17 +166,13 @@ function DashBoard(){
          fetchUserTrains();
     }, []);
 
-    const handleBlog = () => {
-        navigate('/blogs');
-    }
-
     const [loopNum, setLoopNum] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [text, setText] = useState('');
-  const [delta, setDelta] = useState(300 - Math.random() * 100);
-  const [index, setIndex] = useState(1);
-  const toRotate = [ "Adventure", "Explore", "Discover", ];
-  const period = 2000;
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [text, setText] = useState('');
+    const [delta, setDelta] = useState(300 - Math.random() * 100);
+    const [, setIndex] = useState(1);
+    const toRotate = [ "Adventure", "Explore", "Discover", ];
+    const period = 2000;
 
   useEffect(() => {
     let ticker = setInterval(() => {
@@ -185,7 +180,7 @@ function DashBoard(){
     }, delta);
 
     return () => { clearInterval(ticker) };
-  }, [text])
+  }, [text, delta, ])
 
   const tick = () => {
     let i = loopNum % toRotate.length;
@@ -243,7 +238,7 @@ function DashBoard(){
                                 </TrackVisibility>
                                 </Col>
                                 <Col xs={12} md={6} xl={5}>
-                                    <img src={logo} id ='HSlogo' alt="logo image"></img>
+                                    <img src={logo} id ='HSlogo' alt="routemate-logo"></img>
                                 </Col>
                             </Row>
                             </Container>

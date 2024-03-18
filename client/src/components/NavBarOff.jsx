@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate } from "react-router-dom";
 import { HashLink } from 'react-router-hash-link';
 import { Navbar, Nav, Col, Container } from "react-bootstrap";
 
@@ -8,7 +7,7 @@ import logo from "../Assets/logo.png";
 import "../style/NavBar.css";
 
 function NavBarOff() {
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [, setWindowWidth] = useState(window.innerWidth);
 
     useEffect(() => {
         const handleResize = () => setWindowWidth(window.innerWidth);
@@ -17,13 +16,6 @@ function NavBarOff() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const navigate = useNavigate();
-    const handleClickLogin = () => {
-        navigate('/login');
-    };
-    const handleClickRegister = () => {
-        navigate('/register');
-    };
     const [scrolled, ] = useState(true);
 
     return (
