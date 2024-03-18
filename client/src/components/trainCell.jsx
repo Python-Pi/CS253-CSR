@@ -119,7 +119,7 @@ function TrainCell(props) {
       const data= await response.json();
       if(data.success)
       {
-        navigate(`/dashboard/itinerary/train/chat`, {state: {train_number: train.train_base.train_no, date: date}});
+        navigate(`/dashboard/itinerary/train/chat`, {state: {train_number: train.train_base.train_no, date: date, userCount:(confirmed+notBooked), train_name: train.train_base.train_name}});
       }
       else
       {

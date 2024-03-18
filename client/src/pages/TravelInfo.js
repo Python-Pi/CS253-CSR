@@ -64,7 +64,7 @@ export default function TravelInfo() {
                             <p className='text-xl font-medium'>Details: {selectTrip.details}</p>
                             <p className='text-xl font-medium'>Created By: {selectTrip.user_name}</p>
                         </div>
-                        <img className='current-display-image max-w-[20em] max-h-[22em] pr-6' src={imgUrl} alt='current-display'></img>
+                        <img className='current-display-image' id='current-travel-image' src={imgUrl} alt='current-display'></img>
                     </div>
 
                     <RenderStatus userStatus={userStatus} trip_name={trip_name} destination={destination}/>

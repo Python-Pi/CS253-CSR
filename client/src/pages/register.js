@@ -60,7 +60,7 @@ function Register(){
                             <input type="password" className="form-control" id="floatingPassword" name="password" placeholder="Password"/>
                             <label htmlFor="floatingPassword">Password</label>
                         </div>
-                        <button className="HSbtn w-50 self-center py-2 mb-3" type="submit">Sign up</button>
+                        <button className="btn btn-dark w-50 self-center py-2 mb-3" type="submit">Sign up</button>
                     </form>
                 </div>
             </div>

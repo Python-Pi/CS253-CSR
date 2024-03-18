@@ -48,7 +48,7 @@ app.use(passport.initialize());
 app.use(passport.session())
 app.use(express.json());
 app.use(cors({
-    origin: [`http://localhost:${process.env.PORT}`, `http://${process.env.IP}:${process.env.PORT}`], 
+    origin: [`http://localhost:${process.env.PORT}`, `http://${process.env.IP}:${process.env.PORT}`, `https://d69c-14-139-38-199.ngrok-free.app`], 
     credentials: true 
 }));
 
@@ -195,7 +195,6 @@ app.get('/api/travel/trips', async (req, res) => {
 
 // Adding API to just access the trips which are joined by the user (status == 2)
 app.get('/api/travel/joinedTrips', async (req, res) => {
-
   if(req.isAuthenticated()){
     try {
       const result = await db.query(`
@@ -961,7 +960,6 @@ app.get('/getAllBlogs', async (req, res) => {
     try {
       const result = await db.query('SELECT * FROM blogs');
       const blogs = result.rows;
-      console.log(blogs);
       res.json({
         status: true,
         success: true,
@@ -992,7 +990,6 @@ app.get('/getAllBlogs', async (req, res) => {
 app.post('/postBlog', async (req,res)=>{
   if(req.isAuthenticated)
   {
-    console.log("Authorised to post blog");
     try {
       const { content, title}=req.body;
       await db.query('INSERT INTO blogs (title, content, user_name) VALUES ($1, $2, $3)', [title, content, req.user.name]);

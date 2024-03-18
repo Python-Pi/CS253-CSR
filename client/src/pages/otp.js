@@ -55,7 +55,7 @@ export default function Otp() {
                             <input type="text" className="form-control" id="floatingInput" name="otp" placeholder="Enter OTP"/>
                             <label htmlFor="floatingInput">Enter OTP</label>
                         </div>
-                        <button className="HSbtn w-50 self-center py-2" type="submit">Submit</button>
+                        <button className="btn btn-dark w-50 self-center py-2" type="submit">Submit</button>
                     </form>
                 </div>
             </div>

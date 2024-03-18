@@ -24,24 +24,24 @@ export default function TrainSearch() {
     const [train_options, setTrainOptions] = React.useState([]);
     const [loading,setloading] = useState(false);
 
-    useEffect(() => {
-        if (type === 1) {
-        document.querySelector("#train").classList.add("visible");
-        document.querySelector("#plane").classList.remove("visible");
-        } else if (type === 2) {
-        document.querySelector("#train").classList.remove("visible");
-        document.querySelector("#plane").classList.add("visible");
-        } 
-    }, [type]);
+  useEffect(() => {
+    if (type === 1) {
+      document.querySelector("#train").classList.add("visible");
+      document.querySelector("#plane").classList.remove("visible");
+    } else if (type === 2) {
+      document.querySelector("#train").classList.remove("visible");
+      document.querySelector("#plane").classList.add("visible");
+    }
+  }, [type]);
 
-    useEffect(() => {
-        setTrainOptions(
-        train_data.data.map((item) => ({
-            label: `${item.name} ${item.code}`,
-            value: item.code,
-        }))
-        );
-    }, []);
+  useEffect(() => {
+    setTrainOptions(
+      train_data.data.map((item) => ({
+        label: `${item.name} ${item.code}`,
+        value: item.code,
+      }))
+    );
+  }, []);
 
     const handleButtonPress = () => {
         console.log(origin);
@@ -63,19 +63,22 @@ export default function TrainSearch() {
         };
         console.log(formData);
 
-        try {
-            const response = await fetch(`http://${process.env.REACT_APP_IP}:8000/api/getTrainsBetweenStations`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                credentials:'include',
-                body: JSON.stringify(formData)
-            });
+    try {
+      const response = await fetch(
+        `http://${process.env.REACT_APP_IP}:8000/api/getTrainsBetweenStations`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(formData),
+        }
+      );
 
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
 
             const data = await response.json();
             console.log(data);
@@ -107,10 +110,16 @@ export default function TrainSearch() {
         .then((data) => setMessage(data));
     }, []);    
 
+    const handleAirplane = () => {
+        setType(1);
+    };
+
     return (
         <div className="flex flex-col">
             <NavBarOn />
             <div className="app-container mt-20">
+
+                {type == 1 ? (
                 <div className="query-box">
                     <div className="transport-type">
                         <motion.div
@@ -124,66 +133,67 @@ export default function TrainSearch() {
                             <FaTrainSubway className="icons" name="train" />
                         </motion.div>
 
-                        <motion.div
-                            className="transport-background"
-                            id="plane"
-                            whileHover={{ scale: 1.1 }}
-                            onClick={() => {
-                                setType(2);
-                            }}
-                            >
-                            <ImAirplane className="icons" name="plane" />
-                        </motion.div>
-                    </div>
+              <motion.div
+                className="transport-background"
+                id="plane"
+                whileHover={{ scale: 1.1 }}
+                onClick={() => {
+                  setType(2);
+                }}
+              >
+                <ImAirplane className="icons" name="plane" />
+              </motion.div>
+            </div>
 
-                    <div className="details">
-                        <div className=" box from-box">
-                        <label htmlFor="from">From</label>
-                        <Select
-                            options={train_options}
-                            onChange={(e) => setOrigin(e.value)}
-                            styles={{
-                            control: (baseStyles, state) => ({
-                                ...baseStyles,
-                                height: "60px",
-                                width: "clamp(100px, 30vw, 200px)",
-                                borderRadius: "10px",
-                                border: "1px solid #385de1",
-                                padding: " 10px",
-                                marginTop: "5px",
-                                fontSize: "15px",
-                            }),
-                            }}
-                        />
-                        </div>
-                        <div className="box to-box">
-                        <label htmlFor="to">To</label>
-                        <Select
-                            options={train_options}
-                            onChange={(e) => setDestination(e.value)}
-                            styles={{
-                            control: (baseStyles, state) => ({
-                                ...baseStyles,
-                                height: "60px",
-                                width: "clamp(100px, 30vw, 200px)",
-                                borderRadius: "10px",
-                                border: "1px solid #385de1",
-                                padding: " 10px",
-                                marginTop: "5px",
-                                fontSize: "15px",
-                            }),
-                            }}
-                        />
-                        </div>
-                        <div className=" box date-box">
-                        <label htmlFor="date">Departure</label>
-                        <input 
-                            onChange={(e) => setDateOfTravel(e.target.value)}
-                            className="pankaj-input" 
-                            type="date" 
-                            name="date" />
-                        </div>
-                    </div>
+            <div className="details">
+              <div className=" box from-box">
+                <label htmlFor="from">From</label>
+                <Select
+                  options={train_options}
+                  onChange={(e) => setOrigin(e.value)}
+                  styles={{
+                    control: (baseStyles, state) => ({
+                      ...baseStyles,
+                      height: "60px",
+                      width: "clamp(100px, 30vw, 200px)",
+                      borderRadius: "10px",
+                      border: "1px solid #385de1",
+                      padding: " 10px",
+                      marginTop: "5px",
+                      fontSize: "15px",
+                    }),
+                  }}
+                />
+              </div>
+              <div className="box to-box">
+                <label htmlFor="to">To</label>
+                <Select
+                  options={train_options}
+                  onChange={(e) => setDestination(e.value)}
+                  styles={{
+                    control: (baseStyles, state) => ({
+                      ...baseStyles,
+                      height: "60px",
+                      width: "clamp(100px, 30vw, 200px)",
+                      borderRadius: "10px",
+                      border: "1px solid #385de1",
+                      padding: " 10px",
+                      marginTop: "5px",
+                      fontSize: "15px",
+                    }),
+                  }}
+                />
+              </div>
+              <div className=" box date-box">
+                <label htmlFor="date">Departure</label>
+                <input
+                  onChange={(e) => setDateOfTravel(e.target.value)}
+                  className="pankaj-input"
+                  type="date"
+                  name="date"
+                />
+              </div>
+            </div>
 
                     <motion.button
                         whileHover={{ scale: 1.1 }}
@@ -195,6 +205,12 @@ export default function TrainSearch() {
                     </motion.button>
                     </div>
                 </div>
+                }
+
+
+            </div>
+
+                
                 
                 {
                 loading  ? 
