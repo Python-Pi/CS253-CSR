@@ -200,7 +200,8 @@ export default function TrainSearch() {
                 loading  ? 
                 <div className="pl-[50em] pt-[-20em]">
                 <div class="sploader"></div>
-                </div> : 
+                </div> 
+                 : 
                  <div className="HSTCbody flex flex-col pt-10"> 
                 {!foundTrains && <div>No trains found</div>}
                 {trainList}

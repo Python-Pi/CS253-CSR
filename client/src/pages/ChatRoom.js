@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client';
+import { IoSend } from "react-icons/io5";
+import '../style/styles.css'
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import dp4 from '../Assets/dp4.png'
@@ -170,14 +172,18 @@ export default function ChatRoom() {
                     })}
                 </ul>
       </div>
-             <div className='relative w-full h-[3.75em] sinp justify-between flex p-[0.3em] bg-[#f0f0f0] items-center'>
+             <div className='relative flex w-full h-[3.75em] sinp justify-between flex p-[0.3em] bg-[#f0f0f0] items-center'>
             <input value={message} onChange={e => setMessage(e.target.value)} onKeyDown={handleKeyPress} className='relative w-[90%]  rounded-[1.8em] text-[1em] pl-4 h-[2.8em]' placeholder='Type your message'/>
+            <div className='w-[10%] pl-[1em] '>
+            <IoSend className='size-[20%] hover:cursor-pointer hover:scale-[1.1]' onClick={handleButtonSend} />
+            </div>
              </div> 
                 </div>
                 </div>
-                </div>
-                <div className="d-flex justify-content-center">
-                    <button className="btn btn-primary mt-3" onClick={handleBackPage}>Go Back</button>
+               
+                <div className="d-flex bg-[#d9dbd5] mt-[-44px] justify-content-center">
+                    <button className="btn  btn-primary  " onClick={handleBackPage}>Go Back</button>
+                    </div>
                 </div>
             </div>
         );
