@@ -54,7 +54,7 @@ export default function TrainSearch() {
         setloading(true);
         setTimeout(()=>{
             setloading(false);
-        },3000);
+        },2000);
         e.preventDefault();
         const formData = {
             origin,
@@ -243,10 +243,8 @@ export default function TrainSearch() {
             </div>
               {
                 loading ?
-                <div className="HSTCbody flex flex-col pt-10 ">
-                    {!foundTrains && <div>No trains found</div>}
-                    {trainList}
-                </div> 
+                <div className="sploader ml-[47.5em]">
+                </div>
                  : 
                  <div className="HSTCbody flex flex-col pt-10"> 
                 {!foundTrains && <div>No trains found</div>}

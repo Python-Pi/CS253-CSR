@@ -119,7 +119,7 @@ export default function ChatRoom() {
                     {train_name} : {train_number}
                   </div>
                   <div className="h-[1.25em] pt-[0.04em] text-sm">
-                    Users : {userCount}, {date}
+                    Users : {userCount}, Departure: {date}
                   </div>
                 </div>
               </div>
