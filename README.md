@@ -61,6 +61,11 @@ Upon successful installation of all necessary modules, create a `.env` file with
 
 `EMAIL_PASSWORD = 'snij qpys ijhw boeo'`
 
+## Hosting
+
+The above application is hosted in the following url:
+`https://cs-253-csr.vercel.app/`
+
 ## Note
 
 - The default command for running Node server is set to `nodemon server.js` in `package.json`. If you don't have nodemon installed, change it to `node server.js`.
