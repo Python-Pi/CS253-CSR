@@ -151,6 +151,8 @@ app.get('/api/user/name', (req, res)=>{
 
 // POST request for handing adding new trip from the client
 app.post('/api/travel/addTrip', upload.single('image'), async (req, res)=>{
+  if(req.isAuthenticated()){
+
     const imageUrl = '/uploads/' + req.file.filename;
     const { tripName, destination, startDate, endDate, amount, details } = req.body;
 
@@ -169,6 +171,12 @@ app.post('/api/travel/addTrip', upload.single('image'), async (req, res)=>{
              error: 'There was an error while adding the trip to the database',
          });
      }
+  } else{
+    res.json({
+      status: true,
+      loggedIn: false,
+    });
+  }
 });
 
 // Adding a new api for accessing all the trips available from the database
@@ -226,7 +234,6 @@ app.get('/api/travel/joinedTrips', async (req, res) => {
 
 // Adding api to just accessing trips which are hosted by a particular user
 app.get('/api/travel/hostedTrips', async (req, res) => {
-
   if(req.isAuthenticated()){
     try {
       const result = await db.query('SELECT * FROM trips where user_id = $1', [req.user.id]);
@@ -299,6 +306,7 @@ app.get('/api/travel/searchTrip', async(req, res)=>{
 // API for retriving the user status w.r.t a trip
 
 app.get('/api/travel/userStatus', async(req, res)=>{
+  if(req.isAuthenticated()){
   const { trip_name, destination } = req.query;
   const user_id = req.user.id;
 
@@ -327,11 +335,18 @@ app.get('/api/travel/userStatus', async(req, res)=>{
       error: 'There was an error while retrieving user statuses from the database',
     });
   }
+} else {
+  res.json({
+    status: true,
+    loggedIn: false,
+  });
+}
 });
 
 
 // API for applying to join a trip
 app.post('/api/travel/applyToJoin', async(req, res)=>{
+  if(req.isAuthenticated()){
   const { trip_name, destination } = req.body;
   const user_id = req.user.id;
   const user_name = req.user.name;
@@ -356,6 +371,12 @@ app.post('/api/travel/applyToJoin', async(req, res)=>{
       error: 'There was an error while applying to join the trip',
     });
   }
+} else {
+  res.json({
+    status: true,
+    loggedIn: false,
+  });
+}
 });
 
 // API for getting all the users who have applied to join a trip
