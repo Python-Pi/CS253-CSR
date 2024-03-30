@@ -93,12 +93,14 @@ export default function ChatRoom() {
         }
       });
   }, [train_number, date]);
+  
+  useEffect(() => {
+    if (!info.loggedIn) {
+      navigate("/dashboard");
+    }
+  }, [info.loggedIn, navigate]);
 
-  if (!info.loggedIn) {
-    navigate("/dashboard");
-    return null;
-  } else {
-    return (
+  return (
       <div>
         <div className="bg-white h-[50em] box-border font-serif">
           <div className="flex justify-center items-center wpbg min-h-[100%]">
@@ -202,5 +204,4 @@ export default function ChatRoom() {
         </div>
       </div>
     );
-  }
 }
