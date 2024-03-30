@@ -21,6 +21,8 @@ server/build
 client/coverage
 server/coverage
 
+# testing node modules
+test/server/node_modules
 
 # misc
 .DS_Store
