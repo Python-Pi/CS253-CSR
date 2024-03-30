@@ -41,16 +41,37 @@ const AddTrip = () => {
     setEndDate(e.target.value);
   };
 
+  function HdateStrToObj(HdateStr) {
+    const [year, month, date] = HdateStr.split('-').map(Number)
+    return new Date(year, month - 1, date)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    
     if (!tripName || !destination || !startDate || !endDate || !amount) {
       // Display an error message or perform any other action
       alert("Please fill in all the fields");
       return;
     }
-
+    const regex = /^\d+(\.\d+)?$/;
+    if(!regex.test(amount)){
+      alert("Invalid amount");
+      return;
+    }
+    if(image===null){
+      alert("Please provide an image");
+      return;
+    }
     if (isNaN(amount)) {
       alert("Amount must be a number");
+      return;
+    }
+
+    const HstartDate = HdateStrToObj(startDate)
+    const HendDate = HdateStrToObj(endDate)
+    if (HendDate.valueOf() < HstartDate.valueOf()) {
+      alert("End date cannot be before start date");
       return;
     }
 
