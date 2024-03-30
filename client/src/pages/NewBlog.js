@@ -20,7 +20,11 @@ export default function NewBlog(props){
     }, []);
 
     const handlePost = async () => {
-        console.log("Posting blog");
+        if(title === "" || content === ""){
+            alert("Please provide all the details");
+            return;
+        }
+
         const response = await fetch(`http://${process.env.REACT_APP_IP}:8000/postBlog`, {
             method: 'POST',
             credentials: 'include',
@@ -58,7 +62,7 @@ export default function NewBlog(props){
     return(
         <div className="blog-container">
             <div className="header grid grid-cols-3 pt-4 mx-6">
-                <button className="btn btn-dark max-w-[9em]" onClick={()=>navigate('/blogs')}>DashBoard</button>
+                <button className="btn btn-dark max-w-[9em] max-h-[3em]" onClick={()=>navigate('/blogs')}>Go back</button>
                 <h1 className="header-title">New Blog</h1>
                 <div></div>
             </div>
@@ -81,8 +85,8 @@ export default function NewBlog(props){
                     ></textarea>
                 </div>
                 <div className="text-center text-3xl font-medium mt-10">Preview</div>
-                <div className="markdown-display flex flex-row justify-center mx-4">
-                    <ReactMarkdown>{content}</ReactMarkdown>
+                <div className="markdown-display flex flex-row justify-center mx-4 break-words">
+                    <ReactMarkdown className="whitespace-pre-line max-w-full">{content}</ReactMarkdown>
                 </div>
             </div>
             <div className="flex flex-row justify-center mt-6">
