@@ -168,7 +168,7 @@ function TrainCell(props) {
                         </div>
 
 
-                        <button className="btn btn-dark btn-lg" onClick={handleUnEnroll} >Unenroll</button>
+                        <button className="btn btn-dark btn-lg mr-2" onClick={handleUnEnroll} >Unenroll</button>
                         <button className="btn btn-dark btn-lg"  onClick={handleChatButton}>Chat</button>
                     </div>
                 </div>

@@ -36,15 +36,11 @@ function DashBoard(){
         })
         .then((res) => res.json())
         .then((data) => setMessage(data));
-    }, []);    
 
-    useEffect(()=>{
         if(info.loggedIn === false){
             navigate('/home');
         }
-    }, [info.loggedIn, navigate])
 
-    useEffect(() => {
         if(!info.loggedIn){
             fetch(`http://${process.env.REACT_APP_IP}:8000/api/travel/hostedTrips`, {
                 credentials: 'include'
@@ -54,9 +50,7 @@ function DashBoard(){
                 setHostedTrips(data.trips);
             });
         }
-    }, [info.loggedIn]);
 
-    useEffect(() => {
         if(!info.loggedIn){
             fetch(`http://${process.env.REACT_APP_IP}:8000/api/travel/joinedTrips`, {
                 credentials: 'include'
@@ -66,7 +60,37 @@ function DashBoard(){
                 setJoinedTrips(data.trips);
             });
         }
-    }, [info.loggedIn]);
+    }, [info.loggedIn, navigate]);    
+
+    // useEffect(()=>{
+    //     if(info.loggedIn === false){
+    //         navigate('/home');
+    //     }
+    // }, [info.loggedIn, navigate])
+
+    // useEffect(() => {
+    //     if(!info.loggedIn){
+    //         fetch(`http://${process.env.REACT_APP_IP}:8000/api/travel/hostedTrips`, {
+    //             credentials: 'include'
+    //         })
+    //         .then((res) => res.json())
+    //         .then((data)=> {
+    //             setHostedTrips(data.trips);
+    //         });
+    //     }
+    // }, [info.loggedIn]);
+
+    // useEffect(() => {
+    //     if(!info.loggedIn){
+    //         fetch(`http://${process.env.REACT_APP_IP}:8000/api/travel/joinedTrips`, {
+    //             credentials: 'include'
+    //         })
+    //         .then((res) => res.json())
+    //         .then((data)=> {
+    //             setJoinedTrips(data.trips);
+    //         });
+    //     }
+    // }, [info.loggedIn]);
 
 
     useEffect(() => {

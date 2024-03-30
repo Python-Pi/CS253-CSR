@@ -34,7 +34,7 @@ const addr = `http://${process.env.IP}:${process.env.PORT}`;
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7,
     }
@@ -60,6 +60,7 @@ const db = new pg.Client({
     database: process.env.PG_DATABASE,
     password: process.env.PG_PASSWORD,
     port: process.env.PG_PORT,
+    connectionTimeoutMillis: 0
 });
 db.connect();
 
@@ -75,6 +76,7 @@ app.get('/', (req, res)=>{
 
 // GET API request for to check whether the user is authenticated or not
 app.get('/api/login', (req, res)=>{
+  console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
     res.json({
         status: true,
@@ -103,12 +105,19 @@ app.post("/register", async (req, res) => {
       ]);
   
       if (checkResult.rows.length > 0) {
-        res.redirect(addr + '/home');
+        // alert("User already exists with that email");
+        res.json({
+          success: false,
+          err: false
+        })
       } else {
         bcrypt.hash(password, saltRounds, async (err, hash) => {
           if (err) {
             console.error("Error hashing password:", err);
-            res.redirect(addr + '/home');
+            res.json({
+              success: false,
+              err: true
+            })
           } else {
             const result = await db.query(
               'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)',
@@ -117,7 +126,10 @@ app.post("/register", async (req, res) => {
             const user = result.rows[0];
             req.login(user, (err) => {
               console.log("User Created");
-              res.redirect(addr + '/login');
+              res.json({
+                success: true,
+                err: false
+              })
             });
           }
         });
@@ -495,9 +507,11 @@ app.get('/api/travel/chats', async(req, res)=>{
 });
 
 // API for logging out user 
-app.get('/api/logout', (req, res) => {
-  req.logOut();
-  res.redirect(addr + '/home');
+app.post('/api/logout', function(req, res, next) {
+  req.logout(function(err) {
+    if (err) { return next(err); }
+    res.redirect('/');
+  });
 });
 
 
