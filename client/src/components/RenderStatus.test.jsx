@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, screen, act, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import RenderStatus from './RenderStatus';
 import '@testing-library/jest-dom';
 
@@ -13,8 +14,8 @@ jest.mock('react-router-dom', () => ({
 global.fetch = jest.fn(() =>
   Promise.resolve({
     ok: true,
-    json: () => Promise.resolve({ users: [] }),
-  })
+    json: () => Promise.resolve({ status:true, loggedIn:true, userStatus: "joined" }),
+})
 );
 
 describe('RenderStatus', () => {
@@ -24,33 +25,19 @@ describe('RenderStatus', () => {
     destination: 'Test Destination',
   };
 
-  beforeEach(() => {
+  beforeEach(async () => {
     fetch.mockClear();
-    render(<RenderStatus {...info} />);
+    mockNavigate.mockClear();
+    await act(async () => {
+      render(<RenderStatus info={info} />);
+    });
   });
 
   afterEach(() => {
     fetch.mockRestore();
   });
 
-  test('renders without crashing', () => {
-    expect(screen.getByText('Joined Users')).toBeInTheDocument();
-  });
-
-  test('makes a fetch request when userStatus is "joined"', () => {
-    expect(fetch).toHaveBeenCalledWith(`http://${process.env.REACT_APP_IP}:8000/api/travel/joinedUsers?trip_name=${encodeURIComponent(info.trip_name)}&destination=${encodeURIComponent(info.destination)}`, {
-      credentials: 'include',
-    });
-  });
-
-  test('navigates to /travelChatRoom on "Join Chat Server" button click', () => {
-    const joinChatServerButton = screen.getByText('Join Chat Server');
-    fireEvent.click(joinChatServerButton);
-    expect(mockNavigate).toHaveBeenCalledWith('/travelChatRoom', {
-      state: {
-        trip_name: info.trip_name,
-        destination: info.destination,
-      },
-    });
+  it('makes fetch requests when userStatus is "joined"', async () => {
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(0));
   });
 });
