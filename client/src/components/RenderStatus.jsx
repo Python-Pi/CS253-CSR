@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-
 import RenderAdmin from './RenderAdmin';
 
 export default function RenderStatus(info) {

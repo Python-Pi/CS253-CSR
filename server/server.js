@@ -76,7 +76,6 @@ app.get('/', (req, res)=>{
 
 // GET API request for to check whether the user is authenticated or not
 app.get('/api/login', (req, res)=>{
-  console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
     res.json({
         status: true,
