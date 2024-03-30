@@ -21,6 +21,7 @@ server/build
 client/coverage
 server/coverage
 
+
 # misc
 .DS_Store
 .env.local
@@ -28,3 +29,6 @@ server/coverage
 .env.test.local
 .env.production.local
 
+
+# jest
+testing/jest/server/.env
