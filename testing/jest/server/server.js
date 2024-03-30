@@ -14,7 +14,6 @@ import rail from "indian-rail-api"
 import nodemailer from "nodemailer";
 import otpGenerator from "otp-generator";
 
-
 // Setting up a websocket server
 const httpServer = createServer();
 const io = new Server(httpServer, {
@@ -30,11 +29,14 @@ env.config();
 // Variables and functions
 const addr = `http://${process.env.IP}:${process.env.PORT}`;
 
+// Enabline trust proxy
+app.enable('trust proxy')
+
 // Initializing express session
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7,
     }
@@ -60,7 +62,6 @@ const db = new pg.Client({
     database: process.env.PG_DATABASE,
     password: process.env.PG_PASSWORD,
     port: process.env.PG_PORT,
-    connectionTimeoutMillis: 0
 });
 db.connect();
 
@@ -76,7 +77,6 @@ app.get('/', (req, res)=>{
 
 // GET API request for to check whether the user is authenticated or not
 app.get('/api/login', (req, res)=>{
-  console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
     res.json({
         status: true,
@@ -94,7 +94,7 @@ app.get('/api/login', (req, res)=>{
 // POST request for '/register' page which adds the user into the datase and redirects to '/chat' page.
 // Unauthorized users are sent back to /home page
 app.post("/register", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
     const email = req.body.email;
     const password = req.body.password;
     const name = req.body.name;
@@ -105,19 +105,12 @@ app.post("/register", async (req, res) => {
       ]);
   
       if (checkResult.rows.length > 0) {
-        // alert("User already exists with that email");
-        res.json({
-          success: false,
-          err: false
-        })
+        res.redirect(addr + '/home');
       } else {
         bcrypt.hash(password, saltRounds, async (err, hash) => {
           if (err) {
-            console.error("Error hashing password:", err);
-            res.json({
-              success: false,
-              err: true
-            })
+            // console.error("Error hashing password:", err);
+            res.redirect(addr + '/home');
           } else {
             const result = await db.query(
               'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)',
@@ -125,17 +118,14 @@ app.post("/register", async (req, res) => {
             );
             const user = result.rows[0];
             req.login(user, (err) => {
-              console.log("User Created");
-              res.json({
-                success: true,
-                err: false
-              })
+              // console.log("User Created");
+              res.redirect(addr + '/login');
             });
           }
         });
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
 });
 
@@ -163,8 +153,6 @@ app.get('/api/user/name', (req, res)=>{
 
 // POST request for handing adding new trip from the client
 app.post('/api/travel/addTrip', upload.single('image'), async (req, res)=>{
-  if(req.isAuthenticated()){
-
     const imageUrl = '/uploads/' + req.file.filename;
     const { tripName, destination, startDate, endDate, amount, details } = req.body;
 
@@ -177,18 +165,12 @@ app.post('/api/travel/addTrip', upload.single('image'), async (req, res)=>{
              loggedIn: false,
          });
      } catch (err) {
-         console.error(err);
+         // console.error(err);
          res.json({
              status: false,
              error: 'There was an error while adding the trip to the database',
          });
      }
-  } else{
-    res.json({
-      status: true,
-      loggedIn: false,
-    });
-  }
 });
 
 // Adding a new api for accessing all the trips available from the database
@@ -202,7 +184,7 @@ app.get('/api/travel/trips', async (req, res) => {
       trips: trips,
     });
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     res.json({
       status: false,
       error: 'There was an error while retrieving trips from the database',
@@ -230,7 +212,7 @@ app.get('/api/travel/joinedTrips', async (req, res) => {
         trips: trips,
       });
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       res.json({
         status: false,
         error: 'There was an error while retrieving trips from the database',
@@ -246,6 +228,7 @@ app.get('/api/travel/joinedTrips', async (req, res) => {
 
 // Adding api to just accessing trips which are hosted by a particular user
 app.get('/api/travel/hostedTrips', async (req, res) => {
+
   if(req.isAuthenticated()){
     try {
       const result = await db.query('SELECT * FROM trips where user_id = $1', [req.user.id]);
@@ -256,7 +239,7 @@ app.get('/api/travel/hostedTrips', async (req, res) => {
         trips: trips,
       });
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       res.json({
         status: false,
         error: 'There was an error while retrieving trips from the database',
@@ -284,7 +267,7 @@ app.get('/api/travel/specificTrip', async(req, res)=>{
       trips: trips,
     });
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     res.json({
       status: false,
       error: 'There was an error while retrieving trips from the database',
@@ -306,7 +289,7 @@ app.get('/api/travel/searchTrip', async(req, res)=>{
       trips: trips,
     });
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     res.json({
       status: false,
       error: 'There was an error while retrieving trips from the database',
@@ -318,7 +301,6 @@ app.get('/api/travel/searchTrip', async(req, res)=>{
 // API for retriving the user status w.r.t a trip
 
 app.get('/api/travel/userStatus', async(req, res)=>{
-  if(req.isAuthenticated()){
   const { trip_name, destination } = req.query;
   const user_id = req.user.id;
 
@@ -341,24 +323,17 @@ app.get('/api/travel/userStatus', async(req, res)=>{
       userStatus: statusString,
     });
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     res.json({
       status: false,
       error: 'There was an error while retrieving user statuses from the database',
     });
   }
-} else {
-  res.json({
-    status: true,
-    loggedIn: false,
-  });
-}
 });
 
 
 // API for applying to join a trip
 app.post('/api/travel/applyToJoin', async(req, res)=>{
-  if(req.isAuthenticated()){
   const { trip_name, destination } = req.body;
   const user_id = req.user.id;
   const user_name = req.user.name;
@@ -377,18 +352,12 @@ app.post('/api/travel/applyToJoin', async(req, res)=>{
       });
     }
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     res.json({
       status: false,
       error: 'There was an error while applying to join the trip',
     });
   }
-} else {
-  res.json({
-    status: true,
-    loggedIn: false,
-  });
-}
 });
 
 // API for getting all the users who have applied to join a trip
@@ -403,7 +372,7 @@ app.get('/api/travel/appliedUsers', async(req, res)=>{
       users: users,
     });
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     res.json({
       status: false,
       error: 'There was an error while retrieving applied users from the database',
@@ -421,7 +390,7 @@ app.post('/api/travel/addUserToTrip', async(req, res)=>{
       loggedIn: true,
     });
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     res.json({
       status: false,
       error: 'There was an error while adding the user to the trip',
@@ -439,7 +408,7 @@ app.post('/api/travel/declineUserToTrip', async(req, res)=>{
       loggedIn: true,
     });
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     res.json({
       status: false,
       error: 'There was an error while declining the user to the trip',
@@ -459,7 +428,7 @@ app.get('/api/travel/joinedUsers', async(req, res)=>{
       users: users,
     });
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     res.json({
       status: false,
       error: 'There was an error while retrieving joined users from the database',
@@ -479,7 +448,7 @@ app.get('/api/travel/declinedUsers', async(req, res)=>{
       users: users,
     });
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     res.json({
       status: false,
       error: 'There was an error while retrieving declined users from the database',
@@ -498,7 +467,7 @@ app.post('/api/travel/addChat', async(req, res)=>{
       loggedIn: true,
     });
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     res.json({
       status: false,
       error: 'There was an error while adding the chat to the database',
@@ -519,7 +488,7 @@ app.get('/api/travel/chats', async(req, res)=>{
       chats: chats,
     });
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     res.json({
       status: false,
       error: 'There was an error while retrieving chats from the database',
@@ -528,11 +497,9 @@ app.get('/api/travel/chats', async(req, res)=>{
 });
 
 // API for logging out user 
-app.post('/api/logout', function(req, res, next) {
-  req.logout(function(err) {
-    if (err) { return next(err); }
-    res.redirect('/');
-  });
+app.get('/api/logout', (req, res) => {
+  req.logOut();
+  res.redirect(addr + '/home');
 });
 
 
@@ -571,7 +538,7 @@ const sendEmailOTP= async (email,OTP)=>{
     }
   }catch(error)
   {
-    console.error('Error while sending OTP ', error)
+     console.error('Error while sending OTP ', error)
     return {
       sentOTP:false
     }
@@ -583,6 +550,7 @@ app.post('/sendOTP', async (req, res) => {
   const { email } = req.body;
   const OTP = generateOTP();
   const result = await sendEmailOTP(email, OTP);
+  console.log(result);
   if (result.sentOTP) {
     res.json({
       status: true,
@@ -631,7 +599,7 @@ app.post('/api/getTrainsBetweenStations',async (req,res)=>{
             });
         });
     } catch (error) {
-        console.log("Error while fetching data :");
+        // console.log("Error while fetching data :");
         res.json({
           success: false,
           status: true
@@ -681,7 +649,7 @@ app.post('/api/getTrainsBetweenStations',async (req,res)=>{
       }
       catch(err)
       {
-        console.error("Error while retriving from database : ", err);  
+        // console.error("Error while retriving from database : ", err);  
         return {
           error : true,
         };
@@ -859,7 +827,7 @@ app.post('/getUserTrains',async (req,res)=>{
         loggedIn:1,
       });
     } catch (error) {
-      console.log("Error while fetching user trains data : ");
+      // console.log("Error while fetching user trains data : ");
       res.json({
         status:1,
         success:0,
@@ -887,7 +855,7 @@ app.post('/removeUserFromTrain', async (req,res)=>{
       // const dateOfTravel= new Date(date);
       await db.query("DELETE FROM NOT_BOOKED_TRAIN_USERS WHERE USER_ID=$1 AND TRAIN_NUMBER=$2 AND DATE=$3",[userId, train.train_base.train_no, date]);
       await db.query("DELETE FROM BOOKED_TRAIN_USERS WHERE USER_ID=$1 AND TRAIN_NUMBER=$2 AND DATE=$3",[userId, train.train_base.train_no, date]);
-      console.log("User "+userId+" removed successfully from "+train.train_base.train_no+" on "+date);
+      // console.log("User "+userId+" removed successfully from "+train.train_base.train_no+" on "+date);
       const notBooked= await db.query("SELECT YET_TO_BOOK FROM TRAINS WHERE NUMBER=$1 AND DATE=$2",[train.train_base.train_no, date]);
       const confirmed= await db.query("SELECT BOOKED FROM TRAINS WHERE NUMBER=$1 AND DATE=$2",[train.train_base.train_no, date]);
       res.json({
@@ -898,7 +866,7 @@ app.post('/removeUserFromTrain', async (req,res)=>{
         confirmed: confirmed.rows[0].booked,
       })
     } catch (error) {
-      console.log("Some error occured while removing user from train "+ error);
+      // console.log("Some error occured while removing user from train "+ error);
     }
   }
   else
@@ -957,7 +925,7 @@ app.post('/api/train/addChat', async(req, res)=>{
       loggedIn: true,
     });
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     res.json({
       status: false,
       error: 'There was an error while adding the chat to the database',
@@ -978,7 +946,7 @@ app.get('/api/train/chats', async(req, res)=>{
       chats: chats,
     });
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     res.json({
       status: false,
       error: 'There was an error while retrieving chats from the database',
@@ -999,7 +967,7 @@ app.get('/getAllBlogs', async (req, res) => {
         blogs: blogs,
       });
     } catch (err) {
-      console.error("Error while fetching blogs from database : ",err);
+      // console.error("Error while fetching blogs from database : ",err);
       res.json({
         status: true,
         success: false,
@@ -1031,7 +999,7 @@ app.post('/postBlog', async (req,res)=>{
         loggedIn: true,
       });
     } catch (error) {
-      console.log("Error while posting blog : ", error);
+      // console.log("Error while posting blog : ", error);
       res.json({
         status: true,
         success: false,
@@ -1056,7 +1024,7 @@ app.post('/postBlog', async (req,res)=>{
 // Setting up Chat Servers
 io.on('connection', (socket) => {
   socket.on('message', (message) =>     {
-      console.log(message);
+      // console.log(message);
       io.emit('message', message );   
   });
 });
@@ -1074,13 +1042,13 @@ passport.use(
           const storedHashedPassword = user.password;
           bcrypt.compare(password, storedHashedPassword, (err, valid) => {
             if (err) {
-              console.error("Error comparing passwords:", err);
+              // console.error("Error comparing passwords:", err);
               return cb(err);
             } else {
               if (valid) {
                 return cb(null, user);
               } else {
-                console.log(valid);
+                // console.log(valid);
                 return cb(null, false);
               }
             }
@@ -1093,7 +1061,7 @@ passport.use(
           // return cb("User not found");
         }
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     })
 );
@@ -1108,7 +1076,9 @@ passport.deserializeUser(function(user, done) {
 });
 
 app.listen(port , `${process.env.IP}`, ()=>{
-    console.log(`Server is succesfully running in port ${port}`);
+    // console.log(`Server is succesfully running in port ${port}`);
 })
 
-httpServer.listen(8080, ()=> console.log(`Web socket server running`));
+export default app;
+
+httpServer.listen(8080, ()=>  console.log(`Web socket server running`));
