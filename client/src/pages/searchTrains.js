@@ -37,6 +37,11 @@ export default function TrainSearch() {
     } else if (type === 2) {
       document.querySelector("#train").classList.remove("visible");
       document.querySelector("#plane").classList.add("visible");
+      setTrainList([]);
+      setOrigin("");
+      setDestination("");
+      setDateOfTravel("");
+      setFoundTrains(true);
     }
   }, [type]);
 
@@ -49,13 +54,6 @@ export default function TrainSearch() {
     );
   }, []);
 
-  const handleButtonPress = () => {
-    console.log(origin);
-    console.log(destination);
-    console.log(dateOfTravel);
-    console.log(1234);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = {
@@ -63,7 +61,12 @@ export default function TrainSearch() {
       destination,
       dateOfTravel,
     };
-    console.log(formData);
+
+    if(origin === "" || destination === "" || dateOfTravel === ""){
+      alert("Please provide all the details");
+      setTrainList([]);
+      return;
+    }
 
     try {
       const response = await fetch(
@@ -91,9 +94,10 @@ export default function TrainSearch() {
       }
       if (
         !data.success ||
-        origin === null ||
-        destination === null ||
-        dateOfTravel === null
+        origin === "" ||
+        destination === "" ||
+        dateOfTravel === "" || 
+        data.data.length === 0
       ) {
         setFoundTrains(false);
         setTrainList([]);
@@ -135,7 +139,7 @@ export default function TrainSearch() {
       <NavBarOn />
       <motion.div className="progress-bar" style={{ scaleX }} />
       <div className="app-container mt-20">
-        {type == 1 ? (
+        {type === 1 ? (
           <motion.div
             className="query-box"
             initial={{ opacity: 0, scale: 0.5 }}
@@ -226,7 +230,7 @@ export default function TrainSearch() {
               className="submit-button"
               onClick={handleSubmit}
             >
-              search
+              Search
             </motion.button>
           </motion.div>
         ) : (
@@ -279,7 +283,7 @@ export default function TrainSearch() {
       </div>
 
       <div className="HSTCbody flex flex-col pt-10 ">
-        {!foundTrains && <div>No trains found</div>}
+        {!foundTrains && <div className="text-center text-xl font-semibold pb-4 text-red-600">No trains found</div>}
         {trainList}
       </div>
     </div>
