@@ -23,15 +23,30 @@ export default function Otp() {
             if(data.success)
             {
                 console.log("otp verified");
-                await fetch(`http://${process.env.REACT_APP_IP}:8000/register`,{
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({name: name, email: email, password: password})
-                })
-                alert("Registered Successfully");
-                navigate("/login");
+                try{
+                    const Hres = await fetch(`http://${process.env.REACT_APP_IP}:8000/register`,{
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({name: name, email: email, password: password})
+                    })
+                    const Hdata = await Hres.json();
+                    if(Hdata.success){
+                        alert("Registered Successfully");
+                        navigate("/login");
+                    }
+                    else if(!Hdata.success && !Hdata.err){
+                        alert("Email-ID already registered");
+                        navigate("/register");
+                    }
+                    else if(!Hdata.success && Hdata.err){
+                        alert("Some internal error occurred");
+                        navigate("/home");
+                    }
+                } catch (err) {
+                    console.log("Error while registering");
+                }
             }
             else
             {
