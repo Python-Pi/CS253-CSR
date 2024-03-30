@@ -141,7 +141,7 @@ function TrainCell(props) {
                     <p className="text-xl">{train.train_base.source_stn_code}</p>
                 </div>
                 <div className="journey">
-                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                    <i className="fa-solid fa-arrow-right-arrow-left"></i>
                 </div>
                 <div className="arrival pt-3">
                     <p className="text-xl">{train.train_base.dstn_stn_code}</p>
@@ -153,7 +153,7 @@ function TrainCell(props) {
                             <motion.div 
                               whileHover={{ scale: 1.1 }}
                               className="circle-icon-green" onClick={handleBooked}>
-                                <i class="fa-solid fa-user-plus"></i>
+                                <i className="fa-solid fa-user-plus"></i>
                             </motion.div>
                             <h4 id = "cnum" className="confirm number" >{confirmed}</h4>
                         </div>
@@ -162,7 +162,7 @@ function TrainCell(props) {
                             <motion.div 
                               whileHover={{ scale: 1.1 }}
                               className="circle-icon-yellow" onClick={handleNotBooked}>
-                                <i class="fa-solid fa-user-plus"></i>
+                                <i className="fa-solid fa-user-plus"></i>
                             </motion.div>
                             <h4 id = "wnum" className="wait number">{notBooked}</h4>
                         </div>
