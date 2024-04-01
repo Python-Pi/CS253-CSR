@@ -1,4 +1,4 @@
-# CS253-CSR-testing
+# CS253-CSR Integration Testing
 This repo contains the testing code for server side end points conducted using jest
 
 ## How to run the tests
