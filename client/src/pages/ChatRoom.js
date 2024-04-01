@@ -95,7 +95,7 @@ export default function ChatRoom() {
   }, [train_number, date]);
   
   useEffect(() => {
-    if (!info.loggedIn) {
+    if (info.loggedIn == false) {
       navigate("/dashboard");
     }
   }, [info.loggedIn, navigate]);
