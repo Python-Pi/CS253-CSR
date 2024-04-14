@@ -1,4 +1,3 @@
-git rm -r --cached server/node_modules# Environmental variables
 server/.env
 client/.env
 test/server/.env
@@ -24,6 +23,7 @@ server/coverage
 
 # testing node modules
 test/server/node_modules
+test/server/.env
 
 # misc
 .DS_Store

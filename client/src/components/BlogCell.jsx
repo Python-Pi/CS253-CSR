@@ -7,12 +7,12 @@ export default function BlogCell(props){
 
     return (
         <>
-            <div className="bg-gray-200 p-4 rounded-lg" style={{ width: "80vw" }}>
-                <h2>{title}</h2>
+            <div className="bg-gray-200 p-4 rounded-lg break-words" style={{ width: "80vw" }}>
+                <h2 className="whitespace-pre-line max-w-full">{title}</h2>
                 <div
-                    className="content"
+                    className="content break-words"
                 >
-                    <ReactMarkdown>
+                    <ReactMarkdown className="whitespace-pre-line max-w-full">
                         {content}
                     </ReactMarkdown>
                 </div>

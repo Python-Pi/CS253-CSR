@@ -24,6 +24,4 @@ describe('DashBoard', () => {
   it('renders without crashing', () => {
     render(<Router><DashBoard /></Router>);
   });
-
-  // Add more tests here to test the functionality of your component
 });
