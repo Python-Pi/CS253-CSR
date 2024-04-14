@@ -1,5 +1,6 @@
 server/.env
 client/.env
+test/server/.env
 
 #images
 server/uploads
