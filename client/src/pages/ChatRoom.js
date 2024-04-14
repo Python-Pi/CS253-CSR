@@ -55,6 +55,34 @@ export default function ChatRoom() {
     }
   };
 
+  const handleButtonSend = () =>{
+    if(message !== ''){
+        fetch(`http://${process.env.REACT_APP_IP}:8000/api/train/addChat`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                train_number: train_number,
+                date: date,
+                message: message,
+            })
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            // Handle the response here
+        });
+
+
+        socket.current.emit('message', {
+            username: username,
+            message: train_number + date + message,
+        });
+        setMessage('');
+    }
+}
+
   const handleBackPage = () => {
     navigate("/dashboard/itinerary/train");
   };
@@ -189,7 +217,7 @@ export default function ChatRoom() {
                 <div className="w-[10%] pl-[1em] ">
                   <IoSend
                     className="size-[20%] hover:cursor-pointer hover:scale-[1.1]"
-                    onClick = {handleKeyPress}
+                    onClick = {handleButtonSend}
                   />
                 </div>
               </div>
