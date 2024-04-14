@@ -3,8 +3,6 @@ import ReactMarkdown from 'react-markdown';
 import { useNavigate } from "react-router-dom";
 import "../style/NewBlog.css";
 
-
-
 export default function NewBlog(props){
     const [content, setContent] = useState("");
     const [title, setTitle] = useState("");
@@ -85,10 +83,11 @@ export default function NewBlog(props){
                     ></textarea>
                 </div>
                 <div className="text-center text-3xl font-medium mt-10">Preview</div>
-                <div className="markdown-display flex flex-row justify-center mx-4 break-words">
+                <div className="markdown-display mx-4 break-words">
                     <ReactMarkdown className="whitespace-pre-line max-w-full">{content}</ReactMarkdown>
                 </div>
             </div>
+
             <div className="flex flex-row justify-center mt-6">
                 <button className="btn btn-dark" onClick={handlePost}>Post</button>
             </div>
